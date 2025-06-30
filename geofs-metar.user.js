@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      2.3
-// @description  METAR widget with live refresh, auto-detect nearest airport via JSON, dual clocks and icons for GeoFS flight sim
+// @version      2.5
+// @description  METAR widget with built-in airport detection, no input box, auto refresh, dual clocks and icons
 // @author       seabus
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
+// @icon         https://i.ibb.co/wZ2SB149/Chat-GPT-Image-2025-6-30-08-31-37.png
 // @grant        none
 // ==/UserScript==
 
@@ -12,15 +13,20 @@
   if (window.geofsMetarAlreadyLoaded) return;
   window.geofsMetarAlreadyLoaded = true;
 
-  let AIRPORTS = {}; // 🔄 從外部 JSON 自動載入
-
-  // ⬇️ 請改成你的 GitHub Pages 機場 JSON 路徑
-  fetch("https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/airports.json")
-    .then(res => res.json())
-    .then(data => {
-      AIRPORTS = data;
-      console.log("[METAR] Loaded", Object.keys(AIRPORTS).length, "airports");
-    });
+  const AIRPORTS = {
+    "RCTP": { name: "Taipei Taoyuan", lat: 25.0777, lon: 121.233 },
+    "RJTT": { name: "Tokyo Haneda", lat: 35.552258, lon: 139.779694 },
+    "RJAA": { name: "Tokyo Narita", lat: 35.764722, lon: 140.386389 },
+    "VHHH": { name: "Hong Kong Intl", lat: 22.308919, lon: 113.914603 },
+    "ZBAA": { name: "Beijing Capital", lat: 40.080111, lon: 116.584556 },
+    "WSSS": { name: "Singapore Changi", lat: 1.35019, lon: 103.994003 },
+    "KLAX": { name: "Los Angeles Intl", lat: 33.942536, lon: -118.408075 },
+    "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
+    "KJFK": { name: "New York JFK", lat: 40.639751, lon: -73.778925 },
+    "EGLL": { name: "London Heathrow", lat: 51.4775, lon: -0.461389 },
+    "LFPG": { name: "Paris CDG", lat: 49.012779, lon: 2.55 },
+    "EDDF": { name: "Frankfurt Main", lat: 50.033333, lon: 8.570556 }
+  };
 
   const ICON_MAP = {
     "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
@@ -38,7 +44,7 @@
     "RCTP": "Asia/Taipei", "RJTT": "Asia/Tokyo", "RJAA": "Asia/Tokyo",
     "VHHH": "Asia/Hong_Kong", "ZBAA": "Asia/Shanghai", "WSSS": "Asia/Singapore",
     "KLAX": "America/Los_Angeles", "KSFO": "America/Los_Angeles", "KJFK": "America/New_York",
-    "EGLL": "Europe/London", "LFPG": "Europe/Paris"
+    "EGLL": "Europe/London", "LFPG": "Europe/Paris", "EDDF": "Europe/Berlin"
   };
 
   async function fetchMETAR(icao) {
@@ -59,41 +65,6 @@
     const d = new Date();
     d.setHours(h, m, s, 0);
     return d;
-  }
-
-  function createClockSVG(id, label) {
-    const container = document.createElement("div");
-    container.style.textAlign = "center";
-    container.style.fontSize = "10px";
-    container.innerHTML = `<div>${label}</div>`;
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "40");
-    svg.setAttribute("height", "40");
-    svg.setAttribute("viewBox", "0 0 40 40");
-    svg.innerHTML = `
-      <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="1"/>
-      <line id="${id}-hour" x1="20" y1="20" x2="20" y2="11" stroke="black" stroke-width="2"/>
-      <line id="${id}-minute" x1="20" y1="20" x2="20" y2="7" stroke="black" stroke-width="1"/>
-      <line id="${id}-second" x1="20" y1="20" x2="20" y2="5" stroke="red" stroke-width="0.5"/>
-    `;
-    container.appendChild(svg);
-    return container;
-  }
-
-  function rotateClock(svg, now) {
-    const hour = svg.querySelector("line[id$='-hour']");
-    const minute = svg.querySelector("line[id$='-minute']");
-    const second = svg.querySelector("line[id$='-second']");
-    const h = now.getHours() % 12, m = now.getMinutes(), s = now.getSeconds();
-    hour.setAttribute("transform", `rotate(${h * 30 + m * 0.5 + s * (0.5 / 60)} 20 20)`);
-    minute.setAttribute("transform", `rotate(${m * 6 + s * 0.1} 20 20)`);
-    second.setAttribute("transform", `rotate(${s * 6} 20 20)`);
-  }
-
-  function getTimezoneByICAO(icao) {
-    const prefix4 = icao.substring(0, 4);
-    const prefix2 = icao.substring(0, 2);
-    return ICAO_TIMEZONES[prefix4] || ICAO_TIMEZONES[prefix2] || "arrival";
   }
 
   function getDistanceKm(lat1, lon1, lat2, lon2) {
@@ -121,6 +92,61 @@
     return minDist <= 150 ? nearest : null;
   }
 
+  function rotateClock(svg, now) {
+    const hour = svg.querySelector("line[id$='-hour']");
+    const minute = svg.querySelector("line[id$='-minute']");
+    const second = svg.querySelector("line[id$='-second']");
+    const h = now.getHours() % 12, m = now.getMinutes(), s = now.getSeconds();
+    hour.setAttribute("transform", `rotate(${h * 30 + m * 0.5 + s * (0.5 / 60)} 20 20)`);
+    minute.setAttribute("transform", `rotate(${m * 6 + s * 0.1} 20 20)`);
+    second.setAttribute("transform", `rotate(${s * 6} 20 20)`);
+  }
+
+  function createClockSVG(id, label) {
+    const container = document.createElement("div");
+    container.style.textAlign = "center";
+    container.style.fontSize = "10px";
+    container.innerHTML = `<div>${label}</div>`;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "40");
+    svg.setAttribute("height", "40");
+    svg.setAttribute("viewBox", "0 0 40 40");
+    svg.innerHTML = `
+      <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="1"/>
+      <line id="${id}-hour" x1="20" y1="20" x2="20" y2="11" stroke="black" stroke-width="2"/>
+      <line id="${id}-minute" x1="20" y1="20" x2="20" y2="7" stroke="black" stroke-width="1"/>
+      <line id="${id}-second" x1="20" y1="20" x2="20" y2="5" stroke="red" stroke-width="0.5"/>
+    `;
+    container.appendChild(svg);
+    return container;
+  }
+
+  function getTimezoneByICAO(icao) {
+    return ICAO_TIMEZONES[icao] || "arrival";
+  }
+
+  function makeDraggable(el) {
+    let isDragging = false, offsetX = 0, offsetY = 0;
+    el.style.cursor = "move";
+    el.addEventListener("mousedown", function (e) {
+      isDragging = true;
+      offsetX = e.clientX - el.getBoundingClientRect().left;
+      offsetY = e.clientY - el.getBoundingClientRect().top;
+      document.body.style.userSelect = "none";
+    });
+    document.addEventListener("mousemove", function (e) {
+      if (isDragging) {
+        el.style.left = Math.max(0, Math.min(e.clientX - offsetX, window.innerWidth - el.offsetWidth)) + "px";
+        el.style.top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight)) + "px";
+        el.style.right = "auto";
+      }
+    });
+    document.addEventListener("mouseup", function () {
+      isDragging = false;
+      document.body.style.userSelect = "";
+    });
+  }
+
   function showWidget(metar, icao) {
     if (window.geofsMetarWidget) window.geofsMetarWidget.remove();
     if (window.geofsMetarScheduledTimeout) clearTimeout(window.geofsMetarScheduledTimeout);
@@ -140,50 +166,30 @@
     title.style.marginBottom = "6px";
     widget.appendChild(title);
 
-    let currentICAO = icao;
-
-    const input = document.createElement("input");
-    input.placeholder = "Enter ICAO";
-    input.maxLength = 4;
-    input.style = "width: 80px; margin-bottom: 6px; text-transform: uppercase;";
-    input.value = icao;
-
-    ["keydown", "keyup", "keypress"].forEach(eventName => {
-      input.addEventListener(eventName, (e) => {
-        if (e.key !== "Enter") {
-          e.stopPropagation();
-          e.stopImmediatePropagation();
-        }
-      });
-    });
-
     const refreshBtn = document.createElement("button");
     refreshBtn.textContent = "⟳";
-    refreshBtn.style.cssText = "margin-left: 6px; cursor:pointer;";
+    refreshBtn.style.cssText = "margin-bottom: 6px; cursor:pointer;";
     refreshBtn.onclick = async () => {
-      let newICAO = currentICAO;
       const pos = geofs?.aircraft?.instance?.llaLocation;
       if (pos?.length >= 2) {
         const [lat, lon] = pos;
         const nearest = findNearestAirport(lat, lon);
-        if (nearest) newICAO = nearest;
+        if (nearest) {
+          const newMetar = await fetchMETAR(nearest);
+          if (newMetar) showWidget(newMetar, nearest);
+        }
       }
-      const newMetar = await fetchMETAR(newICAO);
-      if (newMetar) showWidget(newMetar, newICAO);
     };
-
-    widget.appendChild(input);
     widget.appendChild(refreshBtn);
-
-    const clockBox = document.createElement("div");
-    clockBox.style.display = "flex";
-    clockBox.style.justifyContent = "space-around";
 
     const tz = getTimezoneByICAO(icao);
     const tzLabel = tz === "arrival" ? "Arrival" : tz.split("/").pop().replace("_", " ");
     const locClock = createClockSVG("loc", "Local");
     const icaoClock = createClockSVG("icao", tzLabel);
 
+    const clockBox = document.createElement("div");
+    clockBox.style.display = "flex";
+    clockBox.style.justifyContent = "space-around";
     clockBox.appendChild(locClock);
     clockBox.appendChild(icaoClock);
     widget.appendChild(clockBox);
@@ -204,10 +210,9 @@
       const min = now.getMinutes();
       const sec = now.getSeconds();
       const delay = ((min < 30 ? 30 : 60) * 60 - min * 60 - sec) * 1000;
-
       window.geofsMetarScheduledTimeout = setTimeout(async () => {
-        const newMetar = await fetchMETAR(currentICAO);
-        if (newMetar) showWidget(newMetar, currentICAO);
+        const newMetar = await fetchMETAR(icao);
+        if (newMetar) showWidget(newMetar, icao);
       }, delay);
     }
 
@@ -252,32 +257,8 @@
     makeDraggable(widget);
   }
 
-  function makeDraggable(el) {
-    let isDragging = false, offsetX = 0, offsetY = 0;
-    el.style.cursor = "move";
-    el.addEventListener("mousedown", function (e) {
-      isDragging = true;
-      offsetX = e.clientX - el.getBoundingClientRect().left;
-      offsetY = e.clientY - el.getBoundingClientRect().top;
-      document.body.style.userSelect = "none";
-    });
-    document.addEventListener("mousemove", function (e) {
-      if (isDragging) {
-        el.style.left = Math.max(0, Math.min(e.clientX - offsetX, window.innerWidth - el.offsetWidth)) + "px";
-        el.style.top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight)) + "px";
-        el.style.right = "auto";
-      }
-    });
-    document.addEventListener("mouseup", function () {
-      isDragging = false;
-      document.body.style.userSelect = "";
-    });
-  }
-
-  // 預設初始機場（沒抓到位置時）
   const defaultICAO = "RCTP";
   fetchMETAR(defaultICAO).then(metar => {
     if (metar) showWidget(metar, defaultICAO);
   });
-
 })();
