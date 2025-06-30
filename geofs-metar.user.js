@@ -93,7 +93,7 @@
   function getTimezoneByICAO(icao) {
     const prefix4 = icao.substring(0, 4);
     const prefix2 = icao.substring(0, 2);
-    return ICAO_TIMEZONES[prefix4] || ICAO_TIMEZONES[prefix2] || "UTC";
+    return ICAO_TIMEZONES[prefix4] || ICAO_TIMEZONES[prefix2] || "dep";
   }
 
   function showWidget(metar, icao) {
