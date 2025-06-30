@@ -1,30 +1,26 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      2.2
-// @description  Live METAR widget with auto airport detection, smart refresh, dual clocks and icons for GeoFS flight sim
+// @version      2.3
+// @description  METAR widget with live refresh, auto-detect nearest airport via JSON, dual clocks and icons for GeoFS flight sim
 // @author       seabus
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
-// @icon         https://i.ibb.co/wZ2SB149/Chat-GPT-Image-2025-6-30-08-31-37.png
+// @grant        none
 // ==/UserScript==
 
 (function () {
   if (window.geofsMetarAlreadyLoaded) return;
   window.geofsMetarAlreadyLoaded = true;
 
-  const AIRPORTS = {
-    "RCTP": { name: "Taipei Taoyuan, Taiwan", lat: 25.0777, lon: 121.233 },
-    "RJTT": { name: "Tokyo Haneda, Japan", lat: 35.552258, lon: 139.779694 },
-    "RJAA": { name: "Tokyo Narita, Japan", lat: 35.764722, lon: 140.386389 },
-    "VHHH": { name: "Hong Kong", lat: 22.308919, lon: 113.914603 },
-    "ZBAA": { name: "Beijing Capital, China", lat: 40.080111, lon: 116.584556 },
-    "WSSS": { name: "Singapore Changi", lat: 1.35019, lon: 103.994003 },
-    "KLAX": { name: "Los Angeles, USA", lat: 33.942536, lon: -118.408075 },
-    "KSFO": { name: "San Francisco, USA", lat: 37.6188056, lon: -122.3754167 },
-    "KJFK": { name: "New York JFK, USA", lat: 40.639751, lon: -73.778925 },
-    "EGLL": { name: "London Heathrow, UK", lat: 51.4775, lon: -0.461389 },
-    "LFPG": { name: "Paris Charles de Gaulle, France", lat: 49.012779, lon: 2.55 }
-  };
+  let AIRPORTS = {}; // 🔄 從外部 JSON 自動載入
+
+  // ⬇️ 請改成你的 GitHub Pages 機場 JSON 路徑
+  fetch("https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/airports.json")
+    .then(res => res.json())
+    .then(data => {
+      AIRPORTS = data;
+      console.log("[METAR] Loaded", Object.keys(AIRPORTS).length, "airports");
+    });
 
   const ICON_MAP = {
     "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
@@ -112,7 +108,8 @@
   }
 
   function findNearestAirport(lat, lon) {
-    let nearest = null, minDist = Infinity;
+    let nearest = null;
+    let minDist = Infinity;
     for (const icao in AIRPORTS) {
       const ap = AIRPORTS[icao];
       const d = getDistanceKm(lat, lon, ap.lat, ap.lon);
@@ -277,6 +274,7 @@
     });
   }
 
+  // 預設初始機場（沒抓到位置時）
   const defaultICAO = "RCTP";
   fetchMETAR(defaultICAO).then(metar => {
     if (metar) showWidget(metar, defaultICAO);
