@@ -1,0 +1,62 @@
+{
+  "RCTP": {
+    "name": "Taipei Taoyuan",
+    "lat": 25.0777,
+    "lon": 121.233
+  },
+  "RJTT": {
+    "name": "Tokyo Haneda",
+    "lat": 35.552258,
+    "lon": 139.779694
+  },
+  "RJAA": {
+    "name": "Tokyo Narita",
+    "lat": 35.764722,
+    "lon": 140.386389
+  },
+  "VHHH": {
+    "name": "Hong Kong Intl",
+    "lat": 22.308919,
+    "lon": 113.914603
+  },
+  "ZBAA": {
+    "name": "Beijing Capital",
+    "lat": 40.080111,
+    "lon": 116.584556
+  },
+  "WSSS": {
+    "name": "Singapore Changi",
+    "lat": 1.35019,
+    "lon": 103.994003
+  },
+  "KLAX": {
+    "name": "Los Angeles Intl",
+    "lat": 33.942536,
+    "lon": -118.408075
+  },
+  "KSFO": {
+    "name": "San Francisco Intl",
+    "lat": 37.6188056,
+    "lon": -122.3754167
+  },
+  "KJFK": {
+    "name": "New York JFK",
+    "lat": 40.639751,
+    "lon": -73.778925
+  },
+  "EGLL": {
+    "name": "London Heathrow",
+    "lat": 51.4775,
+    "lon": -0.461389
+  },
+  "LFPG": {
+    "name": "Paris CDG",
+    "lat": 49.012779,
+    "lon": 2.55
+  },
+  "EDDF": {
+    "name": "Frankfurt Main",
+    "lat": 50.033333,
+    "lon": 8.570556
+  }
+}
