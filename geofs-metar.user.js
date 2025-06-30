@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         GeoFS METAR (v1.8.2 - No duplicate, Auto Refresh, Timezone fix)
-// @namespace    https://geofs-metar-icons.fly.dev
+// @name         GeoFS METAR system
 // @version      1.8.2
 // @description  METAR widget with dual clock, auto refresh, timezone correction, and no duplication
+// @author       seabus
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
 // @grant        none
