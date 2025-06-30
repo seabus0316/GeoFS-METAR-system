@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      1.8.2
-// @description  METAR widget with dual clock, auto refresh, timezone correction, and no duplication
+// @version      1.9.2
+// @description  METAR widget with dual clock, auto refresh, timezone correction, and icon display
 // @author       seabus
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
@@ -9,7 +9,8 @@
 // ==/UserScript==
 
 (function () {
-  "use strict";
+  if (window.geofsMetarAlreadyLoaded) return;
+  window.geofsMetarAlreadyLoaded = true;
 
   const ICON_MAP = {
     "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
@@ -25,7 +26,7 @@
 
   const ICAO_TIMEZONES = {
     "VHHH": "Asia/Hong_Kong", "WIII": "Asia/Jakarta", "ZBAA": "Asia/Shanghai",
-    "RJ": "Asia/Tokyo", "RK": "Asia/Seoul", "RC": "Asia/Taipei",
+    "RJ": "Asia/Tokyo", "RK": "Asia/Seoul", "RC": "Asia/Taipei", "RCTP": "Asia/Taipei",
     "ZB": "Asia/Shanghai", "ZG": "Asia/Shanghai", "ZH": "Asia/Shanghai", "ZS": "Asia/Shanghai", "ZU": "Asia/Shanghai",
     "VT": "Asia/Bangkok", "VV": "Asia/Ho_Chi_Minh", "WM": "Asia/Kuala_Lumpur", "WI": "Asia/Jakarta",
     "VID": "Asia/Kolkata", "V": "Asia/Kolkata",
@@ -52,13 +53,13 @@
   }
 
   function getTimeInTimeZone(tz) {
-    const str = new Date().toLocaleTimeString("en-US", {
-      hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: tz
+    const timeStr = new Date().toLocaleTimeString("en-US", {
+      hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: tz === "arrival" ? "UTC" : tz
     });
-    const [h, m, s] = str.split(":").map(Number);
-    const d = new Date();
-    d.setHours(h, m, s, 0);
-    return d;
+    const [h, m, s] = timeStr.split(":").map(Number);
+    const date = new Date();
+    date.setHours(h, m, s, 0);
+    return date;
   }
 
   function createClockSVG(id, label) {
@@ -93,7 +94,7 @@
   function getTimezoneByICAO(icao) {
     const prefix4 = icao.substring(0, 4);
     const prefix2 = icao.substring(0, 2);
-    return ICAO_TIMEZONES[prefix4] || ICAO_TIMEZONES[prefix2] || "UTC";
+    return ICAO_TIMEZONES[prefix4] || ICAO_TIMEZONES[prefix2] || "arrival";
   }
 
   function showWidget(metar, icao) {
@@ -115,6 +116,8 @@
     title.style.marginBottom = "6px";
     widget.appendChild(title);
 
+    let currentICAO = icao;
+
     const input = document.createElement("input");
     input.placeholder = "Enter ICAO";
     input.maxLength = 4;
@@ -130,7 +133,9 @@
       });
     });
 
-    let currentICAO = icao;
+    const refreshBtn = document.createElement("button");
+    refreshBtn.textContent = "⟳";
+    refreshBtn.style.cssText = "margin-left: 6px; cursor:pointer;";
 
     async function reload() {
       const newMetar = await fetchMETAR(currentICAO);
@@ -143,26 +148,25 @@
         reload();
       }
     };
-    widget.appendChild(input);
-
-    const refreshBtn = document.createElement("button");
-    refreshBtn.textContent = "⟳";
-    refreshBtn.style.cssText = "margin-left: 6px; cursor:pointer;";
     refreshBtn.onclick = reload;
+    widget.appendChild(input);
     widget.appendChild(refreshBtn);
 
     const clockBox = document.createElement("div");
     clockBox.style.display = "flex";
     clockBox.style.justifyContent = "space-around";
 
-    const locClock = createClockSVG("loc", "Local");
     const tz = getTimezoneByICAO(icao);
-    const tzLabel = tz.split("/").pop().replace("_", " ");
+    const tzLabel = tz === "arrival" ? "Arrival" : tz.split("/").pop().replace("_", " ");
+    const locClock = createClockSVG("loc", "Local");
     const icaoClock = createClockSVG("icao", tzLabel);
 
     clockBox.appendChild(locClock);
     clockBox.appendChild(icaoClock);
     widget.appendChild(clockBox);
+
+    const iconRow = document.createElement("div");
+    iconRow.style.marginTop = "8px";
 
     function updateClocks() {
       rotateClock(locClock, new Date());
@@ -173,8 +177,12 @@
     setInterval(updateClocks, 1000);
     window.geofsMetarRefreshInterval = setInterval(reload, 300000); // 5 min
 
-    const iconRow = document.createElement("div");
-    iconRow.style.marginTop = "8px";
+    const w = metar.match(/((\d{3}|VRB))(\d{2})KT/);
+    const vis = metar.match(/ (\d{4}) /);
+    const cloud = metar.match(/(FEW|SCT|BKN|OVC)(\d{3})/);
+    const temp = metar.match(/ (M?\d{2})\/(M?\d{2}) /);
+    const qnh = metar.match(/Q(\d{4})/);
+    const fog = /FG|BR/.test(metar);
 
     function addIcon(name, text) {
       const d = document.createElement("div");
@@ -191,13 +199,6 @@
       d.appendChild(t);
       iconRow.appendChild(d);
     }
-
-    const w = metar.match(/((\d{3}|VRB))(\d{2})KT/);
-    const vis = metar.match(/ (\d{4}) /);
-    const cloud = metar.match(/(FEW|SCT|BKN|OVC)(\d{3})/);
-    const temp = metar.match(/ (M?\d{2})\/(M?\d{2}) /);
-    const qnh = metar.match(/Q(\d{4})/);
-    const fog = /FG|BR/.test(metar);
 
     if (w) addIcon("wind", `${w[1]}° ${w[3]}kt`);
     if (vis) addIcon("visibility", `${parseInt(vis[1]) / 1000} km`);
