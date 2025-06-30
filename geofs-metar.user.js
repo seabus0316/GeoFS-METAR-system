@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      1.9.2
-// @description  METAR widget with dual clock, auto refresh, timezone correction, and icon display
+// @version      2.1
+// @description  METAR widget with smart timing refresh, city name, dual clocks and icons for GeoFS flight sim
 // @author       seabus
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
@@ -11,6 +11,26 @@
 (function () {
   if (window.geofsMetarAlreadyLoaded) return;
   window.geofsMetarAlreadyLoaded = true;
+
+  const ICAO_LOCATION_NAMES = {
+    "CYVR": "Vancouver, Canada", "CYYZ": "Toronto Pearson, Canada",
+    "EDDF": "Frankfurt, Germany", "EGLL": "London Heathrow, UK", "EHAM": "Amsterdam Schiphol, Netherlands",
+    "FAOR": "Johannesburg OR Tambo, South Africa",
+    "KATL": "Atlanta, USA", "KDEN": "Denver, USA", "KDFW": "Dallas-Fort Worth, USA",
+    "KJFK": "New York JFK, USA", "KLAX": "Los Angeles, USA", "KORD": "Chicago O'Hare, USA",
+    "KSEA": "Seattle, USA", "KSFO": "San Francisco, USA",
+    "LEMD": "Madrid Barajas, Spain", "LFPG": "Paris Charles de Gaulle, France", "LIRF": "Rome Fiumicino, Italy",
+    "NZAA": "Auckland, New Zealand",
+    "OERK": "Riyadh, Saudi Arabia", "OMDB": "Dubai International, UAE",
+    "RCTP": "Taipei Taoyuan, Taiwan",
+    "RJAA": "Tokyo Narita, Japan", "RJTT": "Tokyo Haneda, Japan", "RKSI": "Seoul Incheon, Korea",
+    "UUEE": "Moscow Sheremetyevo, Russia",
+    "VABB": "Mumbai Chhatrapati Shivaji, India", "VIDP": "Delhi Indira Gandhi, India",
+    "VHHH": "Hong Kong", "VTBS": "Bangkok Suvarnabhumi, Thailand",
+    "WIII": "Jakarta Soekarno–Hatta, Indonesia", "WMKK": "Kuala Lumpur, Malaysia",
+    "WSSS": "Singapore Changi",
+    "YPPH": "Perth, Australia", "YPAD": "Adelaide, Australia", "YSSY": "Sydney Kingsford Smith, Australia"
+  };
 
   const ICON_MAP = {
     "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
@@ -25,21 +45,20 @@
   };
 
   const ICAO_TIMEZONES = {
-    "VHHH": "Asia/Hong_Kong", "WIII": "Asia/Jakarta", "ZBAA": "Asia/Shanghai",
-    "RJ": "Asia/Tokyo", "RK": "Asia/Seoul", "RC": "Asia/Taipei", "RCTP": "Asia/Taipei",
-    "ZB": "Asia/Shanghai", "ZG": "Asia/Shanghai", "ZH": "Asia/Shanghai", "ZS": "Asia/Shanghai", "ZU": "Asia/Shanghai",
-    "VT": "Asia/Bangkok", "VV": "Asia/Ho_Chi_Minh", "WM": "Asia/Kuala_Lumpur", "WI": "Asia/Jakarta",
-    "VID": "Asia/Kolkata", "V": "Asia/Kolkata",
-    "Y": "Australia/Sydney", "NZ": "Pacific/Auckland",
-    "EG": "Europe/London", "LF": "Europe/Paris", "ED": "Europe/Berlin", "EH": "Europe/Amsterdam",
-    "LE": "Europe/Madrid", "LI": "Europe/Rome", "LS": "Europe/Zurich", "LO": "Europe/Vienna",
-    "EK": "Europe/Copenhagen", "EF": "Europe/Helsinki", "EP": "Europe/Warsaw", "LZ": "Europe/Bratislava",
-    "OM": "Asia/Dubai", "OE": "Asia/Riyadh", "OK": "Asia/Kuwait", "OI": "Asia/Tehran",
-    "HE": "Africa/Cairo", "DN": "Africa/Lagos", "FA": "Africa/Johannesburg",
-    "K": "America/New_York", "C": "America/Toronto", "MM": "America/Mexico_City",
-    "PA": "America/Anchorage", "PH": "Pacific/Honolulu",
-    "SB": "America/Sao_Paulo", "SA": "America/Buenos_Aires", "SP": "America/Lima",
-    "NT": "Pacific/Tahiti", "NS": "Pacific/Apia"
+    "RCTP": "Asia/Taipei", "RJTT": "Asia/Tokyo", "RJAA": "Asia/Tokyo", "RKSI": "Asia/Seoul",
+    "VHHH": "Asia/Hong_Kong", "WSSS": "Asia/Singapore", "VTBS": "Asia/Bangkok", "WIII": "Asia/Jakarta",
+    "WMKK": "Asia/Kuala_Lumpur", "VIDP": "Asia/Kolkata", "VABB": "Asia/Kolkata",
+    "ZBAA": "Asia/Shanghai", "ZSPD": "Asia/Shanghai", "RC": "Asia/Taipei", "ZB": "Asia/Shanghai",
+    "YSSY": "Australia/Sydney", "YPAD": "Australia/Adelaide", "YPPH": "Australia/Perth",
+    "NZAA": "Pacific/Auckland",
+    "OMDB": "Asia/Dubai", "OERK": "Asia/Riyadh",
+    "EGLL": "Europe/London", "LFPG": "Europe/Paris", "EDDF": "Europe/Berlin", "EHAM": "Europe/Amsterdam",
+    "LEMD": "Europe/Madrid", "LIRF": "Europe/Rome", "UUEE": "Europe/Moscow",
+    "K": "America/New_York", "KATL": "America/New_York", "KJFK": "America/New_York",
+    "KLAX": "America/Los_Angeles", "KSFO": "America/Los_Angeles", "KORD": "America/Chicago",
+    "KSEA": "America/Los_Angeles", "KDFW": "America/Chicago", "KDEN": "America/Denver",
+    "CYYZ": "America/Toronto", "CYVR": "America/Vancouver",
+    "FAOR": "Africa/Johannesburg"
   };
 
   async function fetchMETAR(icao) {
@@ -57,9 +76,9 @@
       hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: tz === "arrival" ? "UTC" : tz
     });
     const [h, m, s] = timeStr.split(":").map(Number);
-    const date = new Date();
-    date.setHours(h, m, s, 0);
-    return date;
+    const d = new Date();
+    d.setHours(h, m, s, 0);
+    return d;
   }
 
   function createClockSVG(id, label) {
@@ -99,7 +118,7 @@
 
   function showWidget(metar, icao) {
     if (window.geofsMetarWidget) window.geofsMetarWidget.remove();
-    if (window.geofsMetarRefreshInterval) clearInterval(window.geofsMetarRefreshInterval);
+    if (window.geofsMetarScheduledTimeout) clearTimeout(window.geofsMetarScheduledTimeout);
 
     const widget = document.createElement("div");
     window.geofsMetarWidget = widget;
@@ -111,8 +130,9 @@
       font: 12px monospace; z-index: 9999;
     `;
 
+    const city = ICAO_LOCATION_NAMES[icao] || icao;
     const title = document.createElement("div");
-    title.textContent = `METAR @ ${icao}`;
+    title.textContent = `METAR @ ${city}`;
     title.style.marginBottom = "6px";
     widget.appendChild(title);
 
@@ -136,19 +156,11 @@
     const refreshBtn = document.createElement("button");
     refreshBtn.textContent = "⟳";
     refreshBtn.style.cssText = "margin-left: 6px; cursor:pointer;";
-
-    async function reload() {
+    refreshBtn.onclick = async () => {
       const newMetar = await fetchMETAR(currentICAO);
       if (newMetar) showWidget(newMetar, currentICAO);
-    }
-
-    input.onkeydown = async (e) => {
-      if (e.key === "Enter") {
-        currentICAO = input.value.toUpperCase();
-        reload();
-      }
     };
-    refreshBtn.onclick = reload;
+
     widget.appendChild(input);
     widget.appendChild(refreshBtn);
 
@@ -175,7 +187,21 @@
 
     updateClocks();
     setInterval(updateClocks, 1000);
-    window.geofsMetarRefreshInterval = setInterval(reload, 300000); // 5 min
+
+    // 🔁 Smart schedule: next refresh at :00 or :30
+    function scheduleNextMetarUpdate() {
+      const now = new Date();
+      const min = now.getMinutes();
+      const sec = now.getSeconds();
+      const delay = ((min < 30 ? 30 : 60) * 60 - min * 60 - sec) * 1000;
+
+      window.geofsMetarScheduledTimeout = setTimeout(async () => {
+        const newMetar = await fetchMETAR(currentICAO);
+        if (newMetar) showWidget(newMetar, currentICAO); // Recursive call
+      }, delay);
+    }
+
+    scheduleNextMetarUpdate();
 
     const w = metar.match(/((\d{3}|VRB))(\d{2})KT/);
     const vis = metar.match(/ (\d{4}) /);
