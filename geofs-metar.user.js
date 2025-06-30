@@ -1,36 +1,29 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      2.1
-// @description  METAR widget with smart timing refresh, city name, dual clocks and icons for GeoFS flight sim
+// @version      2.2
+// @description  Live METAR widget with auto airport detection, smart refresh, dual clocks and icons for GeoFS flight sim
 // @author       seabus
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
 // @grant        none
-// @icon         https://i.ibb.co/wZ2SB149/Chat-GPT-Image-2025-6-30-08-31-37.png
 // ==/UserScript==
 
 (function () {
   if (window.geofsMetarAlreadyLoaded) return;
   window.geofsMetarAlreadyLoaded = true;
 
-  const ICAO_LOCATION_NAMES = {
-    "CYVR": "Vancouver, Canada", "CYYZ": "Toronto Pearson, Canada",
-    "EDDF": "Frankfurt, Germany", "EGLL": "London Heathrow, UK", "EHAM": "Amsterdam Schiphol, Netherlands",
-    "FAOR": "Johannesburg OR Tambo, South Africa",
-    "KATL": "Atlanta, USA", "KDEN": "Denver, USA", "KDFW": "Dallas-Fort Worth, USA",
-    "KJFK": "New York JFK, USA", "KLAX": "Los Angeles, USA", "KORD": "Chicago O'Hare, USA",
-    "KSEA": "Seattle, USA", "KSFO": "San Francisco, USA",
-    "LEMD": "Madrid Barajas, Spain", "LFPG": "Paris Charles de Gaulle, France", "LIRF": "Rome Fiumicino, Italy",
-    "NZAA": "Auckland, New Zealand",
-    "OERK": "Riyadh, Saudi Arabia", "OMDB": "Dubai International, UAE",
-    "RCTP": "Taipei Taoyuan, Taiwan",
-    "RJAA": "Tokyo Narita, Japan", "RJTT": "Tokyo Haneda, Japan", "RKSI": "Seoul Incheon, Korea",
-    "UUEE": "Moscow Sheremetyevo, Russia",
-    "VABB": "Mumbai Chhatrapati Shivaji, India", "VIDP": "Delhi Indira Gandhi, India",
-    "VHHH": "Hong Kong", "VTBS": "Bangkok Suvarnabhumi, Thailand",
-    "WIII": "Jakarta Soekarno–Hatta, Indonesia", "WMKK": "Kuala Lumpur, Malaysia",
-    "WSSS": "Singapore Changi",
-    "YPPH": "Perth, Australia", "YPAD": "Adelaide, Australia", "YSSY": "Sydney Kingsford Smith, Australia"
+  const AIRPORTS = {
+    "RCTP": { name: "Taipei Taoyuan, Taiwan", lat: 25.0777, lon: 121.233 },
+    "RJTT": { name: "Tokyo Haneda, Japan", lat: 35.552258, lon: 139.779694 },
+    "RJAA": { name: "Tokyo Narita, Japan", lat: 35.764722, lon: 140.386389 },
+    "VHHH": { name: "Hong Kong", lat: 22.308919, lon: 113.914603 },
+    "ZBAA": { name: "Beijing Capital, China", lat: 40.080111, lon: 116.584556 },
+    "WSSS": { name: "Singapore Changi", lat: 1.35019, lon: 103.994003 },
+    "KLAX": { name: "Los Angeles, USA", lat: 33.942536, lon: -118.408075 },
+    "KSFO": { name: "San Francisco, USA", lat: 37.6188056, lon: -122.3754167 },
+    "KJFK": { name: "New York JFK, USA", lat: 40.639751, lon: -73.778925 },
+    "EGLL": { name: "London Heathrow, UK", lat: 51.4775, lon: -0.461389 },
+    "LFPG": { name: "Paris Charles de Gaulle, France", lat: 49.012779, lon: 2.55 }
   };
 
   const ICON_MAP = {
@@ -46,20 +39,10 @@
   };
 
   const ICAO_TIMEZONES = {
-    "RCTP": "Asia/Taipei", "RJTT": "Asia/Tokyo", "RJAA": "Asia/Tokyo", "RKSI": "Asia/Seoul",
-    "VHHH": "Asia/Hong_Kong", "WSSS": "Asia/Singapore", "VTBS": "Asia/Bangkok", "WIII": "Asia/Jakarta",
-    "WMKK": "Asia/Kuala_Lumpur", "VIDP": "Asia/Kolkata", "VABB": "Asia/Kolkata",
-    "ZBAA": "Asia/Shanghai", "ZSPD": "Asia/Shanghai", "RC": "Asia/Taipei", "ZB": "Asia/Shanghai",
-    "YSSY": "Australia/Sydney", "YPAD": "Australia/Adelaide", "YPPH": "Australia/Perth",
-    "NZAA": "Pacific/Auckland",
-    "OMDB": "Asia/Dubai", "OERK": "Asia/Riyadh",
-    "EGLL": "Europe/London", "LFPG": "Europe/Paris", "EDDF": "Europe/Berlin", "EHAM": "Europe/Amsterdam",
-    "LEMD": "Europe/Madrid", "LIRF": "Europe/Rome", "UUEE": "Europe/Moscow",
-    "K": "America/New_York", "KATL": "America/New_York", "KJFK": "America/New_York",
-    "KLAX": "America/Los_Angeles", "KSFO": "America/Los_Angeles", "KORD": "America/Chicago",
-    "KSEA": "America/Los_Angeles", "KDFW": "America/Chicago", "KDEN": "America/Denver",
-    "CYYZ": "America/Toronto", "CYVR": "America/Vancouver",
-    "FAOR": "Africa/Johannesburg"
+    "RCTP": "Asia/Taipei", "RJTT": "Asia/Tokyo", "RJAA": "Asia/Tokyo",
+    "VHHH": "Asia/Hong_Kong", "ZBAA": "Asia/Shanghai", "WSSS": "Asia/Singapore",
+    "KLAX": "America/Los_Angeles", "KSFO": "America/Los_Angeles", "KJFK": "America/New_York",
+    "EGLL": "Europe/London", "LFPG": "Europe/Paris"
   };
 
   async function fetchMETAR(icao) {
@@ -117,13 +100,36 @@
     return ICAO_TIMEZONES[prefix4] || ICAO_TIMEZONES[prefix2] || "arrival";
   }
 
+  function getDistanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const toRad = x => x * Math.PI / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a = Math.sin(dLat / 2) ** 2 +
+              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+              Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  function findNearestAirport(lat, lon) {
+    let nearest = null, minDist = Infinity;
+    for (const icao in AIRPORTS) {
+      const ap = AIRPORTS[icao];
+      const d = getDistanceKm(lat, lon, ap.lat, ap.lon);
+      if (d < minDist) {
+        minDist = d;
+        nearest = icao;
+      }
+    }
+    return minDist <= 150 ? nearest : null;
+  }
+
   function showWidget(metar, icao) {
     if (window.geofsMetarWidget) window.geofsMetarWidget.remove();
     if (window.geofsMetarScheduledTimeout) clearTimeout(window.geofsMetarScheduledTimeout);
 
     const widget = document.createElement("div");
     window.geofsMetarWidget = widget;
-
     widget.style.cssText = `
       position: fixed; top: 10px; right: 10px;
       background: rgba(0, 0, 0, 0.7); color: white;
@@ -131,7 +137,7 @@
       font: 12px monospace; z-index: 9999;
     `;
 
-    const city = ICAO_LOCATION_NAMES[icao] || icao;
+    const city = AIRPORTS[icao]?.name || icao;
     const title = document.createElement("div");
     title.textContent = `METAR @ ${city}`;
     title.style.marginBottom = "6px";
@@ -158,8 +164,15 @@
     refreshBtn.textContent = "⟳";
     refreshBtn.style.cssText = "margin-left: 6px; cursor:pointer;";
     refreshBtn.onclick = async () => {
-      const newMetar = await fetchMETAR(currentICAO);
-      if (newMetar) showWidget(newMetar, currentICAO);
+      let newICAO = currentICAO;
+      const pos = geofs?.aircraft?.instance?.llaLocation;
+      if (pos?.length >= 2) {
+        const [lat, lon] = pos;
+        const nearest = findNearestAirport(lat, lon);
+        if (nearest) newICAO = nearest;
+      }
+      const newMetar = await fetchMETAR(newICAO);
+      if (newMetar) showWidget(newMetar, newICAO);
     };
 
     widget.appendChild(input);
@@ -189,7 +202,6 @@
     updateClocks();
     setInterval(updateClocks, 1000);
 
-    // 🔁 Smart schedule: next refresh at :00 or :30
     function scheduleNextMetarUpdate() {
       const now = new Date();
       const min = now.getMinutes();
@@ -198,7 +210,7 @@
 
       window.geofsMetarScheduledTimeout = setTimeout(async () => {
         const newMetar = await fetchMETAR(currentICAO);
-        if (newMetar) showWidget(newMetar, currentICAO); // Recursive call
+        if (newMetar) showWidget(newMetar, currentICAO);
       }, delay);
     }
 
