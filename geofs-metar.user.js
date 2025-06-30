@@ -237,7 +237,7 @@
     });
   }
 
-  const defaultICAO = "RKPC";
+  const defaultICAO = "RCTP";
   fetchMETAR(defaultICAO).then(metar => {
     if (metar) showWidget(metar, defaultICAO);
   });
