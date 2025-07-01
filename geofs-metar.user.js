@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      2.5
+// @version      2.5.1
 // @description  METAR widget with built-in airport detection, no input box, auto refresh, dual clocks and icons
 // @author       seabus
 // @match        https://geo-fs.com/geofs.php*
@@ -116,6 +116,56 @@
   "LROP": { name: "Henri Coandă Intl", lat: 44.5711, lon: 26.0850 },
   "LDZA": { name: "Zagreb Airport", lat: 45.7429, lon: 16.0688 },
   "LJLJ": { name: "Jože Pučnik Airport", lat: 46.2237, lon: 14.4576 },
+  "ROAH": { name: "Naha Airport", lat: 26.1958, lon: 127.6460 },
+  "ZGSZ": { name: "Shenzhen Bao'an Intl", lat: 22.6393, lon: 113.8105 },
+  "RJGG": { name: "Chubu Centrair Intl", lat: 34.8584, lon: 136.8044 },
+  "VTBS": { name: "Suvarnabhumi Intl", lat: 13.6900, lon: 100.7501 },
+  "WMKK": { name: "Kuala Lumpur Intl", lat: 2.7456, lon: 101.7072 },
+  "WIII": { name: "Soekarno–Hatta Intl", lat: -6.1256, lon: 106.6558 },
+  "YPAD": { name: "Adelaide Intl", lat: -34.9450, lon: 138.5306 },
+  "NZWN": { name: "Wellington Intl", lat: -41.3272, lon: 174.8053 },
+  "YPPH": { name: "Perth Intl", lat: -31.9403, lon: 115.9672 },
+  "NTAA": { name: "Faa'a Intl", lat: -17.5537, lon: -149.6063 },
+  "PHNL": { name: "Honolulu Intl", lat: 21.3187, lon: -157.9224 },
+  "PANC": { name: "Ted Stevens Anchorage Intl", lat: 61.1743, lon: -149.9962 },
+  "CYUL": { name: "Montréal-Trudeau Intl", lat: 45.4706, lon: -73.7408 },
+  "CYYC": { name: "Calgary Intl", lat: 51.1139, lon: -114.0203 },
+  "SEGU": { name: "José Joaquín de Olmedo Intl", lat: -2.1574, lon: -79.8836 },
+  "SLLP": { name: "El Alto Intl", lat: -16.5133, lon: -68.1923 },
+  "SPZO": { name: "Velasco Astete Intl", lat: -13.5357, lon: -71.9388 },
+  "SUMU": { name: "Carrasco Intl", lat: -34.8384, lon: -56.0308 },
+  "SAME": { name: "El Plumerillo Airport", lat: -32.8317, lon: -68.7929 },
+  "SBSP": { name: "Congonhas Airport", lat: -23.6261, lon: -46.6564 },
+  "FQMA": { name: "Maputo Intl", lat: -25.9208, lon: 32.5726 },
+  "HBBA": { name: "Bujumbura Intl", lat: -3.3240, lon: 29.3185 },
+  "HSSS": { name: "Khartoum Intl", lat: 15.5895, lon: 32.5532 },
+  "HEGN": { name: "Hurghada Intl", lat: 27.1783, lon: 33.7994 },
+  "DAAG": { name: "Algiers Houari Boumediene", lat: 36.6910, lon: 3.2154 },
+  "GMMX": { name: "Marrakesh Menara", lat: 31.6069, lon: -8.0363 },
+  "GQNN": { name: "Nouakchott Intl", lat: 18.0979, lon: -15.9474 },
+  "DTMB": { name: "Monastir Habib Bourguiba", lat: 35.7581, lon: 10.7547 },
+  "LATI": { name: "Tirana Intl", lat: 41.4147, lon: 19.7206 },
+  "LCLK": { name: "Larnaca Intl", lat: 34.8751, lon: 33.6249 },
+  "LYBE": { name: "Belgrade Nikola Tesla", lat: 44.8184, lon: 20.3094 },
+  "LBSF": { name: "Sofia Airport", lat: 42.6967, lon: 23.4114 },
+  "LHBP": { name: "Budapest Ferenc Liszt Intl", lat: 47.4298, lon: 19.2611 },
+  "LROP": { name: "Henri Coandă Intl", lat: 44.5711, lon: 26.0850 },
+  "EVRA": { name: "Riga Intl", lat: 56.9236, lon: 23.9711 },
+  "EFHK": { name: "Helsinki Vantaa", lat: 60.3172, lon: 24.9633 },
+  "LOWW": { name: "Vienna Intl", lat: 48.1103, lon: 16.5697 },
+  "LWSK": { name: "Skopje Intl", lat: 41.9616, lon: 21.6214 },
+  "LPPT": { name: "Lisbon Humberto Delgado", lat: 38.7742, lon: -9.1342 },
+  "LEBL": { name: "Barcelona El Prat", lat: 41.2974, lon: 2.0833 },
+  "EIDW": { name: "Dublin Intl", lat: 53.4213, lon: -6.2701 },
+  "LTFM": { name: "Istanbul Airport", lat: 41.2753, lon: 28.7525 },
+  "UBBB": { name: "Heydar Aliyev Intl", lat: 40.4675, lon: 50.0467 },
+  "UTTT": { name: "Tashkent Intl", lat: 41.2579, lon: 69.2812 },
+  "UUEE": { name: "Sheremetyevo Intl", lat: 55.9726, lon: 37.4146 },
+  "UKBB": { name: "Kyiv Boryspil Intl", lat: 50.3450, lon: 30.8947 },
+  "LZIB": { name: "Bratislava Airport", lat: 48.1702, lon: 17.2127 },
+  "BIKF": { name: "Keflavik Intl", lat: 63.9850, lon: -22.6056 },
+  "BGSF": { name: "Kangerlussuaq Airport", lat: 67.0122, lon: -50.7116 },
+  "BGGH": { name: "Nuuk Airport", lat: 64.1909, lon: -51.6781 },
 };
 
   const ICON_MAP = {
@@ -179,7 +229,7 @@
         nearest = icao;
       }
     }
-    return minDist <= 150 ? nearest : null;
+    return nearest;
   }
 
   function rotateClock(svg, now) {
