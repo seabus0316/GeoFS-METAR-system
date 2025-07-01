@@ -351,4 +351,15 @@
   fetchMETAR(defaultICAO).then(metar => {
     if (metar) showWidget(metar, defaultICAO);
   });
+
+  // Keyboard toggle for widget visibility (press W)
+  document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "w") {
+      const w = window.geofsMetarWidget;
+      if (w) {
+        w.style.display = (w.style.display === "none") ? "block" : "none";
+      }
+    }
+  });
+
 })();
