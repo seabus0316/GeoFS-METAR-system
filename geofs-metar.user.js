@@ -269,7 +269,7 @@
 
   const ICON_MAP = {
     "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
-    "cloud-bkn": "https://i.ibb.co/zTP5nNMz/cloud-bkn.png",
+    "cloud-bkn": "https://i.ibb.co/Tx4r0N48/cloud-bkn.png",
     "cloud-sct": "https://i.ibb.co/S4znY40y/cloud-sct.png",
     "cloud-few": "https://i.ibb.co/VYfNTq34/cloud-few.png",
     "visibility": "https://i.ibb.co/3mPWNyw7/visibility.png",
