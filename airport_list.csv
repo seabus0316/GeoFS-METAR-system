@@ -253,4 +253,55 @@ WPDL,Presidente Nicolau Lobato Intl (Dili),-8.5464,125.5260
 WBSB,Brunei Intl,4.9442,114.9283
 WBGB,Bintulu Airport,3.1239,113.0206
 WBKD,Lahad Datu Airport,5.0323,118.3230
+ident,name,latitude_deg,longitude_deg
+EGTE,Exeter Airport,50.7344,-3.4139
+EGNS,Isle of Man Airport,54.0833,-4.6239
+EGHD,Plymouth City Airport,50.4228,-4.1058
+EGPE,Inverness Airport,57.5425,-4.0475
+EGLF,Farnborough Airport,51.2758,-0.7763
+EGSH,Norwich Airport,52.6758,1.2828
+EGBB,Birmingham Airport,52.4539,-1.7480
+EGNM,Leeds Bradford Intl,53.8659,-1.6606
+EIKY,Kerry Airport,52.1809,-9.5238
+EICK,Cork Airport,51.8413,-8.4911
+EINN,Shannon Airport,52.7019,-8.9248
+ELLX,Luxembourg Airport,49.6266,6.2115
+LIML,Milan Linate,45.4451,9.2767
+LIBD,Bari Karol Wojtyla Airport,41.1389,16.7606
+LIEO,Olbia Costa Smeralda Airport,40.8987,9.5176
+LICJ,Palermo Airport,38.1759,13.0910
+LIRQ,Florence Airport,43.8100,11.2051
+LIPX,Verona Villafranca,45.3957,10.8885
+LFBZ,Biarritz Pays Basque,43.4684,-1.5310
+LFMT,Montpellier–Méditerranée,43.5762,3.9630
+LFLY,Lyon–Bron Airport,45.7272,4.9443
+LFQQ,Lille Airport,50.5633,3.0890
+LFST,Strasbourg Airport,48.5383,7.6282
+LFSB,Basel-Mulhouse EuroAirport,47.59,7.5292
+LFMG,Castres–Mazamet Airport,43.5564,2.2892
+EDLW,Dortmund Airport,51.5183,7.6122
+EDFH,Frankfurt-Hahn Airport,49.9487,7.2639
+EDDS,Stuttgart Airport,48.6899,9.2219
+EDNY,Friedrichshafen Airport,47.6713,9.5115
+EDMQ,Ingolstadt-Manching Airport,48.7157,11.5340
+EDDM,Memmingen Airport,47.9888,10.2395
+EDDK,Cologne Bonn Airport,50.8659,7.1427
+EDDL,Niederrhein (Weeze) Airport,51.6024,6.1422
+EKBI,Billund Airport,55.7403,9.1518
+EKYT,Aalborg Airport,57.0928,9.8492
+ESGG,Gothenburg Landvetter,57.6628,12.2798
+ESMS,Malmö Airport,55.5363,13.3762
+ESSL,Linköping Airport,58.4061,15.6805
+EFRO,Rovaniemi Airport,66.5648,25.8304
+EFET,Enontekiö Airport,68.3626,23.4243
+EVRA,Riga Intl,56.9236,23.9711
+EYVI,Vilnius Intl,54.6341,25.2858
+EVLA,Liepāja Intl,56.5175,21.0969
+EPWR,Wrocław–Copernicus Airport,51.1027,16.8858
+EPGD,Gdańsk Lech Wałęsa Airport,54.3776,18.4662
+EPKK,John Paul II Kraków-Balice Airport,50.0777,19.7848
+EPPO,Poznań–Ławica Airport,52.4210,16.8263
+EPKT,Katowice Airport,50.4743,19.0800
+EPRA,Radom Airport,51.3892,21.2133
+LDSP,Split Airport,43.5389,16.2981
 
