@@ -5,4 +5,3 @@ The widget will show the closest airport's METAR to you, it will auto refresh in
 U can hide the widget by pressing W.
 ## How to install?
 Copy the user.js and paste them into Tampermonkey.
-https://i.ibb.co/wZ2SB149/Chat-GPT-Image-2025-6-30-08-31-37.png
