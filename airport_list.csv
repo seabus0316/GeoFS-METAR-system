@@ -1,0 +1,256 @@
+ident,name,latitude_deg,longitude_deg
+KSFO,San Francisco Intl,37.6188056,-122.3754167
+KLAX,Los Angeles Intl,33.942536,-118.408075
+RJTT,Tokyo Haneda,35.552258,139.779694
+RCTP,Taipei Taoyuan,25.0777,121.233
+EGLL,London Heathrow,51.4706,-0.461941
+LFPG,Paris Charles de Gaulle,49.0097,2.5479
+EDDF,Frankfurt am Main,50.0379,8.5622
+ZBAA,Beijing Capital Intl,40.0801,116.5846
+OMDB,Dubai Intl,25.2532,55.3657
+YSSY,Sydney Kingsford Smith,-33.9399,151.1753
+RJAA,Narita Intl,35.7719,140.3929
+WSSS,Singapore Changi,1.3644,103.9915
+EHAM,Amsterdam Schiphol,52.3086,4.7639
+CYYZ,Toronto Pearson Intl,43.6777,-79.6248
+CYVR,Vancouver Intl,49.1951,-123.1779
+VHHH,Hong Kong Intl,22.3089,113.9146
+VIDP,Indira Gandhi Intl,28.5562,77.1000
+RKSI,Incheon Intl,37.4602,126.4407
+NZAA,Auckland Intl,-37.0081,174.7917
+FAOR,OR Tambo Intl,-26.1337,28.2420
+SAEZ,Ministro Pistarini Intl,-34.8222,-58.5358
+SCEL,Arturo Merino Benítez Intl,-33.3929,-70.7858
+SBGR,Guarulhos Intl,-23.4356,-46.4731
+SEQM,Mariscal Sucre Intl,-0.1225,-78.3544
+SKBO,El Dorado Intl,4.7016,-74.1469
+TJSJ,Luis Muñoz Marín Intl,18.4394,-66.0018
+MMMX,Benito Juárez Intl,19.4361,-99.0719
+LEMD,Madrid Barajas,40.4936,-3.5668
+LIRF,Leonardo da Vinci–Fiumicino,41.8003,12.2389
+EDDM,Franz Josef Strauss Intl,48.3538,11.7861
+LOWW,Vienna Intl,48.1103,16.5697
+LFMN,Nice Côte d'Azur,43.6584,7.2159
+EBBR,Brussels Airport,50.9014,4.4844
+EKCH,Copenhagen Kastrup,55.6181,12.6561
+ESSA,Stockholm Arlanda,59.6519,17.9186
+ENGM,Oslo Gardermoen,60.1939,11.1004
+EFHK,Helsinki Vantaa,60.3172,24.9633
+ULLI,Pulkovo Airport,59.8003,30.2625
+LCLK,Larnaca Intl,34.8751,33.6249
+LTBA,Istanbul Atatürk (Closed),40.9769,28.8146
+LTFM,Istanbul Airport,41.2753,28.7525
+UUWW,Vnukovo Intl,55.5915,37.2615
+UUEE,Sheremetyevo Intl,55.9726,37.4146
+OMAA,Abu Dhabi Intl,24.4330,54.6511
+OERK,King Khalid Intl,24.9576,46.6988
+OEJN,King Abdulaziz Intl,21.6796,39.1565
+OTHH,Hamad Intl,25.2731,51.6081
+OKBK,Kuwait Intl,29.2266,47.9689
+OJAI,Queen Alia Intl,31.7226,35.9932
+DAAG,Algiers Houari Boumediene,36.6910,3.2154
+DTTA,Tunis–Carthage Intl,36.8510,10.2272
+HECA,Cairo Intl,30.1219,31.4056
+HKJK,Jomo Kenyatta Intl,-1.3192,36.9278
+DNMM,Murtala Muhammed Intl,6.5774,3.3212
+GVAC,Amílcar Cabral Intl,16.7414,-22.9494
+GMMN,Mohammed V Intl,33.3675,-7.5899
+FMEE,Roland Garros Airport,-20.8871,55.5103
+FACT,Cape Town Intl,-33.9648,18.6017
+FIMP,SSR Intl (Mauritius),-20.4302,57.6836
+AYPY,Port Moresby Jacksons Intl,-9.4434,147.2200
+NZCH,Christchurch Intl,-43.4894,172.5322
+YMML,Melbourne Intl,-37.6733,144.8433
+YPAD,Adelaide Intl,-34.9450,138.5306
+YBBN,Brisbane Intl,-27.3842,153.1175
+PANC,Ted Stevens Anchorage Intl,61.1743,-149.9962
+KSEA,Seattle-Tacoma Intl,47.4502,-122.3088
+KDEN,Denver Intl,39.8561,-104.6737
+KORD,Chicago O'Hare Intl,41.9742,-87.9073
+KATL,Hartsfield–Jackson Atlanta Intl,33.6407,-84.4277
+KDFW,Dallas/Fort Worth Intl,32.8998,-97.0403
+KMIA,Miami Intl,25.7959,-80.2870
+KPHX,Phoenix Sky Harbor Intl,33.4373,-112.0078
+KCLT,Charlotte Douglas Intl,35.2140,-80.9431
+KBOS,Boston Logan Intl,42.3656,-71.0096
+KLGA,LaGuardia Airport,40.7769,-73.8740
+KJFK,John F. Kennedy Intl,40.6413,-73.7781
+KEWR,Newark Liberty Intl,40.6895,-74.1745
+KMSP,Minneapolis–Saint Paul Intl,44.8820,-93.2218
+KDTW,Detroit Metro Wayne County,42.2121,-83.3488
+KIAD,Washington Dulles Intl,38.9531,-77.4565
+KDCA,Ronald Reagan Washington National,38.8512,-77.0402
+KTPA,Tampa Intl,27.9755,-82.5332
+KSLC,Salt Lake City Intl,40.7899,-111.9791
+KPDX,Portland Intl,45.5887,-122.5975
+KSAN,San Diego Intl,32.7338,-117.1933
+KLAS,Harry Reid Intl,36.0801,-115.1522
+KMDW,Chicago Midway Intl,41.7868,-87.7522
+KBWI,Baltimore/Washington Intl,39.1754,-76.6684
+PHNL,Honolulu Intl,21.3187,-157.9224
+PHTO,Hilo Intl,19.7214,-155.0485
+PAFA,Fairbanks Intl,64.8151,-147.8562
+PANC,Ted Stevens Anchorage Intl,61.1743,-149.9962
+PGUM,Antonio B. Won Pat Intl,13.4834,144.7962
+UHPP,Petropavlovsk-Kamchatsky,52.0263,158.6310
+UAAA,Almaty Intl,43.3521,77.0405
+UTTT,Tashkent Intl,41.2579,69.2812
+UBBB,Heydar Aliyev Intl,40.4675,50.0467
+UKBB,Kyiv Boryspil Intl,50.3450,30.8947
+LBSF,Sofia Airport,42.6967,23.4114
+LROP,Henri Coandă Intl,44.5711,26.0850
+LDZA,Zagreb Airport,45.7429,16.0688
+LJLJ,Jože Pučnik Airport,46.2237,14.4576
+ident,name,latitude_deg,longitude_deg
+ROAH,Naha Airport,26.1958,127.6460
+ZGSZ,Shenzhen Bao'an Intl,22.6393,113.8105
+RJGG,Chubu Centrair Intl,34.8584,136.8044
+VTBS,Suvarnabhumi Intl,13.6900,100.7501
+WMKK,Kuala Lumpur Intl,2.7456,101.7072
+WIII,Soekarno–Hatta Intl,-6.1256,106.6558
+YPAD,Adelaide Intl,-34.9450,138.5306
+NZWN,Wellington Intl,-41.3272,174.8053
+YPPH,Perth Intl,-31.9403,115.9672
+NTAA,Faa'a Intl,-17.5537,-149.6063
+PHNL,Honolulu Intl,21.3187,-157.9224
+PANC,Ted Stevens Anchorage Intl,61.1743,-149.9962
+CYUL,Montréal-Trudeau Intl,45.4706,-73.7408
+CYYC,Calgary Intl,51.1139,-114.0203
+SEGU,José Joaquín de Olmedo Intl,-2.1574,-79.8836
+SLLP,El Alto Intl,-16.5133,-68.1923
+SPZO,Velasco Astete Intl,-13.5357,-71.9388
+SUMU,Carrasco Intl,-34.8384,-56.0308
+SAME,El Plumerillo Airport,-32.8317,-68.7929
+SBSP,Congonhas Airport,-23.6261,-46.6564
+FQMA,Maputo Intl,-25.9208,32.5726
+HBBA,Bujumbura Intl,-3.3240,29.3185
+HSSS,Khartoum Intl,15.5895,32.5532
+HEGN,Hurghada Intl,27.1783,33.7994
+DAAG,Algiers Houari Boumediene,36.6910,3.2154
+GMMX,Marrakesh Menara,31.6069,-8.0363
+GQNN,Nouakchott Intl,18.0979,-15.9474
+DTMB,Monastir Habib Bourguiba,35.7581,10.7547
+LATI,Tirana Intl,41.4147,19.7206
+LCLK,Larnaca Intl,34.8751,33.6249
+LYBE,Belgrade Nikola Tesla,44.8184,20.3094
+LBSF,Sofia Airport,42.6967,23.4114
+LHBP,Budapest Ferenc Liszt Intl,47.4298,19.2611
+LROP,Henri Coandă Intl,44.5711,26.0850
+EVRA,Riga Intl,56.9236,23.9711
+EFHK,Helsinki Vantaa,60.3172,24.9633
+LOWW,Vienna Intl,48.1103,16.5697
+LWSK,Skopje Intl,41.9616,21.6214
+LPPT,Lisbon Humberto Delgado,38.7742,-9.1342
+LEBL,Barcelona El Prat,41.2974,2.0833
+EIDW,Dublin Intl,53.4213,-6.2701
+LTFM,Istanbul Airport,41.2753,28.7525
+UBBB,Heydar Aliyev Intl,40.4675,50.0467
+UTTT,Tashkent Intl,41.2579,69.2812
+UUEE,Sheremetyevo Intl,55.9726,37.4146
+UKBB,Kyiv Boryspil Intl,50.3450,30.8947
+LZIB,Bratislava Airport,48.1702,17.2127
+BIKF,Keflavik Intl,63.9850,-22.6056
+BGSF,Kangerlussuaq Airport,67.0122,-50.7116
+BGGH,Nuuk Airport,64.1909,-51.6781
+ident,name,latitude_deg,longitude_deg
+EGLC,London City Airport,51.5053,0.0553
+EGLL,London Heathrow,51.4706,-0.4619
+EGKK,London Gatwick,51.1481,-0.1903
+EGSS,London Stansted,51.8850,0.2350
+EGGW,London Luton,51.8747,-0.3683
+EGCC,Manchester Airport,53.3659,-2.2727
+EGNX,East Midlands Airport,52.8311,-1.3281
+EGGD,Bristol Airport,51.3827,-2.7191
+EGHI,Southampton Airport,50.9503,-1.3568
+EGPD,Aberdeen Airport,57.2019,-2.1978
+EGPH,Edinburgh Airport,55.9500,-3.3725
+EGAA,Belfast Intl,54.6575,-6.2158
+LFPG,Paris Charles de Gaulle,49.0097,2.5479
+LFPO,Paris Orly,48.7233,2.3794
+LFML,Marseille Provence,43.4367,5.2150
+LFMN,Nice Côte d'Azur,43.6584,7.2159
+LFBD,Bordeaux Mérignac,44.8283,-0.7156
+LFBO,Toulouse Blagnac,43.6291,1.3638
+EDDF,Frankfurt am Main,50.0379,8.5622
+EDDB,Berlin Brandenburg,52.3667,13.5033
+EDDH,Hamburg Airport,53.6304,10.0064
+EDDM,Munich Intl,48.3538,11.7861
+EDDL,Düsseldorf Intl,51.2895,6.7668
+EDDV,Hannover Airport,52.4611,9.6851
+LOWW,Vienna Intl,48.1103,16.5697
+LZIB,Bratislava Airport,48.1702,17.2127
+LKPR,Prague Vaclav Havel,50.1008,14.26
+LHBP,Budapest Ferenc Liszt Intl,47.4298,19.2611
+LROP,Henri Coandă Intl,44.5711,26.0850
+LBSF,Sofia Airport,42.6967,23.4114
+LDZA,Zagreb Airport,45.7429,16.0688
+LJLJ,Ljubljana Jože Pučnik Airport,46.2237,14.4576
+LYBE,Belgrade Nikola Tesla,44.8184,20.3094
+LWSK,Skopje Intl,41.9616,21.6214
+LATI,Tirana Intl,41.4147,19.7206
+LIEE,Cagliari Elmas Airport,39.2515,9.0543
+LICC,Catania Fontanarossa,37.4668,15.0664
+LIMC,Milan Malpensa,45.6306,8.7281
+LIRF,Rome Fiumicino,41.8003,12.2389
+LIPZ,Venice Marco Polo,45.5053,12.3519
+LPPT,Lisbon Humberto Delgado,38.7742,-9.1342
+LPFR,Faro Airport,37.0144,-7.9659
+LEMD,Madrid Barajas,40.4936,-3.5668
+LEBL,Barcelona El Prat,41.2974,2.0833
+LEMG,Málaga Airport,36.6749,-4.4991
+EIDW,Dublin Airport,53.4213,-6.2701
+EKCH,Copenhagen Kastrup,55.6181,12.6561
+ENGM,Oslo Gardermoen,60.1939,11.1004
+ESSA,Stockholm Arlanda,59.6519,17.9186
+EFHK,Helsinki Vantaa,60.3172,24.9633
+ident,name,latitude_deg,longitude_deg
+VTBS,Suvarnabhumi Intl,13.6900,100.7501
+VTBD,Don Mueang Intl,13.9126,100.6070
+VTSP,Phuket Intl,8.1132,98.3169
+VTSM,Samui Airport,9.5478,100.0620
+VTCC,Chiang Mai Intl,18.7668,98.9626
+VTPH,Hua Hin Airport,12.6362,99.9515
+VVTS,Tan Son Nhat Intl (Ho Chi Minh),10.8188,106.6520
+VVNB,Noi Bai Intl (Hanoi),21.2212,105.8069
+VVCR,Cam Ranh Intl,11.9982,109.2190
+VVPK,Phu Quoc Intl,10.2270,103.9631
+VVVH,Vinh Airport,18.7376,105.6708
+WMKK,Kuala Lumpur Intl,2.7456,101.7072
+WMSA,Sultan Abdul Aziz Shah (Subang),3.1306,101.5494
+WMKP,Penang Intl,5.2971,100.2760
+WMKD,Kuantan Airport,3.7754,103.2090
+WBKK,Kota Kinabalu Intl,5.9372,116.0511
+WBGR,Miri Airport,4.3220,113.9868
+WBKL,Limbang Airport,4.8083,115.0100
+WSSS,Singapore Changi,1.3644,103.9915
+WSAP,Paya Lebar Air Base,1.3604,103.9101
+WIDD,Hang Nadim Intl (Batam),1.1210,104.1197
+WIMM,Kualanamu Intl (Medan),3.5592,98.6717
+WIII,Soekarno–Hatta Intl (Jakarta),-6.1256,106.6558
+WICB,Halim Perdanakusuma Intl (Jakarta),-6.2666,106.8904
+WARR,Juanda Intl (Surabaya),-7.3798,112.7870
+WADD,Ngurah Rai Intl (Denpasar),-8.7482,115.1675
+WAMM,Sam Ratulangi Intl (Manado),1.5492,124.9258
+WAAA,Sultan Hasanuddin Intl (Makassar),-5.0616,119.5540
+WIOO,Supadio Intl (Pontianak),-0.1507,109.4039
+RPMD,Francisco Bangoy Intl (Davao),7.1255,125.6458
+RPLL,Ninoy Aquino Intl (Manila),14.5086,121.0196
+RPVM,Mactan–Cebu Intl,10.3075,123.9794
+RPMZ,Zamboanga Intl,6.9224,122.0596
+RPVP,Iloilo Intl,10.8330,122.4930
+RPWE,Basco Airport,20.4513,121.9790
+RPNS,Sibulan Airport (Dumaguete),9.3337,123.3000
+VDSR,Siem Reap Intl,13.4107,103.8130
+VDPP,Phnom Penh Intl,11.5466,104.8440
+VDBG,Battambang Airport,13.0956,103.2247
+VLVT,Wattay Intl (Vientiane),17.9883,102.5631
+VLLB,Luang Prabang Intl,19.8979,102.1600
+VLOS,Sam Neua Airport,20.4184,104.0679
+VYYY,Yangon Intl,16.9073,96.1332
+VYMD,Mandalay Intl,21.7022,95.9779
+VYEL,Heho Airport,20.7470,96.7920
+WPDL,Presidente Nicolau Lobato Intl (Dili),-8.5464,125.5260
+WBSB,Brunei Intl,4.9442,114.9283
+WBGB,Bintulu Airport,3.1239,113.0206
+WBKD,Lahad Datu Airport,5.0323,118.3230
+
