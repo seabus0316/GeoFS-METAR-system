@@ -254,54 +254,30 @@ WBSB,Brunei Intl,4.9442,114.9283
 WBGB,Bintulu Airport,3.1239,113.0206
 WBKD,Lahad Datu Airport,5.0323,118.3230
 ident,name,latitude_deg,longitude_deg
-EGTE,Exeter Airport,50.7344,-3.4139
-EGNS,Isle of Man Airport,54.0833,-4.6239
-EGHD,Plymouth City Airport,50.4228,-4.1058
-EGPE,Inverness Airport,57.5425,-4.0475
-EGLF,Farnborough Airport,51.2758,-0.7763
-EGSH,Norwich Airport,52.6758,1.2828
-EGBB,Birmingham Airport,52.4539,-1.7480
-EGNM,Leeds Bradford Intl,53.8659,-1.6606
-EIKY,Kerry Airport,52.1809,-9.5238
-EICK,Cork Airport,51.8413,-8.4911
-EINN,Shannon Airport,52.7019,-8.9248
-ELLX,Luxembourg Airport,49.6266,6.2115
-LIML,Milan Linate,45.4451,9.2767
-LIBD,Bari Karol Wojtyla Airport,41.1389,16.7606
-LIEO,Olbia Costa Smeralda Airport,40.8987,9.5176
-LICJ,Palermo Airport,38.1759,13.0910
-LIRQ,Florence Airport,43.8100,11.2051
-LIPX,Verona Villafranca,45.3957,10.8885
-LFBZ,Biarritz Pays Basque,43.4684,-1.5310
-LFMT,Montpellier–Méditerranée,43.5762,3.9630
-LFLY,Lyon–Bron Airport,45.7272,4.9443
-LFQQ,Lille Airport,50.5633,3.0890
-LFST,Strasbourg Airport,48.5383,7.6282
-LFSB,Basel-Mulhouse EuroAirport,47.59,7.5292
-LFMG,Castres–Mazamet Airport,43.5564,2.2892
-EDLW,Dortmund Airport,51.5183,7.6122
-EDFH,Frankfurt-Hahn Airport,49.9487,7.2639
-EDDS,Stuttgart Airport,48.6899,9.2219
-EDNY,Friedrichshafen Airport,47.6713,9.5115
-EDMQ,Ingolstadt-Manching Airport,48.7157,11.5340
-EDDM,Memmingen Airport,47.9888,10.2395
-EDDK,Cologne Bonn Airport,50.8659,7.1427
-EDDL,Niederrhein (Weeze) Airport,51.6024,6.1422
-EKBI,Billund Airport,55.7403,9.1518
-EKYT,Aalborg Airport,57.0928,9.8492
-ESGG,Gothenburg Landvetter,57.6628,12.2798
-ESMS,Malmö Airport,55.5363,13.3762
-ESSL,Linköping Airport,58.4061,15.6805
-EFRO,Rovaniemi Airport,66.5648,25.8304
-EFET,Enontekiö Airport,68.3626,23.4243
-EVRA,Riga Intl,56.9236,23.9711
-EYVI,Vilnius Intl,54.6341,25.2858
-EVLA,Liepāja Intl,56.5175,21.0969
-EPWR,Wrocław–Copernicus Airport,51.1027,16.8858
-EPGD,Gdańsk Lech Wałęsa Airport,54.3776,18.4662
-EPKK,John Paul II Kraków-Balice Airport,50.0777,19.7848
-EPPO,Poznań–Ławica Airport,52.4210,16.8263
-EPKT,Katowice Airport,50.4743,19.0800
-EPRA,Radom Airport,51.3892,21.2133
-LDSP,Split Airport,43.5389,16.2981
+KRNO,Reno/Tahoe International Airport,39.4991,-119.7681
+RCQC,Magong Airport (Penghu),23.5687,119.6276
+KSEA,Seattle-Tacoma International Airport,47.4489,-122.3094
+KPDX,Portland International Airport,45.5887,-122.5975
+KPHX,Phoenix Sky Harbor Intl,33.4342,-112.0116
+KLAS,Harry Reid International Airport,36.0839,-115.1523
+KDEN,Denver International Airport,39.8617,-104.6731
+KMCI,Kansas City International Airport,39.2976,-94.7139
+KMSP,Minneapolis–St. Paul Intl,44.8819,-93.2218
+KMEM,Memphis International Airport,35.0424,-89.9767
+KBOS,Logan International Airport (Boston),42.3656,-71.0096
+KBWI,Baltimore/Washington Intl,39.1754,-76.6684
+KIND,Indianapolis Intl Airport,39.7173,-86.2944
+KPIT,Pittsburgh Intl Airport,40.4915,-80.2329
+KCVG,Cincinnati/Northern Kentucky Intl,39.0488,-84.6678
+KRDU,Raleigh–Durham Intl Airport,35.8776,-78.7875
+KSLC,Salt Lake City Intl,40.7884,-111.9778
+KBOI,Boise Air Terminal,43.5644,-116.2228
+KTUS,Tucson International Airport,32.1161,-110.9410
+KEUG,Eugene Airport (Mahlon Sweet Field),44.1246,-123.2119
+KABQ,Albuquerque Intl Sunport,35.0402,-106.6090
+KOAK,Oakland Intl,37.7213,-122.2207
+KSJC,San Jose Intl,37.3626,-121.9290
+KBUR,Bob Hope Airport (Burbank),34.2007,-118.3587
+KLGB,Long Beach Airport,33.8177,-118.1516
+KONT,Ontario Intl Airport,34.0559,-117.6005
 
