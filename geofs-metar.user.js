@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      2.5.3
+// @version      2.8
 // @description  METAR widget with built-in airport detection, no input box, auto refresh, dual clocks and icons
 // @author       seabus
 // @match        https://geo-fs.com/geofs.php*
