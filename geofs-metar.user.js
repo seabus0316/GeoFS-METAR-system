@@ -471,10 +471,14 @@
     };
     widget.appendChild(refreshBtn);
 
-    const tz = getTimezoneByICAO(icao);
-    const tzLabel = tz === "arrival" ? "Arrival" : tz.split("/").pop().replace("_", " ");
-    const locClock = createClockSVG("loc", "Local");
+    const tz = ICAO_TIMEZONES[icao] || null;
+    const name = AIRPORTS[icao]?.name || icao;
+    const tzLabel = tz ? name.split(" ")[0] : "Local Time";
+
+
+    const locClock = createClockSVG("loc", "UTC");
     const icaoClock = createClockSVG("icao", tzLabel);
+
 
     const clockBox = document.createElement("div");
     clockBox.style.display = "flex";
@@ -487,8 +491,9 @@
     iconRow.style.marginTop = "8px";
 
     function updateClocks() {
-      rotateClock(locClock, new Date());
-      rotateClock(icaoClock, getTimeInTimeZone(tz));
+      rotateClock(locClock, getTimeInTimeZone("UTC"));
+      rotateClock(icaoClock, getTimeInTimeZone(tz || Intl.DateTimeFormat().resolvedOptions().timeZone));
+
     }
 
     updateClocks();
