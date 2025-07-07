@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GeoFS METAR system (AVWX edition)
-// @version      2.6
-// @description  METAR widget with AVWX API support, multi-cloud display, local clocks
+// @name         GeoFS METAR system (AVWX edition with settings)
+// @version      2.7
+// @description  METAR widget using AVWX API, multi-cloud, clocks, API key settings button (with clear support)
 // @author       seabus + ChatGPT
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
@@ -13,10 +13,7 @@
   window.geofsMetarAlreadyLoaded = true;
 
   const AIRPORTS = {
-    "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
-    "KLAX": { name: "Los Angeles Intl", lat: 33.942536, lon: -118.408075 },
-    "RJTT": { name: "Tokyo Haneda", lat: 35.552258, lon: 139.779694 }
-      "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
+   "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
   "KLAX": { name: "Los Angeles Intl", lat: 33.942536, lon: -118.408075 },
   "RJTT": { name: "Tokyo Haneda", lat: 35.552258, lon: 139.779694 },
   "RCTP": { name: "Taipei Taoyuan", lat: 25.0777, lon: 121.233 },
@@ -107,7 +104,6 @@
   "PHNL": { name: "Honolulu Intl", lat: 21.3187, lon: -157.9224 },
   "PHTO": { name: "Hilo Intl", lat: 19.7214, lon: -155.0485 },
   "PAFA": { name: "Fairbanks Intl", lat: 64.8151, lon: -147.8562 },
-  "PANC": { name: "Ted Stevens Anchorage Intl", lat: 61.1743, lon: -149.9962 },
   "PGUM": { name: "Antonio B. Won Pat Intl", lat: 13.4834, lon: 144.7962 },
   "UHPP": { name: "Petropavlovsk-Kamchatsky", lat: 52.0263, lon: 158.6310 },
   "UAAA": { name: "Almaty Intl", lat: 43.3521, lon: 77.0405 },
@@ -124,12 +120,9 @@
   "VTBS": { name: "Suvarnabhumi Intl", lat: 13.6900, lon: 100.7501 },
   "WMKK": { name: "Kuala Lumpur Intl", lat: 2.7456, lon: 101.7072 },
   "WIII": { name: "Soekarno–Hatta Intl", lat: -6.1256, lon: 106.6558 },
-  "YPAD": { name: "Adelaide Intl", lat: -34.9450, lon: 138.5306 },
   "NZWN": { name: "Wellington Intl", lat: -41.3272, lon: 174.8053 },
   "YPPH": { name: "Perth Intl", lat: -31.9403, lon: 115.9672 },
   "NTAA": { name: "Faa'a Intl", lat: -17.5537, lon: -149.6063 },
-  "PHNL": { name: "Honolulu Intl", lat: 21.3187, lon: -157.9224 },
-  "PANC": { name: "Ted Stevens Anchorage Intl", lat: 61.1743, lon: -149.9962 },
   "CYUL": { name: "Montréal-Trudeau Intl", lat: 45.4706, lon: -73.7408 },
   "CYYC": { name: "Calgary Intl", lat: 51.1139, lon: -114.0203 },
   "SEGU": { name: "José Joaquín de Olmedo Intl", lat: -2.1574, lon: -79.8836 },
@@ -142,28 +135,26 @@
   "HBBA": { name: "Bujumbura Intl", lat: -3.3240, lon: 29.3185 },
   "HSSS": { name: "Khartoum Intl", lat: 15.5895, lon: 32.5532 },
   "HEGN": { name: "Hurghada Intl", lat: 27.1783, lon: 33.7994 },
-  "DAAG": { name: "Algiers Houari Boumediene", lat: 36.6910, lon: 3.2154 },
   "GMMX": { name: "Marrakesh Menara", lat: 31.6069, lon: -8.0363 },
   "GQNN": { name: "Nouakchott Intl", lat: 18.0979, lon: -15.9474 },
   "DTMB": { name: "Monastir Habib Bourguiba", lat: 35.7581, lon: 10.7547 },
   "LATI": { name: "Tirana Intl", lat: 41.4147, lon: 19.7206 },
-  "LCLK": { name: "Larnaca Intl", lat: 34.8751, lon: 33.6249 },
   "LYBE": { name: "Belgrade Nikola Tesla", lat: 44.8184, lon: 20.3094 },
-  "LBSF": { name: "Sofia Airport", lat: 42.6967, lon: 23.4114 },
   "LHBP": { name: "Budapest Ferenc Liszt Intl", lat: 47.4298, lon: 19.2611 },
-  "LROP": { name: "Henri Coandă Intl", lat: 44.5711, lon: 26.0850 },
   "EVRA": { name: "Riga Intl", lat: 56.9236, lon: 23.9711 },
-  "EFHK": { name: "Helsinki Vantaa", lat: 60.3172, lon: 24.9633 },
-  "LOWW": { name: "Vienna Intl", lat: 48.1103, lon: 16.5697 },
   "LWSK": { name: "Skopje Intl", lat: 41.9616, lon: 21.6214 },
   "LPPT": { name: "Lisbon Humberto Delgado", lat: 38.7742, lon: -9.1342 },
   "LEBL": { name: "Barcelona El Prat", lat: 41.2974, lon: 2.0833 },
   "EIDW": { name: "Dublin Intl", lat: 53.4213, lon: -6.2701 },
-  "LTFM": { name: "Istanbul Airport", lat: 41.2753, lon: 28.7525 },
-  "UBBB": { name: "Heydar Aliyev Intl", lat: 40.4675, lon: 50.0467 },
-  "UTTT": { name: "Tashkent Intl", lat: 41.2579, lon: 69.2812 },
-  "UUEE": { name: "Sheremetyevo Intl", lat: 55.9726, lon: 37.4146 },
-  "UKBB": { name: "Kyiv Boryspil Intl", lat: 50.3450, lon: 30.8947 },
+  "LFPO": { name: "Paris Orly", lat: 48.7233, lon: 2.3794 },
+  "LFML": { name: "Marseille Provence", lat: 43.4367, lon: 5.2150 },
+  "LFBD": { name: "Bordeaux Mérignac", lat: 44.8283, lon: -0.7156 },
+  "LFBO": { name: "Toulouse Blagnac", lat: 43.6291, lon: 1.3638 },
+  "EDDB": { name: "Berlin Brandenburg", lat: 52.3667, lon: 13.5033 },
+  "EDDH": { name: "Hamburg Airport", lat: 53.6304, lon: 10.0064 },
+  "EDDL": { name: "Düsseldorf Intl", lat: 51.2895, lon: 6.7668 },
+  "EDDV": { name: "Hannover Airport", lat: 52.4611, lon: 9.6851 },
+  "LKPR": { name: "Prague Vaclav Havel", lat: 50.1008, lon: 14.2600 },
   "LZIB": { name: "Bratislava Airport", lat: 48.1702, lon: 17.2127 },
   "BIKF": { name: "Keflavik Intl", lat: 63.9850, lon: -22.6056 },
   "BGSF": { name: "Kangerlussuaq Airport", lat: 67.0122, lon: -50.7116 },
@@ -186,20 +177,18 @@
   "LFMN": { name: "Nice Côte d'Azur", lat: 43.6584, lon: 7.2159 },
   "LFBD": { name: "Bordeaux Mérignac", lat: 44.8283, lon: -0.7156 },
   "LFBO": { name: "Toulouse Blagnac", lat: 43.6291, lon: 1.3638 },
-  "EDDF": { name: "Frankfurt am Main", lat: 50.0379, lon: 8.5622 },
   "EDDB": { name: "Berlin Brandenburg", lat: 52.3667, lon: 13.5033 },
   "EDDH": { name: "Hamburg Airport", lat: 53.6304, lon: 10.0064 },
-  "EDDM": { name: "Munich Intl", lat: 48.3538, lon: 11.7861 },
   "EDDL": { name: "Düsseldorf Intl", lat: 51.2895, lon: 6.7668 },
   "EDDV": { name: "Hannover Airport", lat: 52.4611, lon: 9.6851 },
   "LOWW": { name: "Vienna Intl", lat: 48.1103, lon: 16.5697 },
   "LZIB": { name: "Bratislava Airport", lat: 48.1702, lon: 17.2127 },
-  "LKPR": { name: "Prague Vaclav Havel", lat: 50.1008, lon: 14.26 },
+  "LKPR": { name: "Prague Vaclav Havel", lat: 50.1008, lon: 14.2600 },
   "LHBP": { name: "Budapest Ferenc Liszt Intl", lat: 47.4298, lon: 19.2611 },
   "LROP": { name: "Henri Coandă Intl", lat: 44.5711, lon: 26.0850 },
   "LBSF": { name: "Sofia Airport", lat: 42.6967, lon: 23.4114 },
   "LDZA": { name: "Zagreb Airport", lat: 45.7429, lon: 16.0688 },
-  "LJLJ": { name: "Ljubljana Jože Pučnik Airport", lat: 46.2237, lon: 14.4576 },
+  "LJLJ": { name: "Jože Pučnik Airport", lat: 46.2237, lon: 14.4576 },
   "LYBE": { name: "Belgrade Nikola Tesla", lat: 44.8184, lon: 20.3094 },
   "LWSK": { name: "Skopje Intl", lat: 41.9616, lon: 21.6214 },
   "LATI": { name: "Tirana Intl", lat: 41.4147, lon: 19.7206 },
@@ -269,91 +258,6 @@
   "WBKD": { name: "Lahad Datu Airport", lat: 5.0323, lon: 118.3230 },
   "KRNO": { name: "Reno/Tahoe International Airport", lat: 39.4991, lon: -119.7681 },
   "RCQC": { name: "Magong Airport (Penghu)", lat: 23.5687, lon: 119.6276 },
-  "KSEA": { name: "Seattle-Tacoma International Airport", lat: 47.4489, lon: -122.3094 },
-  "KPDX": { name: "Portland International Airport", lat: 45.5887, lon: -122.5975 },
-  "KPHX": { name: "Phoenix Sky Harbor Intl", lat: 33.4342, lon: -112.0116 },
-  "KLAS": { name: "Harry Reid International Airport", lat: 36.0839, lon: -115.1523 },
-  "KDEN": { name: "Denver International Airport", lat: 39.8617, lon: -104.6731 },
-  "KMCI": { name: "Kansas City International Airport", lat: 39.2976, lon: -94.7139 },
-  "KMSP": { name: "Minneapolis–St. Paul Intl", lat: 44.8819, lon: -93.2218 },
-  "KMEM": { name: "Memphis International Airport", lat: 35.0424, lon: -89.9767 },
-  "KBOS": { name: "Logan International Airport (Boston)", lat: 42.3656, lon: -71.0096 },
-  "KBWI": { name: "Baltimore/Washington Intl", lat: 39.1754, lon: -76.6684 },
-  "KIND": { name: "Indianapolis Intl Airport", lat: 39.7173, lon: -86.2944 },
-  "KPIT": { name: "Pittsburgh Intl Airport", lat: 40.4915, lon: -80.2329 },
-  "KCVG": { name: "Cincinnati/Northern Kentucky Intl", lat: 39.0488, lon: -84.6678 },
-  "KRDU": { name: "Raleigh–Durham Intl Airport", lat: 35.8776, lon: -78.7875 },
-  "KSLC": { name: "Salt Lake City Intl", lat: 40.7884, lon: -111.9778 },
-  "KBOI": { name: "Boise Air Terminal", lat: 43.5644, lon: -116.2228 },
-  "KTUS": { name: "Tucson International Airport", lat: 32.1161, lon: -110.9410 },
-  "KEUG": { name: "Eugene Airport (Mahlon Sweet Field)", lat: 44.1246, lon: -123.2119 },
-  "KABQ": { name: "Albuquerque Intl Sunport", lat: 35.0402, lon: -106.6090 },
-  "KOAK": { name: "Oakland Intl", lat: 37.7213, lon: -122.2207 },
-  "KSJC": { name: "San Jose Intl", lat: 37.3626, lon: -121.9290 },
-  "KBUR": { name: "Bob Hope Airport (Burbank)", lat: 34.2007, lon: -118.3587 },
-  "KLGB": { name: "Long Beach Airport", lat: 33.8177, lon: -118.1516 },
-  "KONT": { name: "Ontario Intl Airport", lat: 34.0559, lon: -117.6005 },
-  "VTBS": { name: "Suvarnabhumi Intl (Bangkok)", lat: 13.6900, lon: 100.7501 },
-  "VTBD": { name: "Don Mueang Intl (Bangkok)", lat: 13.9126, lon: 100.6070 },
-  "VTCC": { name: "Chiang Mai Intl", lat: 18.7668, lon: 98.9626 },
-  "VTSP": { name: "Phuket Intl", lat: 8.1132, lon: 98.3169 },
-  "VVTS": { name: "Tan Son Nhat Intl (Ho Chi Minh)", lat: 10.8188, lon: 106.6520 },
-  "VVNB": { name: "Noi Bai Intl (Hanoi)", lat: 21.2212, lon: 105.8069 },
-  "VVCR": { name: "Cam Ranh Intl", lat: 11.9982, lon: 109.2190 },
-  "VVPK": { name: "Phu Quoc Intl", lat: 10.2270, lon: 103.9631 },
-  "WMKK": { name: "Kuala Lumpur Intl", lat: 2.7456, lon: 101.7072 },
-  "WMSA": { name: "Sultan Abdul Aziz Shah (Subang)", lat: 3.1306, lon: 101.5494 },
-  "WMKP": { name: "Penang Intl", lat: 5.2971, lon: 100.2760 },
-  "WBKK": { name: "Kota Kinabalu Intl", lat: 5.9372, lon: 116.0511 },
-  "WBGR": { name: "Miri Airport", lat: 4.3220, lon: 113.9868 },
-  "WBGG": { name: "Kuching Intl", lat: 1.4847, lon: 110.3469 },
-  "WIII": { name: "Soekarno–Hatta Intl (Jakarta)", lat: -6.1256, lon: 106.6558 },
-  "WADD": { name: "Ngurah Rai Intl (Bali)", lat: -8.7482, lon: 115.1675 },
-  "WARR": { name: "Juanda Intl (Surabaya)", lat: -7.3798, lon: 112.7870 },
-  "WAMM": { name: "Sam Ratulangi Intl (Manado)", lat: 1.5492, lon: 124.9258 },
-  "RPVM": { name: "Mactan–Cebu Intl", lat: 10.3075, lon: 123.9794 },
-  "RPLL": { name: "Ninoy Aquino Intl (Manila)", lat: 14.5086, lon: 121.0196 },
-  "RPMD": { name: "Francisco Bangoy Intl (Davao)", lat: 7.1255, lon: 125.6458 },
-  "RPVP": { name: "Iloilo Intl", lat: 10.8330, lon: 122.4930 },
-  "RPLB": { name: "Subic Bay Intl", lat: 14.7944, lon: 120.2710 },
-  "WSSS": { name: "Singapore Changi", lat: 1.3644, lon: 103.9915 },
-  "VDPP": { name: "Phnom Penh Intl", lat: 11.5466, lon: 104.8440 },
-  "VDSR": { name: "Siem Reap Intl", lat: 13.4107, lon: 103.8130 },
-  "VLVT": { name: "Wattay Intl (Vientiane)", lat: 17.9883, lon: 102.5631 },
-  "VLLB": { name: "Luang Prabang Intl", lat: 19.8979, lon: 102.1600 },
-  "VYYY": { name: "Yangon Intl", lat: 16.9073, lon: 96.1332 },
-  "WBSB": { name: "Brunei Intl", lat: 4.9442, lon: 114.9283 },
-  "WPDL": { name: "Presidente Nicolau Lobato Intl (Dili)", lat: -8.5464, lon: 125.5260 },
-  "RCSS": { name: "Taipei Songshan Airport", lat: 25.0694, lon: 121.5525 },
-  "VTUL": { name: "Udon Thani Airport", lat: 17.3864, lon: 102.7882 },
-  "VTSF": { name: "Nakhon Si Thammarat Airport", lat: 8.5396, lon: 99.9447 },
-  "VTBO": { name: "Trat Airport", lat: 12.2746, lon: 102.3191 },
-  "VVPB": { name: "Dong Hoi Airport", lat: 17.5150, lon: 106.5906 },
-  "VVVD": { name: "Vinh Airport", lat: 18.7376, lon: 105.6708 },
-  "VVNS": { name: "Noi Bai Military Airport (Secondary)", lat: 21.2139, lon: 105.8040 },
-  "WMKD": { name: "Kuantan Airport", lat: 3.7754, lon: 103.2090 },
-  "WMKL": { name: "Langkawi Intl", lat: 6.3297, lon: 99.7287 },
-  "WMSA": { name: "Subang (Sultan Abdul Aziz Shah)", lat: 3.1306, lon: 101.5494 },
-  "WBKS": { name: "Sandakan Airport", lat: 5.9009, lon: 118.0580 },
-  "WBKW": { name: "Tawau Airport", lat: 4.3133, lon: 118.1219 },
-  "WADL": { name: "Lombok Intl", lat: -8.7573, lon: 116.2767 },
-  "WIMM": { name: "Kualanamu Intl (Medan)", lat: 3.5592, lon: 98.6717 },
-  "WAJJ": { name: "Sentani Intl (Jayapura)", lat: -2.5769, lon: 140.5164 },
-  "WIKK": { name: "Padang Minangkabau Intl", lat: -0.7861, lon: 100.2806 },
-  "RPUB": { name: "Baguio Loakan Airport", lat: 16.3751, lon: 120.6200 },
-  "RPMZ": { name: "Zamboanga Intl", lat: 6.9224, lon: 122.0596 },
-  "RPVA": { name: "Tacloban Airport", lat: 11.2276, lon: 125.0270 },
-  "RPVE": { name: "Calbayog Airport", lat: 12.0727, lon: 124.5442 },
-  "RPLO": { name: "Ormoc Airport", lat: 11.0576, lon: 124.5657 },
-  "RPFL": { name: "Laoag Intl", lat: 18.1800, lon: 120.5320 },
-  "WSSL": { name: "Seletar Airport (Singapore)", lat: 1.4169, lon: 103.8670 },
-  "VDST": { name: "Stung Treng Airport", lat: 13.5336, lon: 105.9710 },
-  "VDKH": { name: "Kampong Chhnang Airport", lat: 12.2552, lon: 104.5642 },
-  "VLXK": { name: "Xieng Khouang Airport", lat: 19.4541, lon: 103.2186 },
-  "VLOS": { name: "Sam Neua Airport", lat: 20.4184, lon: 104.0679 },
-  "VYMD": { name: "Mandalay Intl", lat: 21.7022, lon: 95.9779 },
-  "VYPT": { name: "Naypyidaw Intl", lat: 19.6235, lon: 96.2011 },
-  "WBSB": { name: "Brunei Intl", lat: 4.9442, lon: 114.9283 },
   };
 
   const ICON_MAP = {
@@ -369,9 +273,7 @@
   };
 
   const ICAO_TIMEZONES = {
-    "RCTP": "Asia/Taipei", "RJTT": "Asia/Tokyo", "RJAA": "Asia/Tokyo",
-    "VHHH": "Asia/Hong_Kong", "ZBAA": "Asia/Shanghai", "WSSS": "Asia/Singapore", "WBKD": "Asia/Kuching"
-      "KSFO": "America/Los_Angeles",
+     "KSFO": "America/Los_Angeles",
   "KLAX": "America/Los_Angeles",
   "RJTT": "Asia/Tokyo",
   "RCTP": "Asia/Taipei",
@@ -462,7 +364,6 @@
   "PHNL": "Pacific/Honolulu",
   "PHTO": "Pacific/Honolulu",
   "PAFA": "America/Anchorage",
-  "PANC": "America/Anchorage",
   "PGUM": "Pacific/Guam",
   "UHPP": "Asia/Kamchatka",
   "UAAA": "Asia/Almaty",
@@ -479,12 +380,9 @@
   "VTBS": "Asia/Bangkok",
   "WMKK": "Asia/Kuala_Lumpur",
   "WIII": "Asia/Jakarta",
-  "YPAD": "Australia/Adelaide",
   "NZWN": "Pacific/Auckland",
   "YPPH": "Australia/Perth",
   "NTAA": "Pacific/Tahiti",
-  "PHNL": "Pacific/Honolulu",
-  "PANC": "America/Anchorage",
   "CYUL": "America/Toronto",
   "CYYC": "America/Edmonton",
   "SEGU": "America/Guayaquil",
@@ -497,28 +395,26 @@
   "HBBA": "Africa/Bujumbura",
   "HSSS": "Africa/Khartoum",
   "HEGN": "Africa/Cairo",
-  "DAAG": "Africa/Algiers",
   "GMMX": "Africa/Casablanca",
   "GQNN": "Africa/Nouakchott",
   "DTMB": "Africa/Tunis",
   "LATI": "Europe/Tirane",
-  "LCLK": "Asia/Nicosia",
   "LYBE": "Europe/Belgrade",
-  "LBSF": "Europe/Sofia",
   "LHBP": "Europe/Budapest",
-  "LROP": "Europe/Bucharest",
   "EVRA": "Europe/Riga",
-  "EFHK": "Europe/Helsinki",
-  "LOWW": "Europe/Vienna",
   "LWSK": "Europe/Skopje",
   "LPPT": "Europe/Lisbon",
   "LEBL": "Europe/Madrid",
   "EIDW": "Europe/Dublin",
-  "LTFM": "Europe/Istanbul",
-  "UBBB": "Asia/Baku",
-  "UTTT": "Asia/Tashkent",
-  "UUEE": "Europe/Moscow",
-  "UKBB": "Europe/Kiev",
+  "LFPO": "Europe/Paris",
+  "LFML": "Europe/Paris",
+  "LFBD": "Europe/Paris",
+  "LFBO": "Europe/Paris",
+  "EDDB": "Europe/Berlin",
+  "EDDH": "Europe/Berlin",
+  "EDDL": "Europe/Berlin",
+  "EDDV": "Europe/Berlin",
+  "LKPR": "Europe/Prague",
   "LZIB": "Europe/Bratislava",
   "BIKF": "Atlantic/Reykjavik",
   "BGSF": "America/Godthab",
@@ -541,10 +437,8 @@
   "LFMN": "Europe/Paris",
   "LFBD": "Europe/Paris",
   "LFBO": "Europe/Paris",
-  "EDDF": "Europe/Berlin",
   "EDDB": "Europe/Berlin",
   "EDDH": "Europe/Berlin",
-  "EDDM": "Europe/Berlin",
   "EDDL": "Europe/Berlin",
   "EDDV": "Europe/Berlin",
   "LOWW": "Europe/Vienna",
@@ -623,109 +517,20 @@
   "WBGB": "Asia/Kuching",
   "WBKD": "Asia/Kuching",
   "KRNO": "America/Los_Angeles",
-  "RCQC": "Asia/Taipei",
-  "KSEA": "America/Los_Angeles",
-  "KPDX": "America/Los_Angeles",
-  "KPHX": "America/Phoenix",
-  "KLAS": "America/Los_Angeles",
-  "KDEN": "America/Denver",
-  "KMCI": "America/Chicago",
-  "KMSP": "America/Chicago",
-  "KMEM": "America/Chicago",
-  "KBOS": "America/New_York",
-  "KBWI": "America/New_York",
-  "KIND": "America/Indiana/Indianapolis",
-  "KPIT": "America/New_York",
-  "KCVG": "America/New_York",
-  "KRDU": "America/New_York",
-  "KSLC": "America/Denver",
-  "KBOI": "America/Boise",
-  "KTUS": "America/Phoenix",
-  "KEUG": "America/Los_Angeles",
-  "KABQ": "America/Denver",
-  "KOAK": "America/Los_Angeles",
-  "KSJC": "America/Los_Angeles",
-  "KBUR": "America/Los_Angeles",
-  "KLGB": "America/Los_Angeles",
-  "KONT": "America/Los_Angeles",
-  "VTBS": "Asia/Bangkok",
-  "VTBD": "Asia/Bangkok",
-  "VTCC": "Asia/Bangkok",
-  "VTSP": "Asia/Bangkok",
-  "VVTS": "Asia/Ho_Chi_Minh",
-  "VVNB": "Asia/Bangkok",
-  "VVCR": "Asia/Ho_Chi_Minh",
-  "VVPK": "Asia/Phnom_Penh",
-  "WMKK": "Asia/Kuala_Lumpur",
-  "WMSA": "Asia/Kuala_Lumpur",
-  "WMKP": "Asia/Kuala_Lumpur",
-  "WBKK": "Asia/Kuching",
-  "WBGR": "Asia/Kuching",
-  "WBGG": "Asia/Kuching",
-  "WIII": "Asia/Jakarta",
-  "WADD": "Asia/Makassar",
-  "WARR": "Asia/Jakarta",
-  "WAMM": "Asia/Makassar",
-  "RPVM": "Asia/Manila",
-  "RPLL": "Asia/Manila",
-  "RPMD": "Asia/Manila",
-  "RPVP": "Asia/Manila",
-  "RPLB": "Asia/Manila",
-  "WSSS": "Asia/Singapore",
-  "VDPP": "Asia/Phnom_Penh",
-  "VDSR": "Asia/Phnom_Penh",
-  "VLVT": "Asia/Vientiane",
-  "VLLB": "Asia/Vientiane",
-  "VYYY": "Asia/Yangon",
-  "WBSB": "Asia/Brunei",
-  "WPDL": "Asia/Makassar",
   "RCSS": "Asia/Taipei",
-  "VTUL": "Asia/Bangkok",
-  "VTSF": "Asia/Bangkok",
-  "VTBO": "Asia/Bangkok",
-  "VVPB": "Asia/Bangkok",
-  "VVVD": "Asia/Bangkok",
-  "VVNS": "Asia/Bangkok",
-  "WMKD": "Asia/Kuala_Lumpur",
-  "WMKL": "Asia/Kuala_Lumpur",
-  "WMSA": "Asia/Kuala_Lumpur",
-  "WBKS": "Asia/Kuching",
-  "WBKW": "Asia/Kuching",
-  "WADL": "Asia/Makassar",
-  "WIMM": "Asia/Jakarta",
-  "WAJJ": "Asia/Jayapura",
-  "WIKK": "Asia/Jakarta",
-  "RPUB": "Asia/Manila",
-  "RPMZ": "Asia/Manila",
-  "RPVA": "Asia/Manila",
-  "RPVE": "Asia/Manila",
-  "RPLO": "Asia/Manila",
-  "RPFL": "Asia/Manila",
-  "WSSL": "Asia/Singapore",
-  "VDST": "Asia/Phnom_Penh",
-  "VDKH": "Asia/Phnom_Penh",
-  "VLXK": "Asia/Vientiane",
-  "VLOS": "Asia/Vientiane",
-  "VYMD": "Asia/Yangon",
-  "VYPT": "Asia/Yangon",
-  "WBSB": "Asia/Brunei",
   };
 
   async function fetchMETAR(icao) {
     let apiKey = localStorage.getItem("avwx_key");
     if (!apiKey) {
-      apiKey = prompt("Please enter your AVWX API Key. You can get one for free at https://account.avwx.rest/getting-started");
-      if (apiKey) {
-        localStorage.setItem("avwx_key", apiKey);
-        alert("Your API key has been saved.");
-      } else {
-        alert("No API key entered. METAR data cannot be loaded.");
-        return null;
-      }
+      console.warn("No AVWX API Key set. Click ⚙️ to set one.");
+      return null;
     }
     try {
       const res = await fetch(`https://avwx.rest/api/metar/${icao}?format=json`, {
-        headers: { "Authorization": apiKey }
+        headers: {
+          "Authorization": apiKey
+        }
       });
       const data = await res.json();
       return data.raw || null;
@@ -841,7 +646,9 @@
 
     const refreshBtn = document.createElement("button");
     refreshBtn.textContent = "⟳";
-    refreshBtn.style.cssText = "margin-bottom: 6px; cursor:pointer;";
+    refreshBtn.title = "Refresh METAR";
+    refreshBtn.style.cssText = "cursor:pointer;";
+
     refreshBtn.onclick = async () => {
       const pos = geofs?.aircraft?.instance?.llaLocation;
       if (pos?.length >= 2) {
@@ -853,7 +660,30 @@
         }
       }
     };
-    widget.appendChild(refreshBtn);
+
+    const settingsBtn = document.createElement("button");
+    settingsBtn.textContent = "⚙️";
+    settingsBtn.title = "Set or clear AVWX API key";
+    settingsBtn.style.cssText = "margin-left: 6px; cursor:pointer;";
+    settingsBtn.onclick = () => {
+      const currentKey = localStorage.getItem("avwx_key") || "";
+      const newKey = prompt("Enter your AVWX API Key (leave empty to remove it):", currentKey);
+      if (newKey === null) return;
+      if (newKey.trim()) {
+        localStorage.setItem("avwx_key", newKey.trim());
+        alert("✅ API key updated.");
+      } else {
+        localStorage.removeItem("avwx_key");
+        alert("🗑️ API key removed.");
+      }
+    };
+
+    const buttonBar = document.createElement("div");
+    buttonBar.style.display = "flex";
+    buttonBar.style.gap = "4px";
+    buttonBar.appendChild(refreshBtn);
+    buttonBar.appendChild(settingsBtn);
+    widget.appendChild(buttonBar);
 
     const locClock = createClockSVG("loc", "UTC");
     const icaoClock = createClockSVG("icao", ICAO_TIMEZONES[icao] || "Local");
