@@ -8,3 +8,6 @@ Copy the user.js and paste it into Tampermonkey.
 
 If you want it to support more airports, DM me on Discord (seabus0316)
 I will update them often, and you can renew them if you wish to be more airport-enabled.
+##How to use the converter?
+Find the data in https://ourairports.com/ , and paste the .csv into the converter, press "轉換 (with a rocket emoji)", paste"Airports物件" into const AIRPORTS = {.....}; "icao_timezones" into const ICAO_TIMEZONES = {...};
+You can add airports customarily.
