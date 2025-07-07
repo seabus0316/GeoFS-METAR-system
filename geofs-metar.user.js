@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GeoFS METAR system (AVWX edition)
-// @version      2.6
-// @description  METAR widget with AVWX API support, multi-cloud display, local clocks
+// @name         GeoFS METAR system (AVWX edition with image settings button)
+// @version      2.9
+// @description  METAR widget using AVWX API, multi-cloud, clocks, API key input & image-based settings button, draggable, refreshable
 // @author       seabus + ChatGPT
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
@@ -12,8 +12,10 @@
   if (window.geofsMetarAlreadyLoaded) return;
   window.geofsMetarAlreadyLoaded = true;
 
+  const defaultICAO = "RCTP";
+
   const AIRPORTS = {
-       "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
+  "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
   "KLAX": { name: "Los Angeles Intl", lat: 33.942536, lon: -118.408075 },
   "RJTT": { name: "Tokyo Haneda", lat: 35.552258, lon: 139.779694 },
   "RCTP": { name: "Taipei Taoyuan", lat: 25.0777, lon: 121.233 },
@@ -261,8 +263,32 @@
  "RCSS": { name: "Taipei Songshan Airport", lat: 25.0694, lon: 121.5525 },
   "RSCH": { name: "Hualien Airport", lat: 24.0231, lon: 121.6175 },
   "KRNO": { name: "Reno/Tahoe Intl Airport", lat: 39.4991, lon: -119.7681 },
-
   };
+
+  function getDistanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const toRad = x => x * Math.PI / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a = Math.sin(dLat / 2) ** 2 +
+              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+              Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  function findNearestAirport(lat, lon) {
+    let nearest = null, minDist = Infinity;
+    for (const icao in AIRPORTS) {
+      const ap = AIRPORTS[icao];
+      const dist = getDistanceKm(lat, lon, ap.lat, ap.lon);
+      if (dist < minDist) {
+        minDist = dist;
+        nearest = icao;
+      }
+    }
+    return nearest || defaultICAO;
+  }
+  const settingsIconURL = "https://i.ibb.co/wjdnWDq/gear.png";
 
   const ICON_MAP = {
     "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
@@ -277,7 +303,7 @@
   };
 
   const ICAO_TIMEZONES = {
-         "KSFO": "America/Los_Angeles",
+     "KSFO": "America/Los_Angeles",
   "KLAX": "America/Los_Angeles",
   "RJTT": "Asia/Tokyo",
   "RCTP": "Asia/Taipei",
@@ -528,18 +554,19 @@
   async function fetchMETAR(icao) {
     let apiKey = localStorage.getItem("avwx_key");
     if (!apiKey) {
-      apiKey = prompt("Please enter your AVWX API Key. You can get one for free at https://avwx.rest");
+      apiKey = prompt("Welcome! Please enter your AVWX API Key to enable METAR data. You can get one free at https://avwx.rest");
       if (apiKey) {
-        localStorage.setItem("avwx_key", apiKey);
-        alert("Your API key has been saved. You won’t be asked again.");
+        localStorage.setItem("avwx_key", apiKey.trim());
+        alert("✅ Your API key has been saved. You won’t be asked again.");
       } else {
-        alert("No API key entered. METAR data cannot be loaded.");
+        alert("⚠️ No API key entered. METAR will not be available until you set one.");
+        showWidget(null, icao);
         return null;
       }
     }
     try {
       const res = await fetch(`https://avwx.rest/api/metar/${icao}?format=json`, {
-        headers: { "Authorization": apiKey }
+        headers: { Authorization: apiKey }
       });
       const data = await res.json();
       return data.raw || null;
@@ -551,47 +578,21 @@
 
   function getTimeInTimeZone(tz) {
     const timeStr = new Date().toLocaleTimeString("en-US", {
-      hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: tz === "arrival" ? "UTC" : tz
+      hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: tz
     });
-    const [h, m, s] = timeStr.split(":").map(Number);
+    const [h, m, s] = timeStr.split(":" ).map(Number);
     const d = new Date();
     d.setHours(h, m, s, 0);
     return d;
   }
 
-  function getDistanceKm(lat1, lon1, lat2, lon2) {
-    const R = 6371;
-    const toRad = x => x * Math.PI / 180;
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-    const a = Math.sin(dLat / 2) ** 2 +
-              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-              Math.sin(dLon / 2) ** 2;
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  }
-
-  function findNearestAirport(lat, lon) {
-    let nearest = null, minDist = Infinity;
-    for (const icao in AIRPORTS) {
-      const ap = AIRPORTS[icao];
-      const d = getDistanceKm(lat, lon, ap.lat, ap.lon);
-      if (d < minDist) {
-        minDist = d;
-        nearest = icao;
-      }
-    }
-    return nearest;
-  }
-
   function rotateClock(svg, now) {
-    const hour = svg.querySelector("line[id$='-hour']");
-    const minute = svg.querySelector("line[id$='-minute']");
-    const second = svg.querySelector("line[id$='-second']");
-    const h = now.getHours() % 12, m = now.getMinutes(), s = now.getSeconds();
-    hour.setAttribute("transform", `rotate(${h * 30 + m * 0.5 + s * (0.5 / 60)} 20 20)`);
-    minute.setAttribute("transform", `rotate(${m * 6 + s * 0.1} 20 20)`);
-    second.setAttribute("transform", `rotate(${s * 6} 20 20)`);
-  }
+  const hour = svg.querySelector("line[id$='-hour']");
+  const minute = svg.querySelector("line[id$='-minute']");
+  const h = now.getHours() % 12, m = now.getMinutes(), s = now.getSeconds();
+  hour.setAttribute("transform", `rotate(${h * 30 + m * 0.5} 20 20)`);
+  minute.setAttribute("transform", `rotate(${m * 6} 20 20)`);
+}
 
   function createClockSVG(id, label) {
     const container = document.createElement("div");
@@ -604,9 +605,12 @@
     svg.setAttribute("viewBox", "0 0 40 40");
     svg.innerHTML = `
       <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="1"/>
+      <line x1="20" y1="2" x2="20" y2="5" stroke="black" stroke-width="1"/>
+      <line x1="35" y1="20" x2="32" y2="20" stroke="black" stroke-width="1"/>
+      <line x1="20" y1="38" x2="20" y2="35" stroke="black" stroke-width="1"/>
+      <line x1="5" y1="20" x2="8" y2="20" stroke="black" stroke-width="1"/>
       <line id="${id}-hour" x1="20" y1="20" x2="20" y2="11" stroke="black" stroke-width="2"/>
       <line id="${id}-minute" x1="20" y1="20" x2="20" y2="7" stroke="black" stroke-width="1"/>
-      <line id="${id}-second" x1="20" y1="20" x2="20" y2="5" stroke="red" stroke-width="0.5"/>
     `;
     container.appendChild(svg);
     return container;
@@ -615,20 +619,20 @@
   function makeDraggable(el) {
     let isDragging = false, offsetX = 0, offsetY = 0;
     el.style.cursor = "move";
-    el.addEventListener("mousedown", function (e) {
+    el.addEventListener("mousedown", e => {
       isDragging = true;
       offsetX = e.clientX - el.getBoundingClientRect().left;
       offsetY = e.clientY - el.getBoundingClientRect().top;
       document.body.style.userSelect = "none";
     });
-    document.addEventListener("mousemove", function (e) {
+    document.addEventListener("mousemove", e => {
       if (isDragging) {
         el.style.left = Math.max(0, Math.min(e.clientX - offsetX, window.innerWidth - el.offsetWidth)) + "px";
         el.style.top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight)) + "px";
         el.style.right = "auto";
       }
     });
-    document.addEventListener("mouseup", function () {
+    document.addEventListener("mouseup", () => {
       isDragging = false;
       document.body.style.userSelect = "";
     });
@@ -636,66 +640,76 @@
 
   function showWidget(metar, icao) {
     if (window.geofsMetarWidget) window.geofsMetarWidget.remove();
-    if (window.geofsMetarScheduledTimeout) clearTimeout(window.geofsMetarScheduledTimeout);
-
     const widget = document.createElement("div");
     window.geofsMetarWidget = widget;
     widget.style.cssText = `
       position: fixed; top: 10px; right: 10px;
-      background: rgba(0, 0, 0, 0.7); color: white;
-      padding: 10px; border-radius: 10px;
+      background: rgba(0,0,0,0.8); color: white;
+      padding: 10px; border-radius: 8px;
       font: 12px monospace; z-index: 9999;
     `;
 
-    const city = AIRPORTS[icao]?.name || icao;
     const title = document.createElement("div");
-    title.textContent = `METAR @ ${city}`;
-    title.style.marginBottom = "6px";
+    title.textContent = `METAR @ ${icao}`;
     widget.appendChild(title);
+
+    const buttonBar = document.createElement("div");
+    buttonBar.style.display = "flex";
+    buttonBar.style.gap = "4px";
+    buttonBar.style.marginTop = "6px";
 
     const refreshBtn = document.createElement("button");
     refreshBtn.textContent = "⟳";
-    refreshBtn.style.cssText = "margin-bottom: 6px; cursor:pointer;";
+    refreshBtn.title = "Refresh METAR";
     refreshBtn.onclick = async () => {
       const pos = geofs?.aircraft?.instance?.llaLocation;
       if (pos?.length >= 2) {
         const [lat, lon] = pos;
         const nearest = findNearestAirport(lat, lon);
-        if (nearest) {
-          const newMetar = await fetchMETAR(nearest);
-          if (newMetar) showWidget(newMetar, nearest);
-        }
+        const newMetar = await fetchMETAR(nearest);
+        if (newMetar) showWidget(newMetar, nearest);
       }
     };
-    widget.appendChild(refreshBtn);
 
-    const locClock = createClockSVG("loc", "UTC");
-    const icaoClock = createClockSVG("icao", ICAO_TIMEZONES[icao] || "Local");
+    const settingsBtn = document.createElement("button");
+    settingsBtn.title = "Set or clear AVWX API key";
+    settingsBtn.style.cssText = "cursor:pointer; background:none; border:none;";
+    const gearImg = document.createElement("img");
+    gearImg.src = settingsIconURL;
+    gearImg.alt = "Settings";
+    gearImg.style.width = "16px";
+    gearImg.style.height = "16px";
+    settingsBtn.appendChild(gearImg);
+    settingsBtn.onclick = () => {
+      const currentKey = localStorage.getItem("avwx_key") || "";
+      const newKey = prompt("Enter your AVWX API Key (leave blank to remove):", currentKey);
+      if (newKey === null) return;
+      if (newKey.trim()) {
+        localStorage.setItem("avwx_key", newKey.trim());
+        alert("✅ API key updated.");
+      } else {
+        localStorage.removeItem("avwx_key");
+        alert("🗑️ API key removed.");
+      }
+    };
 
-    const clockBox = document.createElement("div");
-    clockBox.style.display = "flex";
-    clockBox.style.justifyContent = "space-around";
-    clockBox.appendChild(locClock);
-    clockBox.appendChild(icaoClock);
-    widget.appendChild(clockBox);
+    buttonBar.appendChild(refreshBtn);
+    buttonBar.appendChild(settingsBtn);
+    widget.appendChild(buttonBar);
 
-    const iconRow = document.createElement("div");
-    iconRow.style.marginTop = "8px";
-
-    function updateClocks() {
-      rotateClock(locClock, getTimeInTimeZone("UTC"));
-      rotateClock(icaoClock, getTimeInTimeZone(ICAO_TIMEZONES[icao] || Intl.DateTimeFormat().resolvedOptions().timeZone));
+    if (!metar) {
+      const notice = document.createElement("div");
+      notice.textContent = "⚠️ Please enter your AVWX API key using the ⚙️ button.";
+      notice.style.marginTop = "8px";
+      notice.style.fontStyle = "italic";
+      widget.appendChild(notice);
+      document.body.appendChild(widget);
+      makeDraggable(widget);
+      return;
     }
 
-    updateClocks();
-    setInterval(updateClocks, 1000);
-
-    const w = metar.match(/((\d{3}|VRB))(\d{2})KT/);
-    const vis = metar.match(/ (\d{4}) /);
-    const cloudMatches = [...metar.matchAll(/(FEW|SCT|BKN|OVC)(\d{3})/g)];
-    const temp = metar.match(/ (M?\d{2})\/(M?\d{2}) /);
-    const qnh = metar.match(/Q(\d{4})/);
-    const fog = /FG|BR/.test(metar);
+    const iconRow = document.createElement("div");
+    iconRow.style.marginTop = "6px";
 
     function addIcon(name, text) {
       const d = document.createElement("div");
@@ -713,6 +727,13 @@
       iconRow.appendChild(d);
     }
 
+    const w = metar.match(/((\d{3}|VRB))(\d{2})KT/);
+    const vis = metar.match(/ (\d{4}) /);
+    const cloudMatches = [...metar.matchAll(/(FEW|SCT|BKN|OVC)(\d{3})/g)];
+    const temp = metar.match(/ (M?\d{2})\/(M?\d{2}) /);
+    const qnh = metar.match(/Q(\d{4})/);
+    const fog = /FG|BR/.test(metar);
+
     if (w) addIcon("wind", `${w[1]}° ${w[3]}kt`);
     if (vis) addIcon("visibility", `${parseInt(vis[1]) / 1000} km`);
     if (cloudMatches.length) {
@@ -728,12 +749,27 @@
     if (qnh) addIcon("pressure", `Q${qnh[1]}`);
     if (fog) addIcon("fog", "Fog/Mist");
 
+    const locClock = createClockSVG("loc", "UTC");
+    const icaoClock = createClockSVG("icao", ICAO_TIMEZONES[icao] || "Local");
+    rotateClock(locClock, getTimeInTimeZone("UTC"));
+    rotateClock(icaoClock, getTimeInTimeZone(ICAO_TIMEZONES[icao] || Intl.DateTimeFormat().resolvedOptions().timeZone));
+    const clockBox = document.createElement("div");
+    clockBox.style.display = "flex";
+    clockBox.style.justifyContent = "space-around";
+    clockBox.appendChild(locClock);
+    clockBox.appendChild(icaoClock);
+    widget.appendChild(clockBox);
+
+    setInterval(() => {
+      rotateClock(locClock, getTimeInTimeZone("UTC"));
+      rotateClock(icaoClock, getTimeInTimeZone(ICAO_TIMEZONES[icao] || Intl.DateTimeFormat().resolvedOptions().timeZone));
+    }, 1000);
+
     widget.appendChild(iconRow);
     document.body.appendChild(widget);
     makeDraggable(widget);
   }
 
-  const defaultICAO = "RCTP";
   fetchMETAR(defaultICAO).then(metar => {
     if (metar) showWidget(metar, defaultICAO);
   });
@@ -741,9 +777,7 @@
   document.addEventListener("keydown", function (e) {
     if (e.key.toLowerCase() === "w") {
       const w = window.geofsMetarWidget;
-      if (w) {
-        w.style.display = (w.style.display === "none") ? "block" : "none";
-      }
+      if (w) w.style.display = (w.style.display === "none") ? "block" : "none";
     }
   });
 })();
