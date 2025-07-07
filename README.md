@@ -3,7 +3,7 @@ A system that shows METAR after you enter the airport ICAO into the widget. Plea
 ## How to use?
 The widget will display the closest airport's METAR to you. It will auto-refresh every 30 minutes, and you can refresh manually as well.
 U can hide the widget by pressing W.
-For the first time, please press the settings button(gear) and paste your API key in that. You can get one at https://account.avwx.rest/getting-started
+For the first time, please press the settings button(gear) and paste your API key in that. You can get one at https://account.avwx.rest/getting-started .Type "clear" if you want to remove the API key
 ## How to install?
 Copy the user.js and paste it into Tampermonkey.
 If you want it to support more airports, add them yourself, U can ask me anything in my discord(seabus0316)
