@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GeoFS METAR system (AVWX edition with settings)
-// @version      2.7
-// @description  METAR widget using AVWX API, multi-cloud, clocks, API key settings button (with clear support)
+// @name         GeoFS METAR system (AVWX edition)
+// @version      2.6
+// @description  METAR widget with AVWX API support, multi-cloud display, local clocks
 // @author       seabus + ChatGPT
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
@@ -13,7 +13,7 @@
   window.geofsMetarAlreadyLoaded = true;
 
   const AIRPORTS = {
-   "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
+       "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
   "KLAX": { name: "Los Angeles Intl", lat: 33.942536, lon: -118.408075 },
   "RJTT": { name: "Tokyo Haneda", lat: 35.552258, lon: 139.779694 },
   "RCTP": { name: "Taipei Taoyuan", lat: 25.0777, lon: 121.233 },
@@ -258,6 +258,10 @@
   "WBKD": { name: "Lahad Datu Airport", lat: 5.0323, lon: 118.3230 },
   "KRNO": { name: "Reno/Tahoe International Airport", lat: 39.4991, lon: -119.7681 },
   "RCQC": { name: "Magong Airport (Penghu)", lat: 23.5687, lon: 119.6276 },
+ "RCSS": { name: "Taipei Songshan Airport", lat: 25.0694, lon: 121.5525 },
+  "RSCH": { name: "Hualien Airport", lat: 24.0231, lon: 121.6175 },
+  "KRNO": { name: "Reno/Tahoe Intl Airport", lat: 39.4991, lon: -119.7681 },
+
   };
 
   const ICON_MAP = {
@@ -273,7 +277,7 @@
   };
 
   const ICAO_TIMEZONES = {
-     "KSFO": "America/Los_Angeles",
+         "KSFO": "America/Los_Angeles",
   "KLAX": "America/Los_Angeles",
   "RJTT": "Asia/Tokyo",
   "RCTP": "Asia/Taipei",
@@ -518,19 +522,24 @@
   "WBKD": "Asia/Kuching",
   "KRNO": "America/Los_Angeles",
   "RCSS": "Asia/Taipei",
+
   };
 
   async function fetchMETAR(icao) {
     let apiKey = localStorage.getItem("avwx_key");
     if (!apiKey) {
-      console.warn("No AVWX API Key set. Click ⚙️ to set one.");
-      return null;
+      apiKey = prompt("Please enter your AVWX API Key. You can get one for free at https://avwx.rest");
+      if (apiKey) {
+        localStorage.setItem("avwx_key", apiKey);
+        alert("Your API key has been saved. You won’t be asked again.");
+      } else {
+        alert("No API key entered. METAR data cannot be loaded.");
+        return null;
+      }
     }
     try {
       const res = await fetch(`https://avwx.rest/api/metar/${icao}?format=json`, {
-        headers: {
-          "Authorization": apiKey
-        }
+        headers: { "Authorization": apiKey }
       });
       const data = await res.json();
       return data.raw || null;
@@ -646,9 +655,7 @@
 
     const refreshBtn = document.createElement("button");
     refreshBtn.textContent = "⟳";
-    refreshBtn.title = "Refresh METAR";
-    refreshBtn.style.cssText = "cursor:pointer;";
-
+    refreshBtn.style.cssText = "margin-bottom: 6px; cursor:pointer;";
     refreshBtn.onclick = async () => {
       const pos = geofs?.aircraft?.instance?.llaLocation;
       if (pos?.length >= 2) {
@@ -660,30 +667,7 @@
         }
       }
     };
-
-    const settingsBtn = document.createElement("button");
-    settingsBtn.textContent = "⚙️";
-    settingsBtn.title = "Set or clear AVWX API key";
-    settingsBtn.style.cssText = "margin-left: 6px; cursor:pointer;";
-    settingsBtn.onclick = () => {
-      const currentKey = localStorage.getItem("avwx_key") || "";
-      const newKey = prompt("Enter your AVWX API Key (leave empty to remove it):", currentKey);
-      if (newKey === null) return;
-      if (newKey.trim()) {
-        localStorage.setItem("avwx_key", newKey.trim());
-        alert("✅ API key updated.");
-      } else {
-        localStorage.removeItem("avwx_key");
-        alert("🗑️ API key removed.");
-      }
-    };
-
-    const buttonBar = document.createElement("div");
-    buttonBar.style.display = "flex";
-    buttonBar.style.gap = "4px";
-    buttonBar.appendChild(refreshBtn);
-    buttonBar.appendChild(settingsBtn);
-    widget.appendChild(buttonBar);
+    widget.appendChild(refreshBtn);
 
     const locClock = createClockSVG("loc", "UTC");
     const icaoClock = createClockSVG("icao", ICAO_TIMEZONES[icao] || "Local");
