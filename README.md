@@ -1,10 +1,10 @@
 # GeoFS-METAR-system
-A system that shows METAR after you enter the airport ICAO into the widget
+A system that shows METAR after you enter the airport ICAO into the widget. Please check for version updates frequently because the version is still unstable.
 ## How to use?
-The widget will show the closest airport's METAR to you, it will auto refresh in 30 minutes, and you can refresh manually too.
+The widget will display the closest airport's METAR to you. It will auto-refresh every 30 minutes, and you can refresh manually as well.
 U can hide the widget by pressing W.
 ## How to install?
-Copy the user.js and paste them into Tampermonkey.
+Copy the user.js and paste it into Tampermonkey.
 
 If you want it to support more airports, DM me on Discord (seabus0316)
-I will update them often, and you can renew them if you wish to more airport-enabled.
+I will update them often, and you can renew them if you wish to be more airport-enabled.
