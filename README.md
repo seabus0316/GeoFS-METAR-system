@@ -11,3 +11,6 @@ If you want it to support more airports, add them yourself. U can ask me anythin
 ##How to use the converter?
 Find the data in https://ourairports.com/ , and paste the .csv into the converter, press "轉換 (with a rocket emoji)", paste"Airports物件" into const AIRPORTS = {.....}; "icao_timezones" into const ICAO_TIMEZONES = {...};
 You can add airports customarily. I will also upload some airport collection packs here; you can add them to the converter.
+## About clocks
+You can also make the clock faces yourself, paste your image irl in <image href=""> , the size of image is 40*40px.
+I will change the clock faces during festivals
