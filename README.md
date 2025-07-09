@@ -1,16 +1,16 @@
 # GeoFS-METAR-system
-A system that shows Airports METAR that you are nearest to.
-Please check for version updates frequently because the version is still unstable.
+A system that displays the nearest Airports' METAR data.
+Please check for version updates frequently, as the current version is still unstable.
 ## How to use?
 The widget will display the closest airport's METAR to you. It will auto-refresh every 30 minutes, and you can refresh manually as well.
 U can hide the widget by pressing W.
 For the first time, please press the settings button(a hidden button by the refresh button) and paste your API key in that. You can get one at https://account.avwx.rest/getting-started .Type "clear" if you want to remove the API key
 ## How to install?
 Copy the user.js and paste it into Tampermonkey.
-If you want it to support more airports, add them yourself. U can ask me anything in my discord(seabus0316)
+If you want it to support more airports, add them yourself. U can ask me anything on my Discord (seabus0316)
 ##How to use the converter?
-Find the data in https://ourairports.com/ , and paste the .csv into the converter, press "轉換 (with a rocket emoji)", paste"Airports物件" into const AIRPORTS = {.....}; "icao_timezones" into const ICAO_TIMEZONES = {...};
+Find the data in https://ourairports.com/, and paste the .csv into the converter, press "轉換 (with a rocket emoji)", paste"Airports物件" into const AIRPORTS = {.....}; "icao_timezones" into const ICAO_TIMEZONES = {...};
 You can add airports customarily. I will also upload some airport collection packs here; you can add them to the converter.
 ## About clocks
 You can also make the clock faces yourself, paste your image irl in <image href=""> , the size of image is 40*40px.
-I will change the clock faces during festivals
+The clock theme changes with the day and night.
