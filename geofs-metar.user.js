@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         GeoFS METAR system (AVWX edition with image settings button)
-// @version      2.9
+// @version      3.0
 // @description  METAR widget using AVWX API, multi-cloud, clocks, API key input & image-based settings button, draggable, refreshable
 // @author       seabus + ChatGPT
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
+// @grant        none
 // @icon         https://i.ibb.co/wZ2SB149/Chat-GPT-Image-2025-6-30-08-31-37.png
 // ==/UserScript==
 
@@ -330,10 +331,10 @@
     }
     return nearest || defaultICAO;
   }
-  const settingsIconURL = "https://i.ibb.co/wjdnWDq/gear.png";
+  const settingsIconURL = null;
 
   const ICON_MAP = {
-    "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
+    "cloud-ovc": "https://i.ibb.co/KnY57pG/cloud-ovc.png",
     "cloud-bkn": "https://i.ibb.co/Tx4r0N48/cloud-bkn.png",
     "cloud-sct": "https://i.ibb.co/S4znY40y/cloud-sct.png",
     "cloud-few": "https://i.ibb.co/VYfNTq34/cloud-few.png",
@@ -678,7 +679,7 @@
   minute.setAttribute("transform", `rotate(${m * 6} 20 20)`);
 }
 
-  function createClockSVG(id, label) {
+  function createClockSVG(id, label, timeZone) {
     const container = document.createElement("div");
     container.style.textAlign = "center";
     container.style.fontSize = "10px";
@@ -687,17 +688,29 @@
     svg.setAttribute("width", "40");
     svg.setAttribute("height", "40");
     svg.setAttribute("viewBox", "0 0 40 40");
+    // ⏰ 日夜切換底圖與指針顏色
+      let hourNow = 12;
+  try {
+    const tStr = new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", timeZone });
+    hourNow = parseInt(tStr, 10);
+  } catch {}
+  const isDay = hourNow >= 6 && hourNow < 18;
+  const clockFaceURL = isDay
+    ? "https://i.ibb.co/6cxBqt7q/default-clock.png"
+    : "https://i.ibb.co/gbmmhR8B/default-clock-night.png";
+  const pointerColor = isDay ? "black" : "white";
+
     svg.innerHTML = `
       <defs>
         <clipPath id="clockClip">
           <circle cx="20" cy="20" r="18"/>
         </clipPath>
         <g id="clockHands-${id}">
-          <line id="${id}-hour" x1="20" y1="20" x2="20" y2="11" stroke="black" stroke-width="2"/>
-          <line id="${id}-minute" x1="20" y1="20" x2="20" y2="7" stroke="black" stroke-width="1"/>
+          <line id="${id}-hour" x1="20" y1="20" x2="20" y2="11" stroke="${pointerColor}" stroke-width="2"/>
+          <line id="${id}-minute" x1="20" y1="20" x2="20" y2="7" stroke="${pointerColor}" stroke-width="1"/>
         </g>
       </defs>
-      <image href="https://i.ibb.co/6cxBqt7q/default-clock.png" x="0" y="0" width="40" height="40" clip-path="url(#clockClip)"/>
+      <image href="${clockFaceURL}" x="0" y="0" width="40" height="40" clip-path="url(#clockClip)"/>
       <use href="#clockHands-${id}"/>
     `;
     container.appendChild(svg);
@@ -762,12 +775,7 @@
     const settingsBtn = document.createElement("button");
     settingsBtn.title = "Set or clear AVWX API key";
     settingsBtn.style.cssText = "cursor:pointer; background:none; border:none;";
-    const gearImg = document.createElement("img");
-    gearImg.src = settingsIconURL;
-    gearImg.alt = "Settings";
-    gearImg.style.width = "16px";
-    gearImg.style.height = "16px";
-    settingsBtn.appendChild(gearImg);
+    settingsBtn.textContent = "⚙️";
     settingsBtn.onclick = () => {
       const currentKey = localStorage.getItem("avwx_key") || "";
       const newKey = prompt("Enter your AVWX API Key (leave blank to remove):", currentKey);
@@ -837,8 +845,8 @@
     if (qnh) addIcon("pressure", `Q${qnh[1]}`);
     if (fog) addIcon("fog", "Fog/Mist");
 
-    const locClock = createClockSVG("loc", "UTC");
-    const icaoClock = createClockSVG("icao", ICAO_TIMEZONES[icao] || "Local");
+    const locClock = createClockSVG("loc", "UTC", "UTC");
+    const icaoClock = createClockSVG("icao", ICAO_TIMEZONES[icao] || "Local", ICAO_TIMEZONES[icao] || Intl.DateTimeFormat().resolvedOptions().timeZone);
     rotateClock(locClock, getTimeInTimeZone("UTC"));
     rotateClock(icaoClock, getTimeInTimeZone(ICAO_TIMEZONES[icao] || Intl.DateTimeFormat().resolvedOptions().timeZone));
     const clockBox = document.createElement("div");
