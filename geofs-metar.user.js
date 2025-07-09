@@ -688,13 +688,17 @@
     svg.setAttribute("height", "40");
     svg.setAttribute("viewBox", "0 0 40 40");
     svg.innerHTML = `
-      <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="1"/>
-      <line x1="20" y1="2" x2="20" y2="5" stroke="black" stroke-width="1"/>
-      <line x1="35" y1="20" x2="32" y2="20" stroke="black" stroke-width="1"/>
-      <line x1="20" y1="38" x2="20" y2="35" stroke="black" stroke-width="1"/>
-      <line x1="5" y1="20" x2="8" y2="20" stroke="black" stroke-width="1"/>
-      <line id="${id}-hour" x1="20" y1="20" x2="20" y2="11" stroke="black" stroke-width="2"/>
-      <line id="${id}-minute" x1="20" y1="20" x2="20" y2="7" stroke="black" stroke-width="1"/>
+      <defs>
+        <clipPath id="clockClip">
+          <circle cx="20" cy="20" r="18"/>
+        </clipPath>
+        <g id="clockHands-${id}">
+          <line id="${id}-hour" x1="20" y1="20" x2="20" y2="11" stroke="black" stroke-width="2"/>
+          <line id="${id}-minute" x1="20" y1="20" x2="20" y2="7" stroke="black" stroke-width="1"/>
+        </g>
+      </defs>
+      <image href="https://i.ibb.co/6cxBqt7q/default-clock.png" x="0" y="0" width="40" height="40" clip-path="url(#clockClip)"/>
+      <use href="#clockHands-${id}"/>
     `;
     container.appendChild(svg);
     return container;
