@@ -334,7 +334,7 @@
   const settingsIconURL = null;
 
   const ICON_MAP = {
-    "cloud-ovc": "https://i.ibb.co/KnY57pG/cloud-ovc.png",
+    "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
     "cloud-bkn": "https://i.ibb.co/Tx4r0N48/cloud-bkn.png",
     "cloud-sct": "https://i.ibb.co/S4znY40y/cloud-sct.png",
     "cloud-few": "https://i.ibb.co/VYfNTq34/cloud-few.png",
@@ -830,7 +830,29 @@
     const qnh = metar.match(/Q(\d{4})/);
     const fog = /FG|BR/.test(metar);
 
-    if (w) addIcon("wind", `${w[1]}° ${w[3]}kt`);
+    if (w) {
+  const dir = w[1] === "VRB" ? 0 : parseInt(w[1]);
+  const spd = w[3];
+  const d = document.createElement("div");
+  d.style.display = "flex";
+  d.style.alignItems = "center";
+  d.style.marginBottom = "3px";
+
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", "20");
+  svg.setAttribute("height", "20");
+  svg.style.background = "white";
+  svg.style.borderRadius = "50%";
+  svg.style.marginRight = "6px";
+  svg.innerHTML = `<polygon points="10,2 8,10 10,8 12,10" fill="red"/>`;
+  svg.style.transform = `rotate(${dir}deg)`;
+
+  const t = document.createElement("span");
+  t.textContent = `${w[1]}° ${spd}kt`;
+  d.appendChild(svg);
+  d.appendChild(t);
+  iconRow.appendChild(d);
+}
     if (vis) addIcon("visibility", `${parseInt(vis[1]) / 1000} km`);
     if (cloudMatches.length) {
       cloudMatches.forEach(cloud => {
