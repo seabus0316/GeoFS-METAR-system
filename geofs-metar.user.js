@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system (AVWX edition with image settings button)
-// @version      3.0
+// @version      3.0.1
 // @description  METAR widget using AVWX API, multi-cloud, clocks, API key input & image-based settings button, draggable, refreshable
 // @author       seabus + ChatGPT
 // @match        https://geo-fs.com/geofs.php*
@@ -16,7 +16,7 @@
   const defaultICAO = "RCTP";
 
   const AIRPORTS = {
-  "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
+   "KSFO": { name: "San Francisco Intl", lat: 37.6188056, lon: -122.3754167 },
   "KLAX": { name: "Los Angeles Intl", lat: 33.942536, lon: -118.408075 },
   "RJTT": { name: "Tokyo Haneda", lat: 35.552258, lon: 139.779694 },
   "RCTP": { name: "Taipei Taoyuan", lat: 25.0777, lon: 121.233 },
@@ -889,8 +889,19 @@
   }
 
   fetchMETAR(defaultICAO).then(metar => {
-    if (metar) showWidget(metar, defaultICAO);
-  });
+  if (metar) showWidget(metar, defaultICAO);
+
+  // ⏱️ 自動每 60 秒刷新最近位置 METAR
+  setInterval(async () => {
+    const pos = geofs?.aircraft?.instance?.llaLocation;
+    if (pos?.length >= 2) {
+      const [lat, lon] = pos;
+      const nearest = findNearestAirport(lat, lon);
+      const newMetar = await fetchMETAR(nearest);
+      if (newMetar) showWidget(newMetar, nearest);
+    }
+  }, 60000);
+});
 
   document.addEventListener("keydown", function (e) {
     if (e.key.toLowerCase() === "w") {
