@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoFS METAR system (AVWX edition with JSON-based airport data)
-// @version      4.0
-// @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered)
+// @version      4.1
+// @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI
 // @author       seabus + ChatGPT
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
@@ -13,7 +13,7 @@
   window.geofsMetarAlreadyLoaded = true;
 
   const defaultICAO = "RCTP";
-  const airportDataURL = "https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/refs/heads/main/airports_with_tz.json";
+  const airportDataURL = "https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/airports_with_tz.json";
 
   let AIRPORTS = {};
   let ICAO_TIMEZONES = {};
@@ -186,6 +186,15 @@
     `;
 
     const title = document.createElement("div");
+    let apiKey = localStorage.getItem("avwx_key");
+    if (!apiKey) {
+      title.textContent = "⚠️ No API key entered. Please get one at https://avwx.rest to enable METAR.";
+      widget.appendChild(title);
+      widget.appendChild(settingsBtn);
+      document.body.appendChild(widget);
+      makeDraggable(widget);
+      return;
+    }
     title.textContent = `METAR @ ${icao}`;
     widget.appendChild(title);
 
@@ -201,8 +210,27 @@
         if (newMetar) showWidget(newMetar, nearest);
       }
     };
-
     widget.appendChild(refreshBtn);
+
+    const settingsBtn = document.createElement("button");
+    settingsBtn.textContent = "⚙";
+    settingsBtn.title = "Set AVWX API Key";
+    settingsBtn.style.marginLeft = "5px";
+    settingsBtn.onclick = () => {
+  const newKey = prompt("Enter your AVWX API Key (or type 'clear' to remove it):", localStorage.getItem("avwx_key") || "");
+  if (newKey !== null) {
+    if (newKey.trim().toLowerCase() === "clear") {
+      localStorage.removeItem("avwx_key");
+      alert("🗑️ API key has been cleared.");
+    } else if (newKey.trim()) {
+      localStorage.setItem("avwx_key", newKey.trim());
+      alert("✅ API key saved.");
+    } else {
+      alert("⚠️ API key not changed.");
+    }
+  }
+};
+    widget.appendChild(settingsBtn);
 
     const iconRow = document.createElement("div");
     iconRow.style.marginTop = "6px";
@@ -284,6 +312,7 @@
     }, 1000);
 
     widget.appendChild(iconRow);
+
     document.body.appendChild(widget);
     makeDraggable(widget);
   }
