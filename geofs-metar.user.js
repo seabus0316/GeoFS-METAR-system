@@ -131,8 +131,8 @@
     } catch {}
     const isDay = hourNow >= 6 && hourNow < 18;
     const clockFaceURL = isDay
-      ? "https://i.ibb.co/6cxBqt7q/default-clock.png"
-      : "https://i.ibb.co/gbmmhR8B/default-clock-night.png";
+      ? "https://rebrand.ly/db47c8day"
+      : "https://rebrand.ly/9e83d5night";
     const pointerColor = isDay ? "black" : "white";
 
     svg.innerHTML = `
