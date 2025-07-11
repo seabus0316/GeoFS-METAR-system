@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Airport CSV to JSON Converter (with tz)</title>
+  <script src="https://unpkg.com/tz-lookup@6.1.25/tz.js"></script>
+</head>
+<body>
+  <h1>Airport CSV to JSON Converter (with Timezone)</h1>
+  <textarea id="input" rows="10" cols="80" placeholder="Paste your CSV data here"></textarea>
+  <br>
+  <button onclick="convert()">🚀 轉換為 JSON（含 tz）</button>
+  <h3>Result JSON：</h3>
+  <textarea id="output" rows="20" cols="80"></textarea>
+
+  <script>
+    function convert() {
+      const csv = document.getElementById("input").value.trim();
+      const lines = csv.split("\n");
+      const header = lines[0].split(",");
+      const data = {};
+
+      for (let i = 1; i < lines.length; i++) {
+        const row = lines[i].split(",");
+        const icao = row[0];
+        const name = row[1];
+        const lat = parseFloat(row[2]);
+        const lon = parseFloat(row[3]);
+        if (!icao || isNaN(lat) || isNaN(lon)) continue;
+        let tz = "UTC";
+        try {
+          tz = tzlookup(lat, lon);
+        } catch {}
+        data[icao] = { name: name, lat: lat, lon: lon, tz: tz };
+      }
+
+      document.getElementById("output").value = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
