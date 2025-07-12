@@ -6,6 +6,7 @@ The widget will display the closest airport's METAR to you. It will auto-refresh
 U can hide the widget by pressing W.
 For the first time, please paste your API key in a pop-up window. Please get one at https://account.avwx.rest/getting-started first. Type "clear" if you want to remove the API key
 If you want it to support more airports, you can add them yourself. Also, you can ask me anything on my Discord (seabus0316).
+tutorial: https://upfile.live/zh-tw/files/76f6288f
 If you escaped the window accidentally, please refresh the page.
 ## How to install?
 Copy the user.js and paste it into Tampermonkey.
