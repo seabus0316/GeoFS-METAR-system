@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system (AVWX edition with JSON-based airport data)
-// @version      4.0
+// @version      4.1
 // @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI
 // @author       seabus + ChatGPT
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
