@@ -134,7 +134,7 @@
     const isDay = hourNow >= 6 && hourNow < 18;
     const clockFaceURL = isDay
       ? "https://clock-day.short.gy/0Fxzwe"
-      : "https://clock--night.short.gy/IAkdoY";
+      : "https://clock-day.short.gy/2ZpDoNight";
     const pointerColor = isDay ? "black" : "white";
 
     svg.innerHTML = `
