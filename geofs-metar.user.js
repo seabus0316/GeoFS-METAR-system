@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system (AVWX edition with JSON-based airport data)
-// @version      4.1
+// @version      4.1.1
 // @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI
 // @author       seabus + ChatGPT
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -134,7 +134,7 @@
     const isDay = hourNow >= 6 && hourNow < 18;
     const clockFaceURL = isDay
       ? "https://clock-day.short.gy/0Fxzwe"
-      : "https://rebrand.ly/9e83d5night";
+      : "https://clock--night.short.gy/IAkdoY";
     const pointerColor = isDay ? "black" : "white";
 
     svg.innerHTML = `
