@@ -133,7 +133,7 @@
     } catch {}
     const isDay = hourNow >= 6 && hourNow < 18;
     const clockFaceURL = isDay
-      ? "https://rebrand.ly/db47c8day"
+      ? "https://clock-day.short.gy/0Fxzwe"
       : "https://rebrand.ly/9e83d5night";
     const pointerColor = isDay ? "black" : "white";
 
