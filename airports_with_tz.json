@@ -1595,14 +1595,6 @@
     "lon": 122.2326,
     "tz": "Australia/Perth"
   },
-{
-  "RCTP": {
-    "name": "Taipei Taoyuan Intl",
-    "lat": 25.0777,
-    "lon": 121.233,
-    "tz": "Asia/Taipei"
-  },
-
   "NSAS": {
     "name": "Asau Airport (Samoa)",
     "lat": -13.5167,
