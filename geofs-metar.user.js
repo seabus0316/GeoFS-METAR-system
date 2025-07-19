@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         GeoFS METAR system (AVWX edition with JSON-based airport data)
-// @version      4.1.1
+// @name         GeoFS METAR system
+// @version      4.1.2
 // @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI
 // @author       seabus + ChatGPT
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -21,7 +21,7 @@
   let ICAO_TIMEZONES = {};
 
   const ICON_MAP = {
-    "cloud-ovc": "https://i.ibb.co/yFRh3vnr/cloud-ovc",
+    "cloud-ovc": "https://i.ibb.co/KnY57pG/cloud-ovc.png",
     "cloud-bkn": "https://i.ibb.co/Tx4r0N48/cloud-bkn.png",
     "cloud-sct": "https://i.ibb.co/S4znY40y/cloud-sct.png",
     "cloud-few": "https://i.ibb.co/VYfNTq34/cloud-few.png",
