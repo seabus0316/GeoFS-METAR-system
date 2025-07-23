@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.1.2
-// @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI
+// @version      4.1.3
+// @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI. Widget visibility and position are persistent across refreshes.
 // @author       seabus + ChatGPT
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
 // @downloadURL  https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -154,6 +154,7 @@
     return container;
   }
 
+  // --- Persistent draggable & position ---
   function makeDraggable(el) {
     let isDragging = false, offsetX = 0, offsetY = 0;
     el.style.cursor = "move";
@@ -165,9 +166,14 @@
     });
     document.addEventListener("mousemove", e => {
       if (isDragging) {
-        el.style.left = Math.max(0, Math.min(e.clientX - offsetX, window.innerWidth - el.offsetWidth)) + "px";
-        el.style.top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight)) + "px";
+        const left = Math.max(0, Math.min(e.clientX - offsetX, window.innerWidth - el.offsetWidth));
+        const top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight));
+        el.style.left = left + "px";
+        el.style.top = top + "px";
         el.style.right = "auto";
+        // --- Save position to localStorage ---
+        localStorage.setItem("geofsMetarWidgetLeft", el.style.left);
+        localStorage.setItem("geofsMetarWidgetTop", el.style.top);
       }
     });
     document.addEventListener("mouseup", () => {
@@ -186,6 +192,19 @@
       padding: 10px; border-radius: 8px;
       font: 12px monospace; z-index: 9999;
     `;
+
+    // ---- Restore display state ----
+    const displayState = localStorage.getItem("geofsMetarWidgetDisplay");
+    widget.style.display = (displayState === "none") ? "none" : "block";
+
+    // ---- Restore position ----
+    const savedLeft = localStorage.getItem("geofsMetarWidgetLeft");
+    const savedTop = localStorage.getItem("geofsMetarWidgetTop");
+    if (savedLeft && savedTop) {
+      widget.style.left = savedLeft;
+      widget.style.top = savedTop;
+      widget.style.right = "auto";
+    }
 
     const title = document.createElement("div");
     let apiKey = localStorage.getItem("avwx_key");
@@ -219,19 +238,19 @@
     settingsBtn.title = "Set AVWX API Key";
     settingsBtn.style.marginLeft = "5px";
     settingsBtn.onclick = () => {
-  const newKey = prompt("Enter your AVWX API Key (or type 'clear' to remove it):", localStorage.getItem("avwx_key") || "");
-  if (newKey !== null) {
-    if (newKey.trim().toLowerCase() === "clear") {
-      localStorage.removeItem("avwx_key");
-      alert("🗑️ API key has been cleared.");
-    } else if (newKey.trim()) {
-      localStorage.setItem("avwx_key", newKey.trim());
-      alert("✅ API key saved.");
-    } else {
-      alert("⚠️ API key not changed.");
-    }
-  }
-};
+      const newKey = prompt("Enter your AVWX API Key (or type 'clear' to remove it):", localStorage.getItem("avwx_key") || "");
+      if (newKey !== null) {
+        if (newKey.trim().toLowerCase() === "clear") {
+          localStorage.removeItem("avwx_key");
+          alert("🗑️ API key has been cleared.");
+        } else if (newKey.trim()) {
+          localStorage.setItem("avwx_key", newKey.trim());
+          alert("✅ API key saved.");
+        } else {
+          alert("⚠️ API key not changed.");
+        }
+      }
+    };
     widget.appendChild(settingsBtn);
 
     const iconRow = document.createElement("div");
@@ -333,7 +352,11 @@
     document.addEventListener("keydown", function (e) {
       if (e.key.toLowerCase() === "w") {
         const w = window.geofsMetarWidget;
-        if (w) w.style.display = (w.style.display === "none") ? "block" : "none";
+        if (w) {
+          w.style.display = (w.style.display === "none") ? "block" : "none";
+          // --- Save display state ---
+          localStorage.setItem("geofsMetarWidgetDisplay", w.style.display);
+        }
       }
     });
 
