@@ -1,41 +1,67 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Airport CSV to JSON Converter (with tz)</title>
-  <script src="https://unpkg.com/tz-lookup@6.1.25/tz.js"></script>
+  <title>Airport CSV to JSON (All Textareas)</title>
+  <style>
+    textarea {
+      width: 32%;
+      height: 300px;
+      display: inline-block;
+      vertical-align: top;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 8px;
+      box-sizing: border-box;
+      margin-right: 1%;
+    }
+    button {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Airport CSV to JSON Converter (with Timezone)</h1>
-  <textarea id="input" rows="10" cols="80" placeholder="Paste your CSV data here"></textarea>
-  <br>
-  <button onclick="convert()">🚀 轉換為 JSON（含 tz）</button>
-  <h3>Result JSON：</h3>
-  <textarea id="output" rows="20" cols="80"></textarea>
+  <h2>🛫 Airport CSV → JSON Converter</h2>
+  <button onclick="convert()">Convert & Deduplicate</button><br>
+
+  <textarea id="csvInput" placeholder="✍️ Input CSV (can include IDENT,name,lat,lon,tz header)"></textarea>
+  <textarea id="jsonOutput" placeholder="✅ Output JSON will appear here"></textarea>
+  <textarea id="dupeOutput" placeholder="⚠️ Duplicates (if any) will appear here"></textarea>
 
   <script>
     function convert() {
-      const csv = document.getElementById("input").value.trim();
-      const lines = csv.split("\n");
-      const header = lines[0].split(",");
-      const data = {};
+      const csv = document.getElementById("csvInput").value.trim();
+      const lines = csv.split(/\r?\n/);
+      const result = {};
+      const duplicates = [];
 
-      for (let i = 1; i < lines.length; i++) {
-        const row = lines[i].split(",");
-        const icao = row[0];
-        const name = row[1];
-        const lat = parseFloat(row[2]);
-        const lon = parseFloat(row[3]);
-        if (!icao || isNaN(lat) || isNaN(lon)) continue;
-        let tz = "UTC";
-        try {
-          tz = tzlookup(lat, lon);
-        } catch {}
-        data[icao] = { name: name, lat: lat, lon: lon, tz: tz };
+      const dataLines = lines.filter((line, idx) => {
+        if (idx === 0 && line.toLowerCase().includes("name") && line.toLowerCase().includes("lat")) {
+          return false; // skip header
+        }
+        return true;
+      });
+
+      for (const line of dataLines) {
+        const [icao, name, lat, lon, tz] = line.split(",");
+        const key = icao?.trim().toUpperCase();
+        if (!key || result[key]) {
+          if (key) duplicates.push(key);
+          continue;
+        }
+        result[key] = {
+          name: name?.trim() || "",
+          lat: parseFloat(lat),
+          lon: parseFloat(lon),
+          tz: tz?.trim() || "UTC"
+        };
       }
 
-      document.getElementById("output").value = JSON.stringify(data, null, 2);
+      document.getElementById("jsonOutput").value = JSON.stringify(result, null, 2);
+      document.getElementById("dupeOutput").value = duplicates.length
+        ? duplicates.join("\n")
+        : "✅ No duplicates found.";
     }
   </script>
 </body>
