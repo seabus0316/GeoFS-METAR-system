@@ -3,31 +3,31 @@
     "name": "San Francisco Intl",
     "lat": 37.6188056,
     "lon": -122.3754167,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KLAX": {
     "name": "Los Angeles Intl",
     "lat": 33.942536,
     "lon": -118.408075,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "RJTT": {
     "name": "Tokyo Haneda",
     "lat": 35.552258,
     "lon": 139.779694,
-    "tz": "UTC"
+    "tz": "Asia/Tokyo"
   },
   "RCTP": {
     "name": "Taipei Taoyuan",
     "lat": 25.0777,
     "lon": 121.233,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "EGLL": {
     "name": "London Heathrow",
     "lat": 51.4706,
     "lon": -0.461941,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "LFPG": {
     "name": "Paris Charles de Gaulle",
@@ -45,7 +45,7 @@
     "name": "Beijing Capital Intl",
     "lat": 40.0801,
     "lon": 116.5846,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "OMDB": {
     "name": "Dubai Intl",
@@ -453,7 +453,7 @@
     "name": "John F. Kennedy Intl",
     "lat": 40.6413,
     "lon": -73.7781,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KEWR": {
     "name": "Newark Liberty Intl",
@@ -1263,7 +1263,7 @@
     "name": "Magong Airport (Penghu)",
     "lat": 23.5687,
     "lon": 119.6276,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "KMCI": {
     "name": "Kansas City International Airport",
@@ -1557,7 +1557,7 @@
     "name": "Captain Rolden International (Iquitos",
     "lat": null,
     "lon": -3.7847,
-    "tz": "-73.3088"
+    "tz": "UTC"
   },
   "SKPS": {
     "name": "Antonio Nariño Airport (Pasto)",
@@ -1629,7 +1629,7 @@
     "name": "Shanghai Hongqiao Intl",
     "lat": 31.1979,
     "lon": 121.3363,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZSPD": {
     "name": "Shanghai Pudong Intl",
@@ -1749,7 +1749,7 @@
     "name": "Kaohsiung Intl",
     "lat": 22.5771,
     "lon": 120.35,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCMQ": {
     "name": "Taichung Intl (Ching Chuan Kang)",
@@ -1827,7 +1827,7 @@
     "name": "Lugang Airport (closed",
     "lat": null,
     "lon": 24.0583,
-    "tz": "120.4430"
+    "tz": "UTC"
   },
   "RCSP": {
     "name": "Pingtung Airport",
