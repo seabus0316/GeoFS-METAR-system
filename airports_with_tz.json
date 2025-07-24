@@ -33,13 +33,13 @@
     "name": "Paris Charles de Gaulle",
     "lat": 49.0097,
     "lon": 2.5479,
-    "tz": "UTC"
+    "tz": "Europe/Paris"
   },
   "EDDF": {
     "name": "Frankfurt am Main",
     "lat": 50.0379,
     "lon": 8.5622,
-    "tz": "UTC"
+    "tz": "Europe/Berlin"
   },
   "ZBAA": {
     "name": "Beijing Capital Intl",
@@ -51,403 +51,403 @@
     "name": "Dubai Intl",
     "lat": 25.2532,
     "lon": 55.3657,
-    "tz": "UTC"
+    "tz": "Asia/Dubai"
   },
   "YSSY": {
     "name": "Sydney Kingsford Smith",
     "lat": -33.9399,
     "lon": 151.1753,
-    "tz": "UTC"
+    "tz": "Australia/Sydney"
   },
   "RJAA": {
     "name": "Narita Intl",
     "lat": 35.7719,
     "lon": 140.3929,
-    "tz": "UTC"
+    "tz": "Asia/Tokyo"
   },
   "WSSS": {
     "name": "Singapore Changi",
     "lat": 1.3644,
     "lon": 103.9915,
-    "tz": "UTC"
+    "tz": "Asia/Singapore"
   },
   "EHAM": {
     "name": "Amsterdam Schiphol",
     "lat": 52.3086,
     "lon": 4.7639,
-    "tz": "UTC"
+    "tz": "Europe/Amsterdam"
   },
   "CYYZ": {
     "name": "Toronto Pearson Intl",
     "lat": 43.6777,
     "lon": -79.6248,
-    "tz": "UTC"
+    "tz": "America/Toronto"
   },
   "CYVR": {
     "name": "Vancouver Intl",
     "lat": 49.1951,
     "lon": -123.1779,
-    "tz": "UTC"
+    "tz": "America/Vancouver"
   },
   "VHHH": {
     "name": "Hong Kong Intl",
     "lat": 22.3089,
     "lon": 113.9146,
-    "tz": "UTC"
+    "tz": "Asia/Hong_Kong"
   },
   "VIDP": {
     "name": "Indira Gandhi Intl",
     "lat": 28.5562,
     "lon": 77.1,
-    "tz": "UTC"
+    "tz": "Asia/Kolkata"
   },
   "RKSI": {
     "name": "Incheon Intl",
     "lat": 37.4602,
     "lon": 126.4407,
-    "tz": "UTC"
+    "tz": "Asia/Seoul"
   },
   "NZAA": {
     "name": "Auckland Intl",
     "lat": -37.0081,
     "lon": 174.7917,
-    "tz": "UTC"
+    "tz": "Pacific/Auckland"
   },
   "FAOR": {
     "name": "OR Tambo Intl",
     "lat": -26.1337,
     "lon": 28.242,
-    "tz": "UTC"
+    "tz": "Africa/Johannesburg"
   },
   "SAEZ": {
     "name": "Ministro Pistarini Intl",
     "lat": -34.8222,
     "lon": -58.5358,
-    "tz": "UTC"
+    "tz": "America/Argentina/Buenos_Aires"
   },
   "SCEL": {
     "name": "Arturo Merino Benítez Intl",
     "lat": -33.3929,
     "lon": -70.7858,
-    "tz": "UTC"
+    "tz": "America/Santiago"
   },
   "SBGR": {
     "name": "Guarulhos Intl",
     "lat": -23.4356,
     "lon": -46.4731,
-    "tz": "UTC"
+    "tz": "America/Sao_Paulo"
   },
   "SEQM": {
     "name": "Mariscal Sucre Intl",
     "lat": -0.1225,
     "lon": -78.3544,
-    "tz": "UTC"
+    "tz": "America/Guayaquil"
   },
   "SKBO": {
     "name": "El Dorado Intl",
     "lat": 4.7016,
     "lon": -74.1469,
-    "tz": "UTC"
+    "tz": "America/Bogota"
   },
   "TJSJ": {
     "name": "Luis Muñoz Marín Intl",
     "lat": 18.4394,
     "lon": -66.0018,
-    "tz": "UTC"
+    "tz": "America/Puerto_Rico"
   },
   "MMMX": {
     "name": "Benito Juárez Intl",
     "lat": 19.4361,
     "lon": -99.0719,
-    "tz": "UTC"
+    "tz": "America/Mexico_City"
   },
   "LEMD": {
     "name": "Madrid Barajas",
     "lat": 40.4936,
     "lon": -3.5668,
-    "tz": "UTC"
+    "tz": "Europe/Madrid"
   },
   "LIRF": {
     "name": "Leonardo da Vinci–Fiumicino",
     "lat": 41.8003,
     "lon": 12.2389,
-    "tz": "UTC"
+    "tz": "Europe/Rome"
   },
   "EDDM": {
     "name": "Franz Josef Strauss Intl",
     "lat": 48.3538,
     "lon": 11.7861,
-    "tz": "UTC"
+    "tz": "Europe/Berlin"
   },
   "LOWW": {
     "name": "Vienna Intl",
     "lat": 48.1103,
     "lon": 16.5697,
-    "tz": "UTC"
+    "tz": "Europe/Vienna"
   },
   "LFMN": {
     "name": "Nice Côte d'Azur",
     "lat": 43.6584,
     "lon": 7.2159,
-    "tz": "UTC"
+    "tz": "Europe/Paris"
   },
   "EBBR": {
     "name": "Brussels Airport",
     "lat": 50.9014,
     "lon": 4.4844,
-    "tz": "UTC"
+    "tz": "Europe/Brussels"
   },
   "EKCH": {
     "name": "Copenhagen Kastrup",
     "lat": 55.6181,
     "lon": 12.6561,
-    "tz": "UTC"
+    "tz": "Europe/Copenhagen"
   },
   "ESSA": {
     "name": "Stockholm Arlanda",
     "lat": 59.6519,
     "lon": 17.9186,
-    "tz": "UTC"
+    "tz": "Europe/Stockholm"
   },
   "ENGM": {
     "name": "Oslo Gardermoen",
     "lat": 60.1939,
     "lon": 11.1004,
-    "tz": "UTC"
+    "tz": "Europe/Oslo"
   },
   "EFHK": {
     "name": "Helsinki Vantaa",
     "lat": 60.3172,
     "lon": 24.9633,
-    "tz": "UTC"
+    "tz": "Europe/Helsinki"
   },
   "ULLI": {
     "name": "Pulkovo Airport",
     "lat": 59.8003,
     "lon": 30.2625,
-    "tz": "UTC"
+    "tz": "Europe/Moscow"
   },
   "LCLK": {
     "name": "Larnaca Intl",
     "lat": 34.8751,
     "lon": 33.6249,
-    "tz": "UTC"
+    "tz": "Asia/Nicosia"
   },
   "LTBA": {
     "name": "Istanbul Atatürk (Closed)",
     "lat": 40.9769,
     "lon": 28.8146,
-    "tz": "UTC"
+    "tz": "Europe/Istanbul"
   },
   "LTFM": {
     "name": "Istanbul Airport",
     "lat": 41.2753,
     "lon": 28.7525,
-    "tz": "UTC"
+    "tz": "Europe/Istanbul"
   },
   "UUWW": {
     "name": "Vnukovo Intl",
     "lat": 55.5915,
     "lon": 37.2615,
-    "tz": "UTC"
+    "tz": "Europe/Moscow"
   },
   "UUEE": {
     "name": "Sheremetyevo Intl",
     "lat": 55.9726,
     "lon": 37.4146,
-    "tz": "UTC"
+    "tz": "Europe/Moscow"
   },
   "OMAA": {
     "name": "Abu Dhabi Intl",
     "lat": 24.433,
     "lon": 54.6511,
-    "tz": "UTC"
+    "tz": "Asia/Dubai"
   },
   "OERK": {
     "name": "King Khalid Intl",
     "lat": 24.9576,
     "lon": 46.6988,
-    "tz": "UTC"
+    "tz": "Asia/Riyadh"
   },
   "OEJN": {
     "name": "King Abdulaziz Intl",
     "lat": 21.6796,
     "lon": 39.1565,
-    "tz": "UTC"
+    "tz": "Asia/Riyadh"
   },
   "OTHH": {
     "name": "Hamad Intl",
     "lat": 25.2731,
     "lon": 51.6081,
-    "tz": "UTC"
+    "tz": "Asia/Qatar"
   },
   "OKBK": {
     "name": "Kuwait Intl",
     "lat": 29.2266,
     "lon": 47.9689,
-    "tz": "UTC"
+    "tz": "Asia/Kuwait"
   },
   "OJAI": {
     "name": "Queen Alia Intl",
     "lat": 31.7226,
     "lon": 35.9932,
-    "tz": "UTC"
+    "tz": "Asia/Amman"
   },
   "DAAG": {
     "name": "Algiers Houari Boumediene",
     "lat": 36.691,
     "lon": 3.2154,
-    "tz": "UTC"
+    "tz": "Africa/Algiers"
   },
   "DTTA": {
     "name": "Tunis–Carthage Intl",
     "lat": 36.851,
     "lon": 10.2272,
-    "tz": "UTC"
+    "tz": "Africa/Tunis"
   },
   "HECA": {
     "name": "Cairo Intl",
     "lat": 30.1219,
     "lon": 31.4056,
-    "tz": "UTC"
+    "tz": "Africa/Cairo"
   },
   "HKJK": {
     "name": "Jomo Kenyatta Intl",
     "lat": -1.3192,
     "lon": 36.9278,
-    "tz": "UTC"
+    "tz": "Africa/Nairobi"
   },
   "DNMM": {
     "name": "Murtala Muhammed Intl",
     "lat": 6.5774,
     "lon": 3.3212,
-    "tz": "UTC"
+    "tz": "Africa/Lagos"
   },
   "GVAC": {
     "name": "Amílcar Cabral Intl",
     "lat": 16.7414,
     "lon": -22.9494,
-    "tz": "UTC"
+    "tz": "Atlantic/Cape_Verde"
   },
   "GMMN": {
     "name": "Mohammed V Intl",
     "lat": 33.3675,
     "lon": -7.5899,
-    "tz": "UTC"
+    "tz": "Africa/Casablanca"
   },
   "FMEE": {
     "name": "Roland Garros Airport",
     "lat": -20.8871,
     "lon": 55.5103,
-    "tz": "UTC"
+    "tz": "Indian/Reunion"
   },
   "FACT": {
     "name": "Cape Town Intl",
     "lat": -33.9648,
     "lon": 18.6017,
-    "tz": "UTC"
+    "tz": "Africa/Johannesburg"
   },
   "FIMP": {
     "name": "SSR Intl (Mauritius)",
     "lat": -20.4302,
     "lon": 57.6836,
-    "tz": "UTC"
+    "tz": "Indian/Mauritius"
   },
   "AYPY": {
     "name": "Port Moresby Jacksons Intl",
     "lat": -9.4434,
     "lon": 147.22,
-    "tz": "UTC"
+    "tz": "Pacific/Port_Moresby"
   },
   "NZCH": {
     "name": "Christchurch Intl",
     "lat": -43.4894,
     "lon": 172.5322,
-    "tz": "UTC"
+    "tz": "Pacific/Auckland"
   },
   "YMML": {
     "name": "Melbourne Intl",
     "lat": -37.6733,
     "lon": 144.8433,
-    "tz": "UTC"
+    "tz": "Australia/Melbourne"
   },
   "YPAD": {
     "name": "Adelaide Intl",
     "lat": -34.945,
     "lon": 138.5306,
-    "tz": "UTC"
+    "tz": "Australia/Adelaide"
   },
   "YBBN": {
     "name": "Brisbane Intl",
     "lat": -27.3842,
     "lon": 153.1175,
-    "tz": "UTC"
+    "tz": "Australia/Brisbane"
   },
   "PANC": {
     "name": "Ted Stevens Anchorage Intl",
     "lat": 61.1743,
     "lon": -149.9962,
-    "tz": "UTC"
+    "tz": "America/Anchorage"
   },
   "KSEA": {
     "name": "Seattle-Tacoma Intl",
     "lat": 47.4502,
     "lon": -122.3088,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KDEN": {
     "name": "Denver Intl",
     "lat": 39.8561,
     "lon": -104.6737,
-    "tz": "UTC"
+    "tz": "America/Denver"
   },
   "KORD": {
     "name": "Chicago O'Hare Intl",
     "lat": 41.9742,
     "lon": -87.9073,
-    "tz": "UTC"
+    "tz": "America/Chicago"
   },
   "KATL": {
     "name": "Hartsfield–Jackson Atlanta Intl",
     "lat": 33.6407,
     "lon": -84.4277,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KDFW": {
     "name": "Dallas/Fort Worth Intl",
     "lat": 32.8998,
     "lon": -97.0403,
-    "tz": "UTC"
+    "tz": "America/Chicago"
   },
   "KMIA": {
     "name": "Miami Intl",
     "lat": 25.7959,
     "lon": -80.287,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KPHX": {
     "name": "Phoenix Sky Harbor Intl",
     "lat": 33.4373,
     "lon": -112.0078,
-    "tz": "UTC"
+    "tz": "America/Phoenix"
   },
   "KCLT": {
     "name": "Charlotte Douglas Intl",
     "lat": 35.214,
     "lon": -80.9431,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KBOS": {
     "name": "Boston Logan Intl",
     "lat": 42.3656,
     "lon": -71.0096,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KLGA": {
     "name": "LaGuardia Airport",
     "lat": 40.7769,
     "lon": -73.874,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KJFK": {
     "name": "John F. Kennedy Intl",
@@ -459,367 +459,367 @@
     "name": "Newark Liberty Intl",
     "lat": 40.6895,
     "lon": -74.1745,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KMSP": {
     "name": "Minneapolis–Saint Paul Intl",
     "lat": 44.882,
     "lon": -93.2218,
-    "tz": "UTC"
+    "tz": "America/Chicago"
   },
   "KDTW": {
     "name": "Detroit Metro Wayne County",
     "lat": 42.2121,
     "lon": -83.3488,
-    "tz": "UTC"
+    "tz": "America/Detroit"
   },
   "KIAD": {
     "name": "Washington Dulles Intl",
     "lat": 38.9531,
     "lon": -77.4565,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KDCA": {
     "name": "Ronald Reagan Washington National",
     "lat": 38.8512,
     "lon": -77.0402,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KTPA": {
     "name": "Tampa Intl",
     "lat": 27.9755,
     "lon": -82.5332,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KSLC": {
     "name": "Salt Lake City Intl",
     "lat": 40.7899,
     "lon": -111.9791,
-    "tz": "UTC"
+    "tz": "America/Denver"
   },
   "KPDX": {
     "name": "Portland Intl",
     "lat": 45.5887,
     "lon": -122.5975,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KSAN": {
     "name": "San Diego Intl",
     "lat": 32.7338,
     "lon": -117.1933,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KLAS": {
     "name": "Harry Reid Intl",
     "lat": 36.0801,
     "lon": -115.1522,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KMDW": {
     "name": "Chicago Midway Intl",
     "lat": 41.7868,
     "lon": -87.7522,
-    "tz": "UTC"
+    "tz": "America/Chicago"
   },
   "KBWI": {
     "name": "Baltimore/Washington Intl",
     "lat": 39.1754,
     "lon": -76.6684,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "PHNL": {
     "name": "Honolulu Intl",
     "lat": 21.3187,
     "lon": -157.9224,
-    "tz": "UTC"
+    "tz": "Pacific/Honolulu"
   },
   "PHTO": {
     "name": "Hilo Intl",
     "lat": 19.7214,
     "lon": -155.0485,
-    "tz": "UTC"
+    "tz": "Pacific/Honolulu"
   },
   "PAFA": {
     "name": "Fairbanks Intl",
     "lat": 64.8151,
     "lon": -147.8562,
-    "tz": "UTC"
+    "tz": "America/Anchorage"
   },
   "PGUM": {
     "name": "Antonio B. Won Pat Intl",
     "lat": 13.4834,
     "lon": 144.7962,
-    "tz": "UTC"
+    "tz": "Pacific/Guam"
   },
   "UHPP": {
     "name": "Petropavlovsk-Kamchatsky",
     "lat": 52.0263,
     "lon": 158.631,
-    "tz": "UTC"
+    "tz": "Asia/Kamchatka"
   },
   "UAAA": {
     "name": "Almaty Intl",
     "lat": 43.3521,
     "lon": 77.0405,
-    "tz": "UTC"
+    "tz": "Asia/Almaty"
   },
   "UTTT": {
     "name": "Tashkent Intl",
     "lat": 41.2579,
     "lon": 69.2812,
-    "tz": "UTC"
+    "tz": "Asia/Tashkent"
   },
   "UBBB": {
     "name": "Heydar Aliyev Intl",
     "lat": 40.4675,
     "lon": 50.0467,
-    "tz": "UTC"
+    "tz": "Asia/Baku"
   },
   "UKBB": {
     "name": "Kyiv Boryspil Intl",
     "lat": 50.345,
     "lon": 30.8947,
-    "tz": "UTC"
+    "tz": "Europe/Kiev"
   },
   "LBSF": {
     "name": "Sofia Airport",
     "lat": 42.6967,
     "lon": 23.4114,
-    "tz": "UTC"
+    "tz": "Europe/Sofia"
   },
   "LROP": {
     "name": "Henri Coandă Intl",
     "lat": 44.5711,
     "lon": 26.085,
-    "tz": "UTC"
+    "tz": "Europe/Bucharest"
   },
   "LDZA": {
     "name": "Zagreb Airport",
     "lat": 45.7429,
     "lon": 16.0688,
-    "tz": "UTC"
+    "tz": "Europe/Zagreb"
   },
   "LJLJ": {
     "name": "Jože Pučnik Airport",
     "lat": 46.2237,
     "lon": 14.4576,
-    "tz": "UTC"
+    "tz": "Europe/Ljubljana"
   },
   "ROAH": {
     "name": "Naha Airport",
     "lat": 26.1958,
     "lon": 127.646,
-    "tz": "UTC"
+    "tz": "Asia/Tokyo"
   },
   "ZGSZ": {
     "name": "Shenzhen Bao'an Intl",
     "lat": 22.6393,
     "lon": 113.8105,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "RJGG": {
     "name": "Chubu Centrair Intl",
     "lat": 34.8584,
     "lon": 136.8044,
-    "tz": "UTC"
+    "tz": "Asia/Tokyo"
   },
   "VTBS": {
     "name": "Suvarnabhumi Intl",
     "lat": 13.69,
     "lon": 100.7501,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "WMKK": {
     "name": "Kuala Lumpur Intl",
     "lat": 2.7456,
     "lon": 101.7072,
-    "tz": "UTC"
+    "tz": "Asia/Kuala_Lumpur"
   },
   "WIII": {
     "name": "Soekarno–Hatta Intl",
     "lat": -6.1256,
     "lon": 106.6558,
-    "tz": "UTC"
+    "tz": "Asia/Jakarta"
   },
   "NZWN": {
     "name": "Wellington Intl",
     "lat": -41.3272,
     "lon": 174.8053,
-    "tz": "UTC"
+    "tz": "Pacific/Auckland"
   },
   "YPPH": {
     "name": "Perth Intl",
     "lat": -31.9403,
     "lon": 115.9672,
-    "tz": "UTC"
+    "tz": "Australia/Perth"
   },
   "NTAA": {
     "name": "Faa'a Intl",
     "lat": -17.5537,
     "lon": -149.6063,
-    "tz": "UTC"
+    "tz": "Pacific/Tahiti"
   },
   "CYUL": {
     "name": "Montréal-Trudeau Intl",
     "lat": 45.4706,
     "lon": -73.7408,
-    "tz": "UTC"
+    "tz": "America/Toronto"
   },
   "CYYC": {
     "name": "Calgary Intl",
     "lat": 51.1139,
     "lon": -114.0203,
-    "tz": "UTC"
+    "tz": "America/Edmonton"
   },
   "SEGU": {
     "name": "José Joaquín de Olmedo Intl",
     "lat": -2.1574,
     "lon": -79.8836,
-    "tz": "UTC"
+    "tz": "America/Guayaquil"
   },
   "SLLP": {
     "name": "El Alto Intl",
     "lat": -16.5133,
     "lon": -68.1923,
-    "tz": "UTC"
+    "tz": "America/La_Paz"
   },
   "SPZO": {
     "name": "Velasco Astete Intl",
     "lat": -13.5357,
     "lon": -71.9388,
-    "tz": "UTC"
+    "tz": "America/Lima"
   },
   "SUMU": {
     "name": "Carrasco Intl",
     "lat": -34.8384,
     "lon": -56.0308,
-    "tz": "UTC"
+    "tz": "America/Montevideo"
   },
   "SAME": {
     "name": "El Plumerillo Airport",
     "lat": -32.8317,
     "lon": -68.7929,
-    "tz": "UTC"
+    "tz": "America/Argentina/Mendoza"
   },
   "SBSP": {
     "name": "Congonhas Airport",
     "lat": -23.6261,
     "lon": -46.6564,
-    "tz": "UTC"
+    "tz": "America/Sao_Paulo"
   },
   "FQMA": {
     "name": "Maputo Intl",
     "lat": -25.9208,
     "lon": 32.5726,
-    "tz": "UTC"
+    "tz": "Africa/Maputo"
   },
   "HBBA": {
     "name": "Bujumbura Intl",
     "lat": -3.324,
     "lon": 29.3185,
-    "tz": "UTC"
+    "tz": "Africa/Bujumbura"
   },
   "HSSS": {
     "name": "Khartoum Intl",
     "lat": 15.5895,
     "lon": 32.5532,
-    "tz": "UTC"
+    "tz": "Africa/Khartoum"
   },
   "HEGN": {
     "name": "Hurghada Intl",
     "lat": 27.1783,
     "lon": 33.7994,
-    "tz": "UTC"
+    "tz": "Africa/Cairo"
   },
   "GMMX": {
     "name": "Marrakesh Menara",
     "lat": 31.6069,
     "lon": -8.0363,
-    "tz": "UTC"
+    "tz": "Africa/Casablanca"
   },
   "GQNN": {
     "name": "Nouakchott Intl",
     "lat": 18.0979,
     "lon": -15.9474,
-    "tz": "UTC"
+    "tz": "Africa/Nouakchott"
   },
   "DTMB": {
     "name": "Monastir Habib Bourguiba",
     "lat": 35.7581,
     "lon": 10.7547,
-    "tz": "UTC"
+    "tz": "Africa/Tunis"
   },
   "LATI": {
     "name": "Tirana Intl",
     "lat": 41.4147,
     "lon": 19.7206,
-    "tz": "UTC"
+    "tz": "Europe/Tirane"
   },
   "LYBE": {
     "name": "Belgrade Nikola Tesla",
     "lat": 44.8184,
     "lon": 20.3094,
-    "tz": "UTC"
+    "tz": "Europe/Belgrade"
   },
   "LHBP": {
     "name": "Budapest Ferenc Liszt Intl",
     "lat": 47.4298,
     "lon": 19.2611,
-    "tz": "UTC"
+    "tz": "Europe/Budapest"
   },
   "EVRA": {
     "name": "Riga Intl",
     "lat": 56.9236,
     "lon": 23.9711,
-    "tz": "UTC"
+    "tz": "Europe/Riga"
   },
   "LWSK": {
     "name": "Skopje Intl",
     "lat": 41.9616,
     "lon": 21.6214,
-    "tz": "UTC"
+    "tz": "Europe/Skopje"
   },
   "LPPT": {
     "name": "Lisbon Humberto Delgado",
     "lat": 38.7742,
     "lon": -9.1342,
-    "tz": "UTC"
+    "tz": "Europe/Lisbon"
   },
   "LEBL": {
     "name": "Barcelona El Prat",
     "lat": 41.2974,
     "lon": 2.0833,
-    "tz": "UTC"
+    "tz": "Europe/Madrid"
   },
   "EIDW": {
     "name": "Dublin Intl",
     "lat": 53.4213,
     "lon": -6.2701,
-    "tz": "UTC"
+    "tz": "Europe/Dublin"
   },
   "LZIB": {
     "name": "Bratislava Airport",
     "lat": 48.1702,
     "lon": 17.2127,
-    "tz": "UTC"
+    "tz": "Europe/Bratislava"
   },
   "BIKF": {
     "name": "Keflavik Intl",
     "lat": 63.985,
     "lon": -22.6056,
-    "tz": "UTC"
+    "tz": "Atlantic/Reykjavik"
   },
   "BGSF": {
     "name": "Kangerlussuaq Airport",
     "lat": 67.0122,
     "lon": -50.7116,
-    "tz": "UTC"
+    "tz": "America/Godthab"
   },
   "BGGH": {
     "name": "Nuuk Airport",
     "lat": 64.1909,
     "lon": -51.6781,
-    "tz": "UTC"
+    "tz": "America/Godthab"
   },
   "IDENT": {
     "name": "name",
@@ -831,433 +831,433 @@
     "name": "London City Airport",
     "lat": 51.5053,
     "lon": 0.0553,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGKK": {
     "name": "London Gatwick",
     "lat": 51.1481,
     "lon": -0.1903,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGSS": {
     "name": "London Stansted",
     "lat": 51.885,
     "lon": 0.235,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGGW": {
     "name": "London Luton",
     "lat": 51.8747,
     "lon": -0.3683,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGCC": {
     "name": "Manchester Airport",
     "lat": 53.3659,
     "lon": -2.2727,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGNX": {
     "name": "East Midlands Airport",
     "lat": 52.8311,
     "lon": -1.3281,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGGD": {
     "name": "Bristol Airport",
     "lat": 51.3827,
     "lon": -2.7191,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGHI": {
     "name": "Southampton Airport",
     "lat": 50.9503,
     "lon": -1.3568,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGPD": {
     "name": "Aberdeen Airport",
     "lat": 57.2019,
     "lon": -2.1978,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGPH": {
     "name": "Edinburgh Airport",
     "lat": 55.95,
     "lon": -3.3725,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "EGAA": {
     "name": "Belfast Intl",
     "lat": 54.6575,
     "lon": -6.2158,
-    "tz": "UTC"
+    "tz": "Europe/London"
   },
   "LFPO": {
     "name": "Paris Orly",
     "lat": 48.7233,
     "lon": 2.3794,
-    "tz": "UTC"
+    "tz": "Europe/Paris"
   },
   "LFML": {
     "name": "Marseille Provence",
     "lat": 43.4367,
     "lon": 5.215,
-    "tz": "UTC"
+    "tz": "Europe/Paris"
   },
   "LFBD": {
     "name": "Bordeaux Mérignac",
     "lat": 44.8283,
     "lon": -0.7156,
-    "tz": "UTC"
+    "tz": "Europe/Paris"
   },
   "LFBO": {
     "name": "Toulouse Blagnac",
     "lat": 43.6291,
     "lon": 1.3638,
-    "tz": "UTC"
+    "tz": "Europe/Paris"
   },
   "EDDB": {
     "name": "Berlin Brandenburg",
     "lat": 52.3667,
     "lon": 13.5033,
-    "tz": "UTC"
+    "tz": "Europe/Berlin"
   },
   "EDDH": {
     "name": "Hamburg Airport",
     "lat": 53.6304,
     "lon": 10.0064,
-    "tz": "UTC"
+    "tz": "Europe/Berlin"
   },
   "EDDL": {
     "name": "Düsseldorf Intl",
     "lat": 51.2895,
     "lon": 6.7668,
-    "tz": "UTC"
+    "tz": "Europe/Berlin"
   },
   "EDDV": {
     "name": "Hannover Airport",
     "lat": 52.4611,
     "lon": 9.6851,
-    "tz": "UTC"
+    "tz": "Europe/Berlin"
   },
   "LKPR": {
     "name": "Prague Vaclav Havel",
     "lat": 50.1008,
     "lon": 14.26,
-    "tz": "UTC"
+    "tz": "Europe/Prague"
   },
   "LIEE": {
     "name": "Cagliari Elmas Airport",
     "lat": 39.2515,
     "lon": 9.0543,
-    "tz": "UTC"
+    "tz": "Europe/Rome"
   },
   "LICC": {
     "name": "Catania Fontanarossa",
     "lat": 37.4668,
     "lon": 15.0664,
-    "tz": "UTC"
+    "tz": "Europe/Rome"
   },
   "LIMC": {
     "name": "Milan Malpensa",
     "lat": 45.6306,
     "lon": 8.7281,
-    "tz": "UTC"
+    "tz": "Europe/Rome"
   },
   "LIPZ": {
     "name": "Venice Marco Polo",
     "lat": 45.5053,
     "lon": 12.3519,
-    "tz": "UTC"
+    "tz": "Europe/Rome"
   },
   "LPFR": {
     "name": "Faro Airport",
     "lat": 37.0144,
     "lon": -7.9659,
-    "tz": "UTC"
+    "tz": "Europe/Lisbon"
   },
   "LEMG": {
     "name": "Málaga Airport",
     "lat": 36.6749,
     "lon": -4.4991,
-    "tz": "UTC"
+    "tz": "Europe/Madrid"
   },
   "VTBD": {
     "name": "Don Mueang Intl",
     "lat": 13.9126,
     "lon": 100.607,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VTSP": {
     "name": "Phuket Intl",
     "lat": 8.1132,
     "lon": 98.3169,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VTSM": {
     "name": "Samui Airport",
     "lat": 9.5478,
     "lon": 100.062,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VTCC": {
     "name": "Chiang Mai Intl",
     "lat": 18.7668,
     "lon": 98.9626,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VTPH": {
     "name": "Hua Hin Airport",
     "lat": 12.6362,
     "lon": 99.9515,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VVTS": {
     "name": "Tan Son Nhat Intl (Ho Chi Minh)",
     "lat": 10.8188,
     "lon": 106.652,
-    "tz": "UTC"
+    "tz": "Asia/Ho_Chi_Minh"
   },
   "VVNB": {
     "name": "Noi Bai Intl (Hanoi)",
     "lat": 21.2212,
     "lon": 105.8069,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VVCR": {
     "name": "Cam Ranh Intl",
     "lat": 11.9982,
     "lon": 109.219,
-    "tz": "UTC"
+    "tz": "Asia/Ho_Chi_Minh"
   },
   "VVPK": {
     "name": "Phu Quoc Intl",
     "lat": 10.227,
     "lon": 103.9631,
-    "tz": "UTC"
+    "tz": "Asia/Phnom_Penh"
   },
   "VVVH": {
     "name": "Vinh Airport",
     "lat": 18.7376,
     "lon": 105.6708,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "WMSA": {
     "name": "Sultan Abdul Aziz Shah (Subang)",
     "lat": 3.1306,
     "lon": 101.5494,
-    "tz": "UTC"
+    "tz": "Asia/Kuala_Lumpur"
   },
   "WMKP": {
     "name": "Penang Intl",
     "lat": 5.2971,
     "lon": 100.276,
-    "tz": "UTC"
+    "tz": "Asia/Kuala_Lumpur"
   },
   "WMKD": {
     "name": "Kuantan Airport",
     "lat": 3.7754,
     "lon": 103.209,
-    "tz": "UTC"
+    "tz": "Asia/Kuala_Lumpur"
   },
   "WBKK": {
     "name": "Kota Kinabalu Intl",
     "lat": 5.9372,
     "lon": 116.0511,
-    "tz": "UTC"
+    "tz": "Asia/Kuching"
   },
   "WBGR": {
     "name": "Miri Airport",
     "lat": 4.322,
     "lon": 113.9868,
-    "tz": "UTC"
+    "tz": "Asia/Kuching"
   },
   "WBKL": {
     "name": "Limbang Airport",
     "lat": 4.8083,
     "lon": 115.01,
-    "tz": "UTC"
+    "tz": "Asia/Kuching"
   },
   "WSAP": {
     "name": "Paya Lebar Air Base",
     "lat": 1.3604,
     "lon": 103.9101,
-    "tz": "UTC"
+    "tz": "Asia/Singapore"
   },
   "WIDD": {
     "name": "Hang Nadim Intl (Batam)",
     "lat": 1.121,
     "lon": 104.1197,
-    "tz": "UTC"
+    "tz": "Asia/Jakarta"
   },
   "WIMM": {
     "name": "Kualanamu Intl (Medan)",
     "lat": 3.5592,
     "lon": 98.6717,
-    "tz": "UTC"
+    "tz": "Asia/Jakarta"
   },
   "WICB": {
     "name": "Halim Perdanakusuma Intl (Jakarta)",
     "lat": -6.2666,
     "lon": 106.8904,
-    "tz": "UTC"
+    "tz": "Asia/Jakarta"
   },
   "WARR": {
     "name": "Juanda Intl (Surabaya)",
     "lat": -7.3798,
     "lon": 112.787,
-    "tz": "UTC"
+    "tz": "Asia/Jakarta"
   },
   "WADD": {
     "name": "Ngurah Rai Intl (Denpasar)",
     "lat": -8.7482,
     "lon": 115.1675,
-    "tz": "UTC"
+    "tz": "Asia/Makassar"
   },
   "WAMM": {
     "name": "Sam Ratulangi Intl (Manado)",
     "lat": 1.5492,
     "lon": 124.9258,
-    "tz": "UTC"
+    "tz": "Asia/Makassar"
   },
   "WAAA": {
     "name": "Sultan Hasanuddin Intl (Makassar)",
     "lat": -5.0616,
     "lon": 119.554,
-    "tz": "UTC"
+    "tz": "Asia/Makassar"
   },
   "WIOO": {
     "name": "Supadio Intl (Pontianak)",
     "lat": -0.1507,
     "lon": 109.4039,
-    "tz": "UTC"
+    "tz": "Asia/Pontianak"
   },
   "RPMD": {
     "name": "Francisco Bangoy Intl (Davao)",
     "lat": 7.1255,
     "lon": 125.6458,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPLL": {
     "name": "Ninoy Aquino Intl (Manila)",
     "lat": 14.5086,
     "lon": 121.0196,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPVM": {
     "name": "Mactan–Cebu Intl",
     "lat": 10.3075,
     "lon": 123.9794,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPMZ": {
     "name": "Zamboanga Intl",
     "lat": 6.9224,
     "lon": 122.0596,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPVP": {
     "name": "Iloilo Intl",
     "lat": 10.833,
     "lon": 122.493,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPWE": {
     "name": "Basco Airport",
     "lat": 20.4513,
     "lon": 121.979,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPNS": {
     "name": "Sibulan Airport (Dumaguete)",
     "lat": 9.3337,
     "lon": 123.3,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "VDSR": {
     "name": "Siem Reap Intl",
     "lat": 13.4107,
     "lon": 103.813,
-    "tz": "UTC"
+    "tz": "Asia/Phnom_Penh"
   },
   "VDPP": {
     "name": "Phnom Penh Intl",
     "lat": 11.5466,
     "lon": 104.844,
-    "tz": "UTC"
+    "tz": "Asia/Phnom_Penh"
   },
   "VDBG": {
     "name": "Battambang Airport",
     "lat": 13.0956,
     "lon": 103.2247,
-    "tz": "UTC"
+    "tz": "Asia/Phnom_Penh"
   },
   "VLVT": {
     "name": "Wattay Intl (Vientiane)",
     "lat": 17.9883,
     "lon": 102.5631,
-    "tz": "UTC"
+    "tz": "Asia/Vientiane"
   },
   "VLLB": {
     "name": "Luang Prabang Intl",
     "lat": 19.8979,
     "lon": 102.16,
-    "tz": "UTC"
+    "tz": "Asia/Vientiane"
   },
   "VLOS": {
     "name": "Sam Neua Airport",
     "lat": 20.4184,
     "lon": 104.0679,
-    "tz": "UTC"
+    "tz": "Asia/Vientiane"
   },
   "VYYY": {
     "name": "Yangon Intl",
     "lat": 16.9073,
     "lon": 96.1332,
-    "tz": "UTC"
+    "tz": "Asia/Yangon"
   },
   "VYMD": {
     "name": "Mandalay Intl",
     "lat": 21.7022,
     "lon": 95.9779,
-    "tz": "UTC"
+    "tz": "Asia/Yangon"
   },
   "VYEL": {
     "name": "Heho Airport",
     "lat": 20.747,
     "lon": 96.792,
-    "tz": "UTC"
+    "tz": "Asia/Yangon"
   },
   "WPDL": {
     "name": "Presidente Nicolau Lobato Intl (Dili)",
     "lat": -8.5464,
     "lon": 125.526,
-    "tz": "UTC"
+    "tz": "Asia/Makassar"
   },
   "WBSB": {
     "name": "Brunei Intl",
     "lat": 4.9442,
     "lon": 114.9283,
-    "tz": "UTC"
+    "tz": "Asia/Brunei"
   },
   "WBGB": {
     "name": "Bintulu Airport",
     "lat": 3.1239,
     "lon": 113.0206,
-    "tz": "UTC"
+    "tz": "Asia/Kuching"
   },
   "WBKD": {
     "name": "Lahad Datu Airport",
     "lat": 5.0323,
     "lon": 118.323,
-    "tz": "UTC"
+    "tz": "Asia/Kuching"
   },
   "KRNO": {
     "name": "Reno/Tahoe International Airport",
     "lat": 39.4991,
     "lon": -119.7681,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "RCQC": {
     "name": "Magong Airport (Penghu)",
@@ -1269,289 +1269,289 @@
     "name": "Kansas City International Airport",
     "lat": 39.2976,
     "lon": -94.7139,
-    "tz": "UTC"
+    "tz": "America/Chicago"
   },
   "KMEM": {
     "name": "Memphis International Airport",
     "lat": 35.0424,
     "lon": -89.9767,
-    "tz": "UTC"
+    "tz": "America/Chicago"
   },
   "KIND": {
     "name": "Indianapolis Intl Airport",
     "lat": 39.7173,
     "lon": -86.2944,
-    "tz": "UTC"
+    "tz": "America/Indiana/Indianapolis"
   },
   "KPIT": {
     "name": "Pittsburgh Intl Airport",
     "lat": 40.4915,
     "lon": -80.2329,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KCVG": {
     "name": "Cincinnati/Northern Kentucky Intl",
     "lat": 39.0488,
     "lon": -84.6678,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KRDU": {
     "name": "Raleigh–Durham Intl Airport",
     "lat": 35.8776,
     "lon": -78.7875,
-    "tz": "UTC"
+    "tz": "America/New_York"
   },
   "KBOI": {
     "name": "Boise Air Terminal",
     "lat": 43.5644,
     "lon": -116.2228,
-    "tz": "UTC"
+    "tz": "America/Boise"
   },
   "KTUS": {
     "name": "Tucson International Airport",
     "lat": 32.1161,
     "lon": -110.941,
-    "tz": "UTC"
+    "tz": "America/Phoenix"
   },
   "KEUG": {
     "name": "Eugene Airport (Mahlon Sweet Field)",
     "lat": 44.1246,
     "lon": -123.2119,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KABQ": {
     "name": "Albuquerque Intl Sunport",
     "lat": 35.0402,
     "lon": -106.609,
-    "tz": "UTC"
+    "tz": "America/Denver"
   },
   "KOAK": {
     "name": "Oakland Intl",
     "lat": 37.7213,
     "lon": -122.2207,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KSJC": {
     "name": "San Jose Intl",
     "lat": 37.3626,
     "lon": -121.929,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KBUR": {
     "name": "Bob Hope Airport (Burbank)",
     "lat": 34.2007,
     "lon": -118.3587,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KLGB": {
     "name": "Long Beach Airport",
     "lat": 33.8177,
     "lon": -118.1516,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "KONT": {
     "name": "Ontario Intl Airport",
     "lat": 34.0559,
     "lon": -117.6005,
-    "tz": "UTC"
+    "tz": "America/Los_Angeles"
   },
   "WBGG": {
     "name": "Kuching Intl",
     "lat": 1.4847,
     "lon": 110.3469,
-    "tz": "UTC"
+    "tz": "Asia/Kuching"
   },
   "RPLB": {
     "name": "Subic Bay Intl",
     "lat": 14.7944,
     "lon": 120.271,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RCSS": {
     "name": "Taipei Songshan Airport",
     "lat": 25.0694,
     "lon": 121.5525,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "VTUL": {
     "name": "Udon Thani Airport",
     "lat": 17.3864,
     "lon": 102.7882,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VTSF": {
     "name": "Nakhon Si Thammarat Airport",
     "lat": 8.5396,
     "lon": 99.9447,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VTBO": {
     "name": "Trat Airport",
     "lat": 12.2746,
     "lon": 102.3191,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VVPB": {
     "name": "Dong Hoi Airport",
     "lat": 17.515,
     "lon": 106.5906,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VVVD": {
     "name": "Vinh Airport",
     "lat": 18.7376,
     "lon": 105.6708,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "VVNS": {
     "name": "Noi Bai Military Airport (Secondary)",
     "lat": 21.2139,
     "lon": 105.804,
-    "tz": "UTC"
+    "tz": "Asia/Bangkok"
   },
   "WMKL": {
     "name": "Langkawi Intl",
     "lat": 6.3297,
     "lon": 99.7287,
-    "tz": "UTC"
+    "tz": "Asia/Kuala_Lumpur"
   },
   "WBKS": {
     "name": "Sandakan Airport",
     "lat": 5.9009,
     "lon": 118.058,
-    "tz": "UTC"
+    "tz": "Asia/Kuching"
   },
   "WBKW": {
     "name": "Tawau Airport",
     "lat": 4.3133,
     "lon": 118.1219,
-    "tz": "UTC"
+    "tz": "Asia/Kuching"
   },
   "WADL": {
     "name": "Lombok Intl",
     "lat": -8.7573,
     "lon": 116.2767,
-    "tz": "UTC"
+    "tz": "Asia/Makassar"
   },
   "WAJJ": {
     "name": "Sentani Intl (Jayapura)",
     "lat": -2.5769,
     "lon": 140.5164,
-    "tz": "UTC"
+    "tz": "Asia/Jayapura"
   },
   "WIKK": {
     "name": "Padang Minangkabau Intl",
     "lat": -0.7861,
     "lon": 100.2806,
-    "tz": "UTC"
+    "tz": "Asia/Jakarta"
   },
   "RPUB": {
     "name": "Baguio Loakan Airport",
     "lat": 16.3751,
     "lon": 120.62,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPVA": {
     "name": "Tacloban Airport",
     "lat": 11.2276,
     "lon": 125.027,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPVE": {
     "name": "Calbayog Airport",
     "lat": 12.0727,
     "lon": 124.5442,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPLO": {
     "name": "Ormoc Airport",
     "lat": 11.0576,
     "lon": 124.5657,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "RPFL": {
     "name": "Laoag Intl",
     "lat": 18.18,
     "lon": 120.532,
-    "tz": "UTC"
+    "tz": "Asia/Manila"
   },
   "WSSL": {
     "name": "Seletar Airport (Singapore)",
     "lat": 1.4169,
     "lon": 103.867,
-    "tz": "UTC"
+    "tz": "Asia/Singapore"
   },
   "VDST": {
     "name": "Stung Treng Airport",
     "lat": 13.5336,
     "lon": 105.971,
-    "tz": "UTC"
+    "tz": "Asia/Phnom_Penh"
   },
   "VDKH": {
     "name": "Kampong Chhnang Airport",
     "lat": 12.2552,
     "lon": 104.5642,
-    "tz": "UTC"
+    "tz": "Asia/Phnom_Penh"
   },
   "VLXK": {
     "name": "Xieng Khouang Airport",
     "lat": 19.4541,
     "lon": 103.2186,
-    "tz": "UTC"
+    "tz": "Asia/Vientiane"
   },
   "VYPT": {
     "name": "Naypyidaw Intl",
     "lat": 19.6235,
     "lon": 96.2011,
-    "tz": "UTC"
+    "tz": "Asia/Yangon"
   },
   "TNCS": {
     "name": "Juancho E. Yrausquin Airport (Saba)",
     "lat": 17.6453,
     "lon": -63.22,
-    "tz": "UTC"
+    "tz": "America/Kralendijk"
   },
   "VQPR": {
     "name": "Paro Airport (Bhutan)",
     "lat": 27.4032,
     "lon": 89.4246,
-    "tz": "UTC"
+    "tz": "Asia/Thimphu"
   },
   "TFFJ": {
     "name": "Gustaf III Airport (St. Barts)",
     "lat": 17.9044,
     "lon": -62.8439,
-    "tz": "UTC"
+    "tz": "America/St_Barthelemy"
   },
   "TVSV": {
     "name": "Argyle International Airport (St. Vincent)",
     "lat": 13.1567,
     "lon": -61.1499,
-    "tz": "UTC"
+    "tz": "America/St_Vincent"
   },
   "LXGB": {
     "name": "Gibraltar Airport",
     "lat": 36.1512,
     "lon": -5.3497,
-    "tz": "UTC"
+    "tz": "Europe/Gibraltar"
   },
   "LPMA": {
     "name": "Cristiano Ronaldo Madeira Airport",
     "lat": 32.6979,
     "lon": -16.7745,
-    "tz": "UTC"
+    "tz": "Atlantic/Madeira"
   },
   "NTTB": {
     "name": "Bora Bora Airport",
     "lat": -16.4444,
     "lon": -151.7519,
-    "tz": "UTC"
+    "tz": "Pacific/Tahiti"
   },
   "SEGS": {
     "name": "San Cristobal Airport (Galapagos)",
     "lat": -0.9102,
     "lon": -89.6174,
-    "tz": "UTC"
+    "tz": "Pacific/Galapagos"
   },
   "SPQT": {
     "name": "Captain Rolden International (Iquitos",
@@ -1563,67 +1563,67 @@
     "name": "Antonio Nariño Airport (Pasto)",
     "lat": 1.3962,
     "lon": -77.2915,
-    "tz": "UTC"
+    "tz": "America/Bogota"
   },
   "MGGT": {
     "name": "La Aurora Intl (Guatemala City)",
     "lat": 14.5833,
     "lon": -90.5275,
-    "tz": "UTC"
+    "tz": "America/Guatemala"
   },
   "MHRO": {
     "name": "Roatán Island Airport (Honduras)",
     "lat": 16.3168,
     "lon": -86.523,
-    "tz": "UTC"
+    "tz": "America/Tegucigalpa"
   },
   "PACO": {
     "name": "Contadora Airport (Panama)",
     "lat": 8.6275,
     "lon": -79.0356,
-    "tz": "UTC"
+    "tz": "America/Panama"
   },
   "VNKT": {
     "name": "Tribhuvan Intl (Kathmandu)",
     "lat": 27.6966,
     "lon": 85.3591,
-    "tz": "UTC"
+    "tz": "Asia/Kathmandu"
   },
   "FJDG": {
     "name": "Diego Garcia Naval Support Facility",
     "lat": -7.3133,
     "lon": 72.4111,
-    "tz": "UTC"
+    "tz": "Indian/Chagos"
   },
   "AGGH": {
     "name": "Honiara Intl (Solomon Islands)",
     "lat": -9.428,
     "lon": 160.0549,
-    "tz": "UTC"
+    "tz": "Pacific/Guadalcanal"
   },
   "YBRM": {
     "name": "Broome Intl (Australia)",
     "lat": -17.9447,
     "lon": 122.2326,
-    "tz": "UTC"
+    "tz": "Australia/Perth"
   },
   "NSAS": {
     "name": "Asau Airport (Samoa)",
     "lat": -13.5167,
     "lon": -172.6333,
-    "tz": "UTC"
+    "tz": "Pacific/Apia"
   },
   "ZSFZ": {
     "name": "Fuzhou Changle Intl",
     "lat": 25.9351,
     "lon": 119.6631,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZBAD": {
     "name": "Beijing Daxing Intl",
     "lat": 39.5099,
     "lon": 116.4109,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZSSS": {
     "name": "Shanghai Hongqiao Intl",
@@ -1635,115 +1635,115 @@
     "name": "Shanghai Pudong Intl",
     "lat": 31.1434,
     "lon": 121.8052,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZGGG": {
     "name": "Guangzhou Baiyun Intl",
     "lat": 23.3924,
     "lon": 113.299,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZGHA": {
     "name": "Changsha Huanghua Intl",
     "lat": 28.1892,
     "lon": 113.2196,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZHHH": {
     "name": "Wuhan Tianhe Intl",
     "lat": 30.7838,
     "lon": 114.2081,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZUCK": {
     "name": "Chongqing Jiangbei Intl",
     "lat": 29.7192,
     "lon": 106.6416,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZYHB": {
     "name": "Harbin Taiping Intl",
     "lat": 45.6234,
     "lon": 126.2503,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZSAM": {
     "name": "Xiamen Gaoqi Intl",
     "lat": 24.544,
     "lon": 118.1275,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZPPP": {
     "name": "Kunming Changshui Intl",
     "lat": 25.1019,
     "lon": 102.9292,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZGKL": {
     "name": "Guilin Liangjiang Intl",
     "lat": 25.2181,
     "lon": 110.039,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZHCC": {
     "name": "Zhengzhou Xinzheng Intl",
     "lat": 34.5197,
     "lon": 113.841,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZLXY": {
     "name": "Xi'an Xianyang Intl",
     "lat": 34.4471,
     "lon": 108.7516,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZBTJ": {
     "name": "Tianjin Binhai Intl",
     "lat": 39.1244,
     "lon": 117.3462,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZGSY": {
     "name": "Shenyang Taoxian Intl",
     "lat": 41.6398,
     "lon": 123.4831,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZWTN": {
     "name": "Hotan Airport",
     "lat": 37.0385,
     "lon": 79.8649,
-    "tz": "UTC"
+    "tz": "Asia/Urumqi"
   },
   "ZLXN": {
     "name": "Xining Caojiabao",
     "lat": 36.5272,
     "lon": 102.042,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZUDX": {
     "name": "Dunhuang Airport",
     "lat": 40.1611,
     "lon": 94.8092,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZBCF": {
     "name": "Chifeng Yulong Airport",
     "lat": 42.235,
     "lon": 118.9083,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZLAN": {
     "name": "Ankang Wulipu Airport",
     "lat": 32.7081,
     "lon": 108.9319,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "ZBOW": {
     "name": "Wudalianchi Dedu Airport",
     "lat": 48.5758,
     "lon": 126.9562,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "RCKH": {
     "name": "Kaohsiung Intl",
@@ -1755,73 +1755,73 @@
     "name": "Taichung Intl (Ching Chuan Kang)",
     "lat": 24.2647,
     "lon": 120.62,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCYU": {
     "name": "Hualien Airport",
     "lat": 24.0231,
     "lon": 121.617,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCNN": {
     "name": "Tainan Airport",
     "lat": 22.9504,
     "lon": 120.206,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCDC": {
     "name": "Chiayi Airport",
     "lat": 23.4611,
     "lon": 120.392,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCQS": {
     "name": "Kinmen Shang Yi Airport",
     "lat": 24.4279,
     "lon": 118.359,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCGI": {
     "name": "Green Island Airport",
     "lat": 22.6739,
     "lon": 121.466,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCUK": {
     "name": "Hengchun Airport",
     "lat": 22.0411,
     "lon": 120.7308,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCLY": {
     "name": "Lanyu Airport (Orchid Island)",
     "lat": 22.027,
     "lon": 121.5358,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCFS": {
     "name": "Fengnin Airport (Taitung)",
     "lat": 22.7583,
     "lon": 121.1017,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCMT": {
     "name": "Matsu Beigan Airport",
     "lat": 26.2244,
     "lon": 119.98,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "RCFG": {
     "name": "Matsu Nangan Airport",
     "lat": 26.159,
     "lon": 119.951,
-    "tz": "UTC"
+    "tz": "Asia/Shanghai"
   },
   "RCWA": {
     "name": "Wang-an Airport (Penghu)",
     "lat": 23.3674,
     "lon": 119.5022,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCLM": {
     "name": "Lugang Airport (closed",
@@ -1833,36 +1833,36 @@
     "name": "Pingtung Airport",
     "lat": 22.6739,
     "lon": 120.4611,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCNO": {
     "name": "Taoyuan North Heliport",
     "lat": 25.095,
     "lon": 121.244,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCCM": {
     "name": "Chengkung Airport",
     "lat": 23.1,
     "lon": 121.365,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCQX": {
     "name": "Cimei Airport (Qimei Island)",
     "lat": 23.2131,
     "lon": 119.4181,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCWM": {
     "name": "Wang-an Airstrip",
     "lat": 23.3674,
     "lon": 119.5022,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   },
   "RCZU": {
     "name": "Zuoying Naval Airfield (legacy)",
     "lat": 22.6861,
     "lon": 120.2847,
-    "tz": "UTC"
+    "tz": "Asia/Taipei"
   }
 }
