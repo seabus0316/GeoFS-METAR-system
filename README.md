@@ -12,8 +12,7 @@ If you escaped the window accidentally, please refresh the page.
 Copy the user.js and paste it into Tampermonkey.
 ##How to use the converter?
 Find the data in https://ourairports.com/, and paste the .csv into the converter, press "轉換 (with a rocket emoji)", paste the code into airports.json, and upload to a public github repo, change the link in const airportDataURL = "your raw link here"
-You can add airports customarily. I will also upload some airport collection packs here, and you don't have to update your userscript.
+You can add airports customarily, but U have to create a repo, U can ask seabus. Also, I will also upload some airport collection packs here, and you don't have to update your userscript.
 ## About clocks
-You can also make the clock faces yourself, paste your image irl in <image href=""> , the size of image is 40*40px.
 The clock theme changes with the day and night.
 ![metar](https://github.com/user-attachments/assets/e3e44bb0-b2c1-4505-a762-5abbb5bbb4d2)
