@@ -1864,5 +1864,143 @@
     "lat": 22.6861,
     "lon": 120.2847,
     "tz": "Asia/Taipei"
+  },
+  "ICAO": {
+    "name": "name",
+    "lat": null,
+    "lon": null,
+    "tz": "UTC"
+  },
+  "RJBB": {
+    "name": "Kansai International Airport",
+    "lat": 34.4273,
+    "lon": 135.244,
+    "tz": "Asia/Tokyo"
+  },
+  "RJCC": {
+    "name": "New Chitose Airport",
+    "lat": 42.7752,
+    "lon": 141.6923,
+    "tz": "Asia/Tokyo"
+  },
+  "RJCH": {
+    "name": "Hakodate Airport",
+    "lat": 41.77,
+    "lon": 140.8219,
+    "tz": "Asia/Tokyo"
+  },
+  "RJFT": {
+    "name": "Kumamoto Airport",
+    "lat": 32.8373,
+    "lon": 130.855,
+    "tz": "Asia/Tokyo"
+  },
+  "RJFU": {
+    "name": "Nagasaki Airport",
+    "lat": 32.9169,
+    "lon": 129.9144,
+    "tz": "Asia/Tokyo"
+  },
+  "RJOA": {
+    "name": "Hiroshima Airport",
+    "lat": 34.4361,
+    "lon": 132.9194,
+    "tz": "Asia/Tokyo"
+  },
+  "RJOM": {
+    "name": "Matsuyama Airport",
+    "lat": 33.8272,
+    "lon": 132.6994,
+    "tz": "Asia/Tokyo"
+  },
+  "RJBE": {
+    "name": "Kobe Airport",
+    "lat": 34.6328,
+    "lon": 135.2239,
+    "tz": "Asia/Tokyo"
+  },
+  "RJFK": {
+    "name": "Kagoshima Airport",
+    "lat": 31.8034,
+    "lon": 130.7194,
+    "tz": "Asia/Tokyo"
+  },
+  "RJOH": {
+    "name": "Oki Airport",
+    "lat": 36.1811,
+    "lon": 133.3247,
+    "tz": "Asia/Tokyo"
+  },
+  "RJNY": {
+    "name": "Shizuoka Airport",
+    "lat": 34.796,
+    "lon": 138.1878,
+    "tz": "Asia/Tokyo"
+  },
+  "RJOO": {
+    "name": "Osaka International Airport (Itami)",
+    "lat": 34.7855,
+    "lon": 135.4382,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSA": {
+    "name": "Aomori Airport",
+    "lat": 40.7347,
+    "lon": 140.6908,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSD": {
+    "name": "Nanki–Shirahama Airport",
+    "lat": 33.6622,
+    "lon": 135.358,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSF": {
+    "name": "Fukushima Airport",
+    "lat": 37.2274,
+    "lon": 140.431,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSH": {
+    "name": "Hachinohe Air Base",
+    "lat": 40.5539,
+    "lon": 141.4658,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSI": {
+    "name": "Hanamaki Airport",
+    "lat": 39.4286,
+    "lon": 141.1353,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSK": {
+    "name": "Akita Airport",
+    "lat": 39.6156,
+    "lon": 140.2186,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSM": {
+    "name": "Misawa Air Base",
+    "lat": 40.7032,
+    "lon": 141.368,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSN": {
+    "name": "Niigata Airport",
+    "lat": 37.9559,
+    "lon": 139.121,
+    "tz": "Asia/Tokyo"
+  },
+  "RJSR": {
+    "name": "Rebun Airport",
+    "lat": 45.455,
+    "lon": 141.037,
+    "tz": "Asia/Tokyo"
+  },
+  "RJST": {
+    "name": "Sendai Airport",
+    "lat": 38.1397,
+    "lon": 140.9171,
+    "tz": "Asia/Tokyo"
   }
 }
