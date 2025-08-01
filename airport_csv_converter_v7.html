@@ -1,67 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Airport CSV to JSON (All Textareas)</title>
+  <meta charset="UTF-8">
+  <title>Airport CSV to JSON Converter (with Timezone & Duplicate Removal)</title>
   <style>
-    textarea {
-      width: 32%;
-      height: 300px;
-      display: inline-block;
-      vertical-align: top;
-      font-family: monospace;
-      font-size: 14px;
-      padding: 8px;
-      box-sizing: border-box;
-      margin-right: 1%;
-    }
-    button {
-      margin: 10px 0;
-      font-size: 16px;
-    }
+    body { font-family: sans-serif; padding: 20px; }
+    textarea { width: 48%; height: 200px; margin: 5px; white-space: pre; }
+    .row { display: flex; justify-content: space-between; }
+    button { padding: 10px 20px; margin: 10px 0; }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/tz-lookup@6.1.24/tz.js"></script>
 </head>
 <body>
-  <h2>🛫 Airport CSV → JSON Converter</h2>
-  <button onclick="convert()">Convert & Deduplicate</button><br>
+  <h2>✈️ Airport CSV ➜ JSON Converter (with Timezone & Duplicate Removal)</h2>
+  <p>Paste your CSV here (format: ICAO,Name,Lat,Lon), first line should be header</p>
+  <textarea id="csvInput" placeholder="Example:\nRCKH,Kaohsiung Intl,22.5769,120.351997\nRCQC,Magong Airport,23.5687,119.627998"></textarea>
 
-  <textarea id="csvInput" placeholder="✍️ Input CSV (can include IDENT,name,lat,lon,tz header)"></textarea>
-  <textarea id="jsonOutput" placeholder="✅ Output JSON will appear here"></textarea>
-  <textarea id="dupeOutput" placeholder="⚠️ Duplicates (if any) will appear here"></textarea>
+  <button onclick="convertCSV()">🚀 Convert ➜ JSON</button>
+
+  <div class="row">
+    <div>
+      <h4>✅ JSON Output:</h4>
+      <textarea id="jsonOutput" readonly></textarea>
+    </div>
+    <div>
+      <h4>⚠️ Duplicate ICAOs:</h4>
+      <textarea id="duplicatesOutput" readonly></textarea>
+    </div>
+  </div>
 
   <script>
-    function convert() {
+    async function convertCSV() {
       const csv = document.getElementById("csvInput").value.trim();
       const lines = csv.split(/\r?\n/);
-      const result = {};
+      const json = {};
       const duplicates = [];
 
-      const dataLines = lines.filter((line, idx) => {
-        if (idx === 0 && line.toLowerCase().includes("name") && line.toLowerCase().includes("lat")) {
-          return false; // skip header
-        }
-        return true;
-      });
+      for (let i = 1; i < lines.length; i++) {
+        const [icaoRaw, nameRaw, latRaw, lonRaw] = lines[i].split(",");
+        const icao = icaoRaw.trim().toUpperCase();
 
-      for (const line of dataLines) {
-        const [icao, name, lat, lon, tz] = line.split(",");
-        const key = icao?.trim().toUpperCase();
-        if (!key || result[key]) {
-          if (key) duplicates.push(key);
+        if (json[icao]) {
+          duplicates.push(icao);
           continue;
         }
-        result[key] = {
-          name: name?.trim() || "",
-          lat: parseFloat(lat),
-          lon: parseFloat(lon),
-          tz: tz?.trim() || "UTC"
-        };
+
+        const lat = parseFloat(latRaw);
+        const lon = parseFloat(lonRaw);
+        const name = nameRaw.trim();
+
+        let tz = "UTC";
+        try {
+          tz = tzlookup(lat, lon);
+        } catch (e) {
+          console.warn(`Timezone lookup failed for ${icao}`, e);
+        }
+
+        json[icao] = { name, lat, lon, tz };
       }
 
-      document.getElementById("jsonOutput").value = JSON.stringify(result, null, 2);
-      document.getElementById("dupeOutput").value = duplicates.length
-        ? duplicates.join("\n")
-        : "✅ No duplicates found.";
+      document.getElementById("jsonOutput").value = JSON.stringify(json, null, 2);
+      document.getElementById("duplicatesOutput").value = duplicates.join("\n");
     }
   </script>
 </body>
