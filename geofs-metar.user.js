@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.1.4
+// @version      4.1.5
 // @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI and manual airport search
 // @author       seabus + ChatGPT
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -208,6 +208,7 @@
     searchDiv.style.gap = "4px";
     searchDiv.style.alignItems = "center";
     const searchInput = document.createElement("input");
+      searchInput.autocomplete = "off";
     searchInput.type = "text";
     searchInput.placeholder = "Enter ICAO manually (ex: RCTP)";
     searchInput.style.fontSize = "12px";
