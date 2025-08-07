@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.1.3
-// @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI. Widget visibility and position are persistent across refreshes.
+// @version      4.1.4
+// @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI and manual airport search
 // @author       seabus + ChatGPT
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
 // @downloadURL  https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -38,8 +38,8 @@
     const dLat = toRad(lat2 - lat1);
     const dLon = toRad(lon2 - lon1);
     const a = Math.sin(dLat / 2) ** 2 +
-              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-              Math.sin(dLon / 2) ** 2;
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) ** 2;
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
@@ -103,7 +103,7 @@
     const timeStr = new Date().toLocaleTimeString("en-US", {
       hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: tz
     });
-    const [h, m, s] = timeStr.split(":" ).map(Number);
+    const [h, m, s] = timeStr.split(":").map(Number);
     const d = new Date();
     d.setHours(h, m, s, 0);
     return d;
@@ -154,7 +154,6 @@
     return container;
   }
 
-  // --- Persistent draggable & position ---
   function makeDraggable(el) {
     let isDragging = false, offsetX = 0, offsetY = 0;
     el.style.cursor = "move";
@@ -166,14 +165,9 @@
     });
     document.addEventListener("mousemove", e => {
       if (isDragging) {
-        const left = Math.max(0, Math.min(e.clientX - offsetX, window.innerWidth - el.offsetWidth));
-        const top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight));
-        el.style.left = left + "px";
-        el.style.top = top + "px";
+        el.style.left = Math.max(0, Math.min(e.clientX - offsetX, window.innerWidth - el.offsetWidth)) + "px";
+        el.style.top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight)) + "px";
         el.style.right = "auto";
-        // --- Save position to localStorage ---
-        localStorage.setItem("geofsMetarWidgetLeft", el.style.left);
-        localStorage.setItem("geofsMetarWidgetTop", el.style.top);
       }
     });
     document.addEventListener("mouseup", () => {
@@ -182,7 +176,7 @@
     });
   }
 
-  function showWidget(metar, icao) {
+  function showWidget(metar, icao, mode = "auto") {
     if (window.geofsMetarWidget) window.geofsMetarWidget.remove();
     const widget = document.createElement("div");
     window.geofsMetarWidget = widget;
@@ -191,20 +185,8 @@
       background: rgba(0,0,0,0.8); color: white;
       padding: 10px; border-radius: 8px;
       font: 12px monospace; z-index: 9999;
+      min-width: 220px;
     `;
-
-    // ---- Restore display state ----
-    const displayState = localStorage.getItem("geofsMetarWidgetDisplay");
-    widget.style.display = (displayState === "none") ? "none" : "block";
-
-    // ---- Restore position ----
-    const savedLeft = localStorage.getItem("geofsMetarWidgetLeft");
-    const savedTop = localStorage.getItem("geofsMetarWidgetTop");
-    if (savedLeft && savedTop) {
-      widget.style.left = savedLeft;
-      widget.style.top = savedTop;
-      widget.style.right = "auto";
-    }
 
     const title = document.createElement("div");
     let apiKey = localStorage.getItem("avwx_key");
@@ -219,16 +201,65 @@
     title.textContent = `METAR @ ${icao}`;
     widget.appendChild(title);
 
+    // Manual search UI
+    const searchDiv = document.createElement("div");
+    searchDiv.style.margin = "6px 0 4px 0";
+    searchDiv.style.display = "flex";
+    searchDiv.style.gap = "4px";
+    searchDiv.style.alignItems = "center";
+    const searchInput = document.createElement("input");
+    searchInput.type = "text";
+    searchInput.placeholder = "Enter ICAO manually (ex: RCTP)";
+    searchInput.style.fontSize = "12px";
+    searchInput.style.padding = "2px 4px";
+    searchInput.style.width = "115px";
+    searchInput.style.borderRadius = "3px";
+    searchInput.style.border = "1px solid #888";
+    searchInput.style.background = "#232323";
+    searchInput.style.color = "white";
+    searchInput.maxLength = 4;
+    searchInput.id = "geofs-metar-search-input";
+
+    if (mode === "auto") searchInput.value = "";
+
+    const searchBtn = document.createElement("button");
+    searchBtn.textContent = "Search";
+    searchBtn.title = "Manual search for airport METAR (Enter key also works)";
+    searchBtn.style.fontSize = "12px";
+    searchBtn.style.padding = "2px 6px";
+
+    async function manualSearch() {
+      let input = searchInput.value.trim().toUpperCase();
+      if (!input) return;
+      if (!AIRPORTS[input]) {
+        alert("❌ ICAO airport not found (" + input + ")");
+        return;
+      }
+      const metar = await fetchMETAR(input);
+      if (metar) showWidget(metar, input, "manual");
+      else alert("❌ Query failed. Please check your API KEY or try again later.");
+    }
+
+    searchInput.addEventListener("keydown", function(e) {
+      e.stopPropagation(); // Prevent GeoFS hotkey interference
+      if (e.key === "Enter") manualSearch();
+    });
+    searchBtn.onclick = manualSearch;
+
+    searchDiv.appendChild(searchInput);
+    searchDiv.appendChild(searchBtn);
+    widget.appendChild(searchDiv);
+
     const refreshBtn = document.createElement("button");
     refreshBtn.textContent = "⟳";
-    refreshBtn.title = "Refresh METAR";
+    refreshBtn.title = "Refresh METAR for nearest airport";
     refreshBtn.onclick = async () => {
       const pos = geofs?.aircraft?.instance?.llaLocation;
       if (pos?.length >= 2) {
         const [lat, lon] = pos;
         const nearest = findNearestAirport(lat, lon);
         const newMetar = await fetchMETAR(nearest);
-        if (newMetar) showWidget(newMetar, nearest);
+        if (newMetar) showWidget(newMetar, nearest, "auto");
       }
     };
     widget.appendChild(refreshBtn);
@@ -336,32 +367,29 @@
 
     document.body.appendChild(widget);
     makeDraggable(widget);
+    searchInput.focus();
   }
 
   function startMETAR() {
-    const intervalId = setInterval(async () => {
+    setInterval(async () => {
       const pos = geofs?.aircraft?.instance?.llaLocation;
       if (pos?.length >= 2) {
         const [lat, lon] = pos;
         const nearest = findNearestAirport(lat, lon);
         const metar = await fetchMETAR(nearest);
-        if (metar) showWidget(metar, nearest);
+        if (metar) showWidget(metar, nearest, "auto");
       }
     }, 60000);
 
     document.addEventListener("keydown", function (e) {
       if (e.key.toLowerCase() === "w") {
         const w = window.geofsMetarWidget;
-        if (w) {
-          w.style.display = (w.style.display === "none") ? "block" : "none";
-          // --- Save display state ---
-          localStorage.setItem("geofsMetarWidgetDisplay", w.style.display);
-        }
+        if (w) w.style.display = (w.style.display === "none") ? "block" : "none";
       }
     });
 
     fetchMETAR(defaultICAO).then(metar => {
-      if (metar) showWidget(metar, defaultICAO);
+      if (metar) showWidget(metar, defaultICAO, "auto");
     });
   }
 
