@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.2.3
-// @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI and manual airport search
-// @author       seabus + ChatGPT
+// @version      4.2.4
+// @description  METAR widget: 設定鈕才輸入 API KEY，彈窗改右上角 toast，搜尋輸入不觸發 GeoFS 熱鍵且無自動完成功能
+// @author       seabus + Copilot
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
 // @downloadURL  https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
 // @match        https://geo-fs.com/geofs.php*
@@ -11,8 +11,23 @@
 // ==/UserScript==
 
 (function () {
+  // ===== Toast 右上角訊息 =====
+  function showToast(msg, duration = 2500) {
+    let toast = document.createElement("div");
+    toast.textContent = msg;
+    toast.style.cssText = `
+      position: fixed; top: 20px; right: 20px; z-index: 99999;
+      background: #333; color: #fff; padding: 12px 24px; border-radius: 6px;
+      font-size: 14px; box-shadow: 0 2px 12px #0004;
+      opacity: 0; transition: opacity 0.3s;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.style.opacity = "1", 10);
+    setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => toast.remove(), 350); }, duration);
+  }
+
   // ======= 主動提醒有新版 =======
-  const CURRENT_VERSION = '4.2.2';
+  const CURRENT_VERSION = '4.2.4';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
 
   (function checkUpdate() {
@@ -24,7 +39,7 @@
       .then(r => r.json())
       .then(data => {
         if (data.version && data.version !== CURRENT_VERSION) {
-          alert(`🚩 GeoFS METAR System 有新版本 (${data.version})！\n請至 GitHub 重新安裝最新版 user.js\n\nhttps://github.com/seabus0316/GeoFS-METAR-system`);
+          showToast(`🚩 GeoFS METAR System 有新版本 (${data.version})！請至 GitHub 重新安裝最新版 user.js`);
         }
       })
       .catch(() => {});
@@ -94,30 +109,29 @@
       startMETAR();
     } catch (e) {
       console.error("❌ Failed to load airport data:", e);
-      alert("⚠️ Failed to load airport database. METAR system disabled.");
+      showToast("⚠️ Failed to load airport database. METAR system disabled.");
     }
   }
 
   async function fetchMETAR(icao) {
     let apiKey = localStorage.getItem("avwx_key");
     if (!apiKey) {
-      apiKey = prompt("Welcome! Please enter your AVWX API Key to enable METAR data. You can get one free at https://avwx.rest");
-      if (apiKey) {
-        localStorage.setItem("avwx_key", apiKey.trim());
-        alert("✅ Your API key has been saved. You won’t be asked again.");
-      } else {
-        alert("⚠️ No API key entered. METAR will not be available until you set one.");
-        return null;
-      }
+      // 這裡不再彈出輸入，直接回 null
+      return null;
     }
     try {
       const res = await fetch(`https://avwx.rest/api/metar/${icao}?format=json`, {
         headers: { Authorization: apiKey }
       });
+      if (!res.ok) {
+        showToast("❌ METAR 取得失敗，請檢查 API KEY");
+        return null;
+      }
       const data = await res.json();
       return data.raw || null;
     } catch (e) {
       console.error("❌ METAR Fetch Error:", e);
+      showToast("❌ METAR 取得失敗");
       return null;
     }
   }
@@ -135,6 +149,7 @@
   function rotateClock(svg, now) {
     const hour = svg.querySelector("line[id$='-hour']");
     const minute = svg.querySelector("line[id$='-minute']");
+    if (!hour || !minute) return;
     const h = now.getHours() % 12, m = now.getMinutes();
     hour.setAttribute("transform", `rotate(${h * 30 + m * 0.5} 20 20)`);
     minute.setAttribute("transform", `rotate(${m * 6} 20 20)`);
@@ -192,7 +207,6 @@
         el.style.top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight)) + "px";
         el.style.right = "auto";
         el.style.position = "fixed";
-        // 只在本分頁期間記憶，不寫入 storage
         window.geofsMetarWidgetLastPos = {
           left: el.style.left,
           top: el.style.top
@@ -202,6 +216,71 @@
     document.addEventListener("mouseup", () => {
       isDragging = false;
       document.body.style.userSelect = "";
+    });
+  }
+
+  function showApiKeyInputDialog() {
+    // 建立一個自訂輸入框
+    let overlay = document.createElement("div");
+    overlay.style.cssText = `
+      position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:100000;
+      background:rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;
+    `;
+    let box = document.createElement("div");
+    box.style.cssText = `
+      background:#222;padding:24px 20px;border-radius:8px;box-shadow:0 4px 24px #0007;
+      min-width:320px;display:flex;flex-direction:column;gap:10px;align-items:stretch;
+    `;
+    let title = document.createElement("div");
+    title.textContent = "請輸入 AVWX API Key";
+    title.style.cssText = "color:#fff;font-size:16px;margin-bottom:6px;";
+    let input = document.createElement("input");
+    input.type = "text";
+    input.style.cssText = "padding:8px;font-size:15px;border-radius:4px;border:1px solid #888;background:#181818;color:#fff;";
+    input.value = localStorage.getItem("avwx_key") || "";
+    input.placeholder = "輸入 key，或輸入 clear 來清除";
+    input.setAttribute("autocomplete", "off");
+    input.addEventListener("keydown", function(e) {
+      e.stopPropagation(); // 不觸發 GeoFS 熱鍵
+    });
+    let row = document.createElement("div");
+    row.style.cssText = "display:flex;gap:8px;margin-top:12px;justify-content:flex-end";
+    let okBtn = document.createElement("button");
+    okBtn.textContent = "確定";
+    okBtn.style.cssText = "padding:6px 18px;border-radius:4px;border:none;background:#5bcfff;color:#222;font-weight:bold;";
+    let cancelBtn = document.createElement("button");
+    cancelBtn.textContent = "取消";
+    cancelBtn.style.cssText = "padding:6px 18px;border-radius:4px;border:none;background:#888;color:#fff;";
+    row.appendChild(okBtn); row.appendChild(cancelBtn);
+    box.appendChild(title);
+    box.appendChild(input);
+    box.appendChild(row);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    input.focus();
+    okBtn.onclick = () => {
+      let val = input.value.trim();
+      if (!val) {
+        showToast("⚠️ 內容不得為空");
+        return;
+      }
+      if (val.toLowerCase() === "clear") {
+        localStorage.removeItem("avwx_key");
+        showToast("🗑️ API key 已清除");
+      } else {
+        localStorage.setItem("avwx_key", val);
+        showToast("✅ API key 已儲存");
+      }
+      document.body.removeChild(overlay);
+    };
+    cancelBtn.onclick = () => document.body.removeChild(overlay);
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") { okBtn.onclick(); e.preventDefault(); }
+      if (e.key === "Escape") { cancelBtn.onclick(); e.preventDefault(); }
+    });
+    overlay.addEventListener("click", e => {
+      if (e.target === overlay) document.body.removeChild(overlay);
     });
   }
 
@@ -228,18 +307,24 @@
       widget.style.display = window.geofsMetarWidgetLastDisplay;
     }
 
+    // --- 標題 & 設定
     const title = document.createElement("div");
     let apiKey = localStorage.getItem("avwx_key");
     if (!apiKey) {
-      title.textContent = "⚠️ No API key entered. Please get one at https://avwx.rest to enable METAR.";
-      widget.appendChild(title);
-      widget.appendChild(settingsBtn);
-      document.body.appendChild(widget);
-      makeDraggable(widget);
-      return;
+      title.textContent = "⚠️ 請點右側設定按鈕輸入 AVWX API Key";
+      title.style.marginBottom = "8px";
+    } else {
+      title.textContent = `METAR @ ${icao}`;
     }
-    title.textContent = `METAR @ ${icao}`;
     widget.appendChild(title);
+
+    const settingsBtn = document.createElement("button");
+    settingsBtn.textContent = "⚙";
+    settingsBtn.title = "設定 AVWX API Key";
+    settingsBtn.style.marginLeft = "8px";
+    settingsBtn.style.fontSize = "15px";
+    settingsBtn.onclick = showApiKeyInputDialog;
+    title.appendChild(settingsBtn);
 
     // Manual search UI
     const searchDiv = document.createElement("div");
@@ -259,6 +344,17 @@
     searchInput.style.color = "white";
     searchInput.maxLength = 4;
     searchInput.id = "geofs-metar-search-input";
+    searchInput.setAttribute("autocomplete", "off");
+    searchInput.addEventListener("input", function() {
+      this.value = this.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+    });
+    searchInput.addEventListener("keydown", function(e) {
+      e.stopPropagation(); // 完全不觸發 GeoFS 熱鍵
+      if (e.key === "Enter") { manualSearch(); e.preventDefault(); }
+    });
+    searchInput.addEventListener("focus", function() {
+      this.setAttribute("autocomplete", "off");
+    });
 
     if (mode === "auto") searchInput.value = "";
 
@@ -269,21 +365,20 @@
     searchBtn.style.padding = "2px 6px";
 
     async function manualSearch() {
-      let input = searchInput.value.trim().toUpperCase();
-      if (!input) return;
-      if (!AIRPORTS[input]) {
-        alert("❌ ICAO airport not found (" + input + ")");
+      let inputVal = searchInput.value.trim().toUpperCase();
+      if (!inputVal) return;
+      if (!AIRPORTS[inputVal]) {
+        showToast("❌ ICAO airport not found (" + inputVal + ")");
         return;
       }
-      const metar = await fetchMETAR(input);
-      if (metar) showWidget(metar, input, "manual");
-      else alert("❌ Query failed. Please check your API KEY or try again later.");
+      if (!localStorage.getItem("avwx_key")) {
+        showToast("⚠️ 請先設定 API Key");
+        return;
+      }
+      const metar = await fetchMETAR(inputVal);
+      if (metar) showWidget(metar, inputVal, "manual");
+      else showToast("❌ 取得 METAR 失敗，請檢查 API KEY");
     }
-
-    searchInput.addEventListener("keydown", function(e) {
-      e.stopPropagation(); // Prevent GeoFS hotkey interference
-      if (e.key === "Enter") manualSearch();
-    });
     searchBtn.onclick = manualSearch;
 
     searchDiv.appendChild(searchInput);
@@ -300,30 +395,19 @@
         const nearest = findNearestAirport(lat, lon);
         const newMetar = await fetchMETAR(nearest);
         if (newMetar) showWidget(newMetar, nearest, "auto");
+        else showToast("❌ 取得 METAR 失敗");
       }
     };
     widget.appendChild(refreshBtn);
 
-    const settingsBtn = document.createElement("button");
-    settingsBtn.textContent = "⚙";
-    settingsBtn.title = "Set AVWX API Key";
-    settingsBtn.style.marginLeft = "5px";
-    settingsBtn.onclick = () => {
-      const newKey = prompt("Enter your AVWX API Key (or type 'clear' to remove it):", localStorage.getItem("avwx_key") || "");
-      if (newKey !== null) {
-        if (newKey.trim().toLowerCase() === "clear") {
-          localStorage.removeItem("avwx_key");
-          alert("🗑️ API key has been cleared.");
-        } else if (newKey.trim()) {
-          localStorage.setItem("avwx_key", newKey.trim());
-          alert("✅ API key saved.");
-        } else {
-          alert("⚠️ API key not changed.");
-        }
-      }
-    };
-    widget.appendChild(settingsBtn);
+    // --- 沒 API KEY 不顯示下方數據
+    if (!apiKey) {
+      document.body.appendChild(widget);
+      makeDraggable(widget);
+      return;
+    }
 
+    // --- METAR 資訊區
     const iconRow = document.createElement("div");
     iconRow.style.marginTop = "6px";
 
@@ -407,6 +491,7 @@
 
     document.body.appendChild(widget);
     makeDraggable(widget);
+
     // 不自動 focus 搜尋框
   }
 
@@ -422,7 +507,8 @@
     }, 60000);
 
     document.addEventListener("keydown", function (e) {
-      if (e.key.toLowerCase() === "w") {
+      // 只有 widget 輸入框未 focus 時才觸發 W 隱藏熱鍵
+      if (e.key.toLowerCase() === "w" && !document.activeElement.matches("input")) {
         const w = window.geofsMetarWidget;
         if (w) {
           w.style.display = (w.style.display === "none") ? "block" : "none";
@@ -431,6 +517,12 @@
       }
     });
 
+    // 初始化時，如果沒 API key 只提示設定
+    let apiKey = localStorage.getItem("avwx_key");
+    if (!apiKey) {
+      showWidget("", defaultICAO, "auto");
+      return;
+    }
     fetchMETAR(defaultICAO).then(metar => {
       if (metar) showWidget(metar, defaultICAO, "auto");
     });
