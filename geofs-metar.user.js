@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.2.2
+// @version      4.1.5
 // @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI and manual airport search
 // @author       seabus + ChatGPT
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -11,17 +11,15 @@
 // ==/UserScript==
 
 (function () {
-  // ======= 新增：主動提醒有新版 =======
+  // ======= 主動提醒有新版 =======
   const CURRENT_VERSION = '4.2.2';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
 
   (function checkUpdate() {
-    // 避免太頻繁彈窗（一天檢查一次）
     const last = +localStorage.getItem("geofs_metar_last_update_check") || 0;
     const now = Date.now();
     if (now - last < 86400 * 1000) return;
     localStorage.setItem("geofs_metar_last_update_check", now);
-
     fetch(VERSION_JSON_URL)
       .then(r => r.json())
       .then(data => {
@@ -31,10 +29,13 @@
       })
       .catch(() => {});
   })();
-  // ======= 主體程式繼續 =======
 
   if (window.geofsMetarAlreadyLoaded) return;
   window.geofsMetarAlreadyLoaded = true;
+
+  // ------- 僅本分頁記憶 widget 狀態，F5/重新進站會重設 -------
+  window.geofsMetarWidgetLastPos = null;
+  window.geofsMetarWidgetLastDisplay = null;
 
   const defaultICAO = "RCTP";
   const airportDataURL = "https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/airports_with_tz.json";
@@ -190,6 +191,12 @@
         el.style.left = Math.max(0, Math.min(e.clientX - offsetX, window.innerWidth - el.offsetWidth)) + "px";
         el.style.top = Math.max(0, Math.min(e.clientY - offsetY, window.innerHeight - el.offsetHeight)) + "px";
         el.style.right = "auto";
+        el.style.position = "fixed";
+        // 只在本分頁期間記憶，不寫入 storage
+        window.geofsMetarWidgetLastPos = {
+          left: el.style.left,
+          top: el.style.top
+        };
       }
     });
     document.addEventListener("mouseup", () => {
@@ -209,6 +216,17 @@
       font: 12px monospace; z-index: 9999;
       min-width: 220px;
     `;
+
+    // -------- 只依本分頁記憶還原位置與顯示狀態 --------
+    if (window.geofsMetarWidgetLastPos) {
+      widget.style.left = window.geofsMetarWidgetLastPos.left;
+      widget.style.top = window.geofsMetarWidgetLastPos.top;
+      widget.style.right = "auto";
+      widget.style.position = "fixed";
+    }
+    if (window.geofsMetarWidgetLastDisplay) {
+      widget.style.display = window.geofsMetarWidgetLastDisplay;
+    }
 
     const title = document.createElement("div");
     let apiKey = localStorage.getItem("avwx_key");
@@ -389,6 +407,7 @@
 
     document.body.appendChild(widget);
     makeDraggable(widget);
+    // 不自動 focus 搜尋框
   }
 
   function startMETAR() {
@@ -405,7 +424,10 @@
     document.addEventListener("keydown", function (e) {
       if (e.key.toLowerCase() === "w") {
         const w = window.geofsMetarWidget;
-        if (w) w.style.display = (w.style.display === "none") ? "block" : "none";
+        if (w) {
+          w.style.display = (w.style.display === "none") ? "block" : "none";
+          window.geofsMetarWidgetLastDisplay = w.style.display;
+        }
       }
     });
 
