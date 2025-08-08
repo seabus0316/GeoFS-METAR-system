@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoFS METAR system
 // @version      4.2.5
-// @description  METAR widget: API KEY via settings, English toast, input no autocomplete, input disables GeoFS hotkeys
+// @description  METAR widget: API KEY via settings, English modal, input no autocomplete, input disables GeoFS hotkeys
 // @author       seabus + Copilot
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
 // @downloadURL  https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -11,35 +11,100 @@
 // ==/UserScript==
 
 (function () {
-  // ===== Toast (top right) =====
-  function showToast(msg, duration = 2500) {
-    let toast = document.createElement("div");
-    toast.textContent = msg;
-    toast.style.cssText = `
-      position: fixed; top: 20px; right: 20px; z-index: 99999;
-      background: #333; color: #fff; padding: 12px 24px; border-radius: 6px;
-      font-size: 14px; box-shadow: 0 2px 12px #0004;
-      opacity: 0; transition: opacity 0.3s;
+  // ===== Custom Modal (centered) =====
+  function showModal(msg, duration = null, updateBtnUrl = null) {
+    if (document.getElementById("geofs-metar-modal")) return;
+    let overlay = document.createElement("div");
+    overlay.id = "geofs-metar-modal";
+    overlay.style.cssText = `
+      position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:99999;
+      background:rgba(24,32,48,0.45);display:flex;align-items:center;justify-content:center;
     `;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.style.opacity = "1", 10);
-    setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => toast.remove(), 350); }, duration);
+    let box = document.createElement("div");
+    box.style.cssText = `
+      background:linear-gradient(135deg,#232942 80%,#151a25 100%);
+      color:#dbeaff;padding:30px 34px;border-radius:18px;box-shadow:0 6px 32px #000b;
+      min-width:280px;max-width:90vw;display:flex;flex-direction:column;align-items:center;gap:14px;
+      border:2.5px solid #3d6aff;font-size:1.15rem;letter-spacing:0.3px;
+      text-align:center;animation:popIn .21s;
+    `;
+    let content = document.createElement("div");
+    content.innerHTML = msg;
+    box.appendChild(content);
+
+    // --- Update button support ---
+    if (updateBtnUrl) {
+      let updateBtn = document.createElement("a");
+      updateBtn.textContent = "Update";
+      updateBtn.href = updateBtnUrl;
+      updateBtn.target = "_blank";
+      updateBtn.style.cssText = `
+        margin-top:6px;padding:8px 38px;font-size:1.05rem;background:#1e3f6e;
+        color:#fff;border:1.5px solid #4eaaff;border-radius:7px;font-weight:bold;cursor:pointer;
+        box-shadow:0 1px 8px #4eaaff30;transition:background .18s;display:inline-block;text-decoration:none;
+      `;
+      updateBtn.onmouseover = function(){this.style.background="#1552a1";}
+      updateBtn.onmouseout = function(){this.style.background="#1e3f6e";}
+      box.appendChild(updateBtn);
+    }
+
+    let okBtn = document.createElement("button");
+    okBtn.textContent = "OK";
+    okBtn.style.cssText = `
+      margin-top:16px;padding:8px 38px;font-size:1.05rem;background:#222b3c;
+      color:#b2cfff;border:1.5px solid #4eaaff;border-radius:7px;font-weight:bold;cursor:pointer;
+      box-shadow:0 1px 8px #3d6aff30;transition:background .18s;
+    `;
+    okBtn.onmouseover = function(){this.style.background="#23395d";}
+    okBtn.onmouseout = function(){this.style.background="#222b3c";}
+    okBtn.onclick = () => { document.body.removeChild(overlay); };
+    box.appendChild(okBtn);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // Optional auto-close
+    if (duration) setTimeout(() => {
+      if (document.body.contains(overlay)) document.body.removeChild(overlay);
+    }, duration);
+
+    // Enter/Escape key to close
+    overlay.tabIndex = -1; overlay.focus();
+    overlay.onkeydown = (e) => {
+      if (e.key === "Enter" || e.key === "Escape") {
+        if (document.body.contains(overlay)) document.body.removeChild(overlay);
+      }
+    };
+
+    // Animation
+    if (!document.getElementById("geofs-metar-modal-anim")) {
+      const style = document.createElement('style');
+      style.id = "geofs-metar-modal-anim";
+      style.textContent = `
+        @keyframes popIn { from { transform:scale(0.85);opacity:0; } to { transform:scale(1);opacity:1; } }
+      `;
+      document.head.appendChild(style);
+    }
   }
 
   // ======= Update check (English) =======
   const CURRENT_VERSION = '4.2.5';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
+  const UPDATE_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js';
 
   (function checkUpdate() {
     const last = +localStorage.getItem("geofs_metar_last_update_check") || 0;
     const now = Date.now();
-    if (now - last < 86400 * 1000) return;
+    if (now - last < 1 * 1000) return;
     localStorage.setItem("geofs_metar_last_update_check", now);
     fetch(VERSION_JSON_URL)
       .then(r => r.json())
       .then(data => {
         if (data.version && data.version !== CURRENT_VERSION) {
-          showToast(`🚩 GeoFS METAR System new version available (${data.version})! Please reinstall the latest user.js from GitHub.`);
+          showModal(
+            `🚩 GeoFS METAR System new version available (${data.version})!<br>Please reinstall the latest user.js from GitHub.`,
+            null,
+            UPDATE_URL
+          );
         }
       })
       .catch(() => {});
@@ -108,7 +173,7 @@
       startMETAR();
     } catch (e) {
       console.error("❌ Failed to load airport data:", e);
-      showToast("⚠️ Failed to load airport database. METAR system disabled.");
+      showModal("⚠️ Failed to load airport database. METAR system disabled.");
     }
   }
 
@@ -122,14 +187,14 @@
         headers: { Authorization: apiKey }
       });
       if (!res.ok) {
-        showToast("❌ Failed to fetch METAR. Please check your API KEY.");
+        showModal("❌ Failed to fetch METAR. Please check your API KEY.");
         return null;
       }
       const data = await res.json();
       return data.raw || null;
     } catch (e) {
       console.error("❌ METAR Fetch Error:", e);
-      showToast("❌ Failed to fetch METAR.");
+      showModal("❌ Failed to fetch METAR.");
       return null;
     }
   }
@@ -260,15 +325,15 @@
     okBtn.onclick = () => {
       let val = input.value.trim();
       if (!val) {
-        showToast("⚠️ Content cannot be empty");
+        showModal("⚠️ Content cannot be empty");
         return;
       }
       if (val.toLowerCase() === "clear") {
         localStorage.removeItem("avwx_key");
-        showToast("🗑️ API key removed.");
+        showModal("🗑️ API key removed.");
       } else {
         localStorage.setItem("avwx_key", val);
-        showToast("✅ API key saved.");
+        showModal("✅ API key saved.");
       }
       document.body.removeChild(overlay);
     };
@@ -366,16 +431,16 @@
       let inputVal = searchInput.value.trim().toUpperCase();
       if (!inputVal) return;
       if (!AIRPORTS[inputVal]) {
-        showToast(`❌ ICAO airport not found (${inputVal})`);
+        showModal(`❌ ICAO airport not found (${inputVal})`);
         return;
       }
       if (!localStorage.getItem("avwx_key")) {
-        showToast("⚠️ Please set your API Key first.");
+        showModal("⚠️ Please set your API Key first.");
         return;
       }
       const metar = await fetchMETAR(inputVal);
       if (metar) showWidget(metar, inputVal, "manual");
-      else showToast("❌ Failed to fetch METAR. Please check your API KEY.");
+      else showModal("❌ Failed to fetch METAR. Please check your API KEY.");
     }
     searchBtn.onclick = manualSearch;
 
@@ -393,7 +458,7 @@
         const nearest = findNearestAirport(lat, lon);
         const newMetar = await fetchMETAR(nearest);
         if (newMetar) showWidget(newMetar, nearest, "auto");
-        else showToast("❌ Failed to fetch METAR.");
+        else showModal("❌ Failed to fetch METAR.");
       }
     };
     widget.appendChild(refreshBtn);
