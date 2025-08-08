@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.1.5
+// @version      4.2.2
 // @description  Full METAR widget UI restored using external JSON airport data (AVWX-powered), with API key settings UI and manual airport search
 // @author       seabus + ChatGPT
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -11,6 +11,28 @@
 // ==/UserScript==
 
 (function () {
+  // ======= 新增：主動提醒有新版 =======
+  const CURRENT_VERSION = '4.2.2';
+  const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
+
+  (function checkUpdate() {
+    // 避免太頻繁彈窗（一天檢查一次）
+    const last = +localStorage.getItem("geofs_metar_last_update_check") || 0;
+    const now = Date.now();
+    if (now - last < 86400 * 1000) return;
+    localStorage.setItem("geofs_metar_last_update_check", now);
+
+    fetch(VERSION_JSON_URL)
+      .then(r => r.json())
+      .then(data => {
+        if (data.version && data.version !== CURRENT_VERSION) {
+          alert(`🚩 GeoFS METAR System 有新版本 (${data.version})！\n請至 GitHub 重新安裝最新版 user.js\n\nhttps://github.com/seabus0316/GeoFS-METAR-system`);
+        }
+      })
+      .catch(() => {});
+  })();
+  // ======= 主體程式繼續 =======
+
   if (window.geofsMetarAlreadyLoaded) return;
   window.geofsMetarAlreadyLoaded = true;
 
@@ -208,7 +230,6 @@
     searchDiv.style.gap = "4px";
     searchDiv.style.alignItems = "center";
     const searchInput = document.createElement("input");
-      searchInput.autocomplete = "off";
     searchInput.type = "text";
     searchInput.placeholder = "Enter ICAO manually (ex: RCTP)";
     searchInput.style.fontSize = "12px";
@@ -368,7 +389,6 @@
 
     document.body.appendChild(widget);
     makeDraggable(widget);
-    searchInput.focus();
   }
 
   function startMETAR() {
