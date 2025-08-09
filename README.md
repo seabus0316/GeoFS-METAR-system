@@ -11,7 +11,8 @@ If you escaped the window accidentally, please refresh the page.
 ## How to install?
 Copy the user.js and paste it into Tampermonkey.
 ##How to use the converter?
-Find the data in https://ourairports.com/, and paste the .csv into the converter, press "轉換 (with a rocket emoji)", paste the code into airports.json, and upload to a public github repo, change the link in const airportDataURL = "your raw link here"
+Find the data in https://ourairports.com/, and paste the .csv into the converter (link: https://seabus0316.github.io/GeoFS-METAR-system/airport_csv_converter_v7.html
+), press "convert", paste the code into airports.json, and upload to a public github repo, change the link in const airportDataURL = "your raw link here"
 You can add airports customarily, but U have to create a repo, U can ask seabus. Also, I will also upload some airport collection packs here, and you don't have to update your userscript.
 ## About clocks
 The clock theme changes with the day and night.
