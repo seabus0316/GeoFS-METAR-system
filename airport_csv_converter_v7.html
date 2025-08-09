@@ -4,31 +4,110 @@
   <meta charset="UTF-8">
   <title>Airport CSV to JSON Converter (with Timezone & Duplicate Removal)</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    textarea { width: 48%; height: 200px; margin: 5px; white-space: pre; }
-    .row { display: flex; justify-content: space-between; }
-    button { padding: 10px 20px; margin: 10px 0; }
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f6f8fa;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #0002;
+      padding: 32px 28px 24px 28px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 16px;
+    }
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      max-height: 220px;
+      margin: 0;
+      font-size: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccd0d5;
+      resize: vertical;
+      background: #f8fafc;
+      font-family: "Fira Mono", "Consolas", monospace;
+      box-sizing: border-box;
+      white-space: pre;
+    }
+    button {
+      padding: 10px 22px;
+      margin: 16px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background: #1976d2;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    button:hover {
+      background: #115293;
+    }
+    .row {
+      display: flex;
+      gap: 24px;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .output-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .output-section h4 {
+      margin: 0 0 4px 0;
+    }
+    @media (max-width: 900px) {
+      .container {
+        padding: 18px 10px;
+      }
+      .row {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/tz-lookup@6.1.24/tz.js"></script>
 </head>
 <body>
-  <h2>✈️ Airport CSV ➜ JSON Converter (with Timezone & Duplicate Removal)</h2>
-  <p>Paste your CSV here (format: ICAO,Name,Lat,Lon), first line should be header</p>
-  <textarea id="csvInput" placeholder="Example:\nRCKH,Kaohsiung Intl,22.5769,120.351997\nRCQC,Magong Airport,23.5687,119.627998"></textarea>
-
-  <button onclick="convertCSV()">🚀 Convert ➜ JSON</button>
-
-  <div class="row">
-    <div>
-      <h4>✅ JSON Output:</h4>
-      <textarea id="jsonOutput" readonly></textarea>
+  <div class="container">
+    <h2>✈️ Airport CSV ➜ JSON Converter (with Timezone & Duplicate Removal)</h2>
+    <p>
+      Paste your CSV here (format: ICAO,Name,Lat,Lon), first line should be header.<br>
+      <small>Example:<br>
+      <code>RCKH,Kaohsiung Intl,22.5769,120.351997<br>RCQC,Magong Airport,23.5687,119.627998</code></small>
+    </p>
+    <div class="inputs">
+      <textarea id="csvInput" placeholder="Paste your CSV data here..."></textarea>
+      <button onclick="convertCSV()">🚀 Convert ➜ JSON</button>
     </div>
-    <div>
-      <h4>⚠️ Duplicate ICAOs:</h4>
-      <textarea id="duplicatesOutput" readonly></textarea>
+    <div class="row">
+      <div class="output-section">
+        <h4>✅ JSON Output:</h4>
+        <textarea id="jsonOutput" readonly></textarea>
+      </div>
+      <div class="output-section">
+        <h4>⚠️ Duplicate ICAOs:</h4>
+        <textarea id="duplicatesOutput" readonly></textarea>
+      </div>
     </div>
   </div>
-
   <script>
     async function convertCSV() {
       const csv = document.getElementById("csvInput").value.trim();
@@ -38,7 +117,9 @@
 
       for (let i = 1; i < lines.length; i++) {
         const [icaoRaw, nameRaw, latRaw, lonRaw] = lines[i].split(",");
-        const icao = icaoRaw.trim().toUpperCase();
+        const icao = icaoRaw?.trim().toUpperCase();
+
+        if (!icao || !nameRaw || !latRaw || !lonRaw) continue;
 
         if (json[icao]) {
           duplicates.push(icao);
