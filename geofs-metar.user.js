@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.2.5
+// @version      4.2.6
 // @description  METAR widget: API KEY via settings, English modal, input no autocomplete, input disables GeoFS hotkeys
 // @author       seabus + Copilot
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -87,7 +87,7 @@
   }
 
   // ======= Update check (English) =======
-  const CURRENT_VERSION = '4.2.5';
+  const CURRENT_VERSION = '4.2.6';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
   const UPDATE_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js';
 
@@ -187,14 +187,14 @@
         headers: { Authorization: apiKey }
       });
       if (!res.ok) {
-        showModal("❌ Failed to fetch METAR. Please check your API KEY.");
+        // showModal("❌ Failed to fetch METAR. Please check your API KEY."); // 隱藏錯誤提醒
         return null;
       }
       const data = await res.json();
       return data.raw || null;
     } catch (e) {
       console.error("❌ METAR Fetch Error:", e);
-      showModal("❌ Failed to fetch METAR.");
+      // showModal("❌ Failed to fetch METAR."); // 隱藏錯誤提醒
       return null;
     }
   }
@@ -440,7 +440,9 @@
       }
       const metar = await fetchMETAR(inputVal);
       if (metar) showWidget(metar, inputVal, "manual");
-      else showModal("❌ Failed to fetch METAR. Please check your API KEY.");
+      else {
+        // showModal("❌ Failed to fetch METAR. Please check your API KEY."); // 隱藏錯誤提醒
+      }
     }
     searchBtn.onclick = manualSearch;
 
@@ -458,7 +460,9 @@
         const nearest = findNearestAirport(lat, lon);
         const newMetar = await fetchMETAR(nearest);
         if (newMetar) showWidget(newMetar, nearest, "auto");
-        else showModal("❌ Failed to fetch METAR.");
+        else {
+          // showModal("❌ Failed to fetch METAR."); // 隱藏錯誤提醒
+        }
       }
     };
     widget.appendChild(refreshBtn);
