@@ -4,9 +4,7 @@ Please check for version updates frequently, as the current version is still uns
 ## How to use?
 The widget will display the closest airport's METAR to you. It will auto-refresh every 30 minutes, and you can refresh manually as well.
 U can hide the widget by pressing W.
-For the first time, please paste your API key in a pop-up window. Please get one at https://account.avwx.rest/getting-started first. Type "clear" if you want to remove the API key
-If you want it to support more airports, you can add them yourself. Also, you can ask me anything on my Discord (seabus0316).
-tutorial: https://upfile.live/zh-tw/files/76f6288f
+After the verion 4.2.7, we don't need ap key anymore!!!!!!!!!!!!!!
 ## How to install?
 Copy the user.js and paste it into Tampermonkey.
 ##How to use the converter?
