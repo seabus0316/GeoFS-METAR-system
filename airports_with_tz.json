@@ -2002,5 +2002,263 @@
     "lat": 38.1397,
     "lon": 140.9171,
     "tz": "Asia/Tokyo"
+  },
+  "VECC": {
+    "name": "Kolkata Netaji Subhas Chandra Bose International Airport",
+    "lat": 22.6548,
+    "lon": 88.4467,
+    "tz": "Asia/Kolkata"
+  },
+  "VOMM": {
+    "name": "Chennai International Airport",
+    "lat": 13.082,
+    "lon": 80.209,
+    "tz": "Asia/Kolkata"
+  },
+  "VOBL": {
+    "name": "Bengaluru Kempegowda International Airport",
+    "lat": 13.1986,
+    "lon": 77.7069,
+    "tz": "Asia/Kolkata"
+  },
+  "VABB": {
+    "name": "Mumbai Chhatrapati Shivaji Maharaj International Airport",
+    "lat": 19.0886,
+    "lon": 72.8679,
+    "tz": "Asia/Kolkata"
+  },
+  "VOML": {
+    "name": "Coimbatore International Airport",
+    "lat": 11.0311,
+    "lon": 77.0422,
+    "tz": "Asia/Kolkata"
+  },
+  "VOBZ": {
+    "name": "Visakhapatnam Airport",
+    "lat": 17.7211,
+    "lon": 83.2142,
+    "tz": "Asia/Kolkata"
+  },
+  "VOBR": {
+    "name": "Surat International Airport",
+    "lat": 21.1702,
+    "lon": 72.8311,
+    "tz": "Asia/Kolkata"
+  },
+  "VOBP": {
+    "name": "Pune Lohegaon Airport",
+    "lat": 18.5812,
+    "lon": 73.9197,
+    "tz": "Asia/Kolkata"
+  },
+  "VOMD": {
+    "name": "Madurai International Airport",
+    "lat": 9.9256,
+    "lon": 78.1194,
+    "tz": "Asia/Kolkata"
+  },
+  "VOBM": {
+    "name": "Mangalore International Airport",
+    "lat": 12.9611,
+    "lon": 74.8869,
+    "tz": "Asia/Kolkata"
+  },
+  "VOHY": {
+    "name": "Hyderabad Rajiv Gandhi International Airport",
+    "lat": 17.2311,
+    "lon": 78.4292,
+    "tz": "Asia/Kolkata"
+  },
+  "VOBG": {
+    "name": "Goa Dabolim Airport",
+    "lat": 15.38,
+    "lon": 73.8311,
+    "tz": "Asia/Kolkata"
+  },
+  "VAAH": {
+    "name": "Ahmedabad Sardar Vallabhbhai Patel International Airport",
+    "lat": 23.0783,
+    "lon": 72.6348,
+    "tz": "Asia/Kolkata"
+  },
+  "VOBD": {
+    "name": "Dharamsala Gaggal Airport",
+    "lat": 32.0833,
+    "lon": 76.8833,
+    "tz": "Asia/Kolkata"
+  },
+  "VOMJ": {
+    "name": "Jammu Satwari Airport",
+    "lat": 32.6833,
+    "lon": 74.8667,
+    "tz": "Asia/Kolkata"
+  },
+  "VISR": {
+    "name": "Srinagar Sheikh ul-Alam International Airport",
+    "lat": 33.9997,
+    "lon": 74.78,
+    "tz": "Asia/Kolkata"
+  },
+  "VIDR": {
+    "name": "Deoghar Airport",
+    "lat": 24.5,
+    "lon": 86.7,
+    "tz": "Asia/Kolkata"
+  },
+  "VERC": {
+    "name": "Ranchi Birsa Munda Airport",
+    "lat": 23.3442,
+    "lon": 85.3092,
+    "tz": "Asia/Kolkata"
+  },
+  "VOSM": {
+    "name": "Shillong Umroi Airport",
+    "lat": 25.5667,
+    "lon": 91.6,
+    "tz": "Asia/Kolkata"
+  },
+  "VEAT": {
+    "name": "Agartala Maharaja Bir Bikram Airport",
+    "lat": 23.8319,
+    "lon": 91.2714,
+    "tz": "Asia/Kolkata"
+  },
+  "VIPT": {
+    "name": "Dehradun Jolly Grant Airport",
+    "lat": 30.3167,
+    "lon": 78.0292,
+    "tz": "Asia/Kolkata"
+  },
+  "VEAG": {
+    "name": "Agra Airport",
+    "lat": 27.1786,
+    "lon": 78.0247,
+    "tz": "Asia/Kolkata"
+  },
+  "VIAH": {
+    "name": "Ayodhya International Airport",
+    "lat": 26.795,
+    "lon": 82.2075,
+    "tz": "Asia/Kolkata"
+  },
+  "VIBY": {
+    "name": "Bareilly Airport",
+    "lat": 28.35,
+    "lon": 79.4,
+    "tz": "Asia/Kolkata"
+  },
+  "VIGR": {
+    "name": "Gorakhpur Airport",
+    "lat": 26.75,
+    "lon": 83.3667,
+    "tz": "Asia/Kolkata"
+  },
+  "VIKA": {
+    "name": "Kanpur Airport",
+    "lat": 26.4472,
+    "lon": 80.3328,
+    "tz": "Asia/Kolkata"
+  },
+  "VILK": {
+    "name": "Lucknow Chaudhary Charan Singh International Airport",
+    "lat": 26.7606,
+    "lon": 80.8894,
+    "tz": "Asia/Kolkata"
+  },
+  "VINO": {
+    "name": "Noida International Airport",
+    "lat": 28.5721,
+    "lon": 77.32,
+    "tz": "Asia/Kolkata"
+  },
+  "VIPR": {
+    "name": "Prayagraj Airport",
+    "lat": 25.4358,
+    "lon": 81.8463,
+    "tz": "Asia/Kolkata"
+  },
+  "VIBR": {
+    "name": "Varanasi Lal Bahadur Shastri International Airport",
+    "lat": 25.4528,
+    "lon": 82.8511,
+    "tz": "Asia/Kolkata"
+  },
+  "VEBG": {
+    "name": "Bagdogra Airport",
+    "lat": 26.7028,
+    "lon": 88.3272,
+    "tz": "Asia/Kolkata"
+  },
+  "VEDG": {
+    "name": "Durgapur Kazi Nazrul Islam Airport",
+    "lat": 23.4906,
+    "lon": 87.3114,
+    "tz": "Asia/Kolkata"
+  },
+  "VOAT": {
+    "name": "Agatti Airport",
+    "lat": 10.8786,
+    "lon": 73.6583,
+    "tz": "Asia/Kolkata"
+  },
+  "VOIN": {
+    "name": "Indore Devi Ahilya Bai Holkar Airport",
+    "lat": 22.7196,
+    "lon": 75.8333,
+    "tz": "Asia/Kolkata"
+  },
+  "VOJB": {
+    "name": "Jabalpur Dumna Airport",
+    "lat": 23.1811,
+    "lon": 79.9575,
+    "tz": "Asia/Kolkata"
+  },
+  "VOKH": {
+    "name": "Khajuraho Airport",
+    "lat": 24.8333,
+    "lon": 79.9333,
+    "tz": "Asia/Kolkata"
+  },
+  "VOAU": {
+    "name": "Aurangabad Chhatrapati Sambhaji Maharaj Airport",
+    "lat": 19.8764,
+    "lon": 75.3436,
+    "tz": "Asia/Kolkata"
+  },
+  "VOGD": {
+    "name": "Gondia Airport",
+    "lat": 21.4583,
+    "lon": 79.9333,
+    "tz": "Asia/Kolkata"
+  },
+  "VOKP": {
+    "name": "Kolhapur Airport",
+    "lat": 16.7056,
+    "lon": 74.2436,
+    "tz": "Asia/Kolkata"
+  },
+  "VANP": {
+    "name": "Nashik Airport",
+    "lat": 19.9972,
+    "lon": 73.7894,
+    "tz": "Asia/Kolkata"
+  },
+  "VOPB": {
+    "name": "Shirdi Airport",
+    "lat": 19.7667,
+    "lon": 74.47,
+    "tz": "Asia/Kolkata"
+  },
+  "VOMI": {
+    "name": "Imphal Airport",
+    "lat": 24.8172,
+    "lon": 93.9369,
+    "tz": "Asia/Kolkata"
+  },
+  "VIGA": {
+    "name": "Gorakhpur Airport",
+    "lat": 26.75,
+    "lon": 83.3667,
+    "tz": "Asia/Kolkata"
   }
 }
