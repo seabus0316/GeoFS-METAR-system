@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.2.8
+// @version      4.2.9
 // @description  METAR widget using VATSIM METAR API (no API key required). Includes version check, manual/auto search, icons, draggable UI.
 // @author       seabus + Copilot (VATSIM source by ChatGPT)
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -85,28 +85,25 @@
   }
 
   // ======= Update check (English) =======
-  const CURRENT_VERSION = '4.2.8';
+  const CURRENT_VERSION = '4.2.9';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
   const UPDATE_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js';
 
-  (function checkUpdate() {
-    const last = +localStorage.getItem("geofs_metar_last_update_check") || 0;
-    const now = Date.now();
-    if (now - last < 60 * 1000) return; // throttle to at most once per minute
-    localStorage.setItem("geofs_metar_last_update_check", now);
-    fetch(VERSION_JSON_URL)
-      .then(r => r.json())
-      .then(data => {
-        if (data.version && data.version !== CURRENT_VERSION) {
-          showModal(
-            `🚩 GeoFS METAR System new version available (${data.version})!<br>Please reinstall the latest user.js from GitHub.`,
-            null,
-            UPDATE_URL
-          );
-        }
-      })
-      .catch(() => {});
-  })();
+(function checkUpdate() {
+  fetch(VERSION_JSON_URL)
+    .then(r => r.json())
+    .then(data => {
+      if (data.version && data.version !== CURRENT_VERSION) {
+        showModal(
+          `🚩 GeoFS METAR System new version available (${data.version})!<br>Please reinstall the latest user.js from GitHub.`,
+          null,
+          UPDATE_URL
+        );
+      }
+    })
+    .catch(() => {});
+})();
+
 
   if (window.geofsMetarAlreadyLoaded) return;
   window.geofsMetarAlreadyLoaded = true;
@@ -349,7 +346,7 @@
       if (metar) {
         showWidget(metar, inputVal, "manual");
       } else {
-        showModal(`❌ No METAR available for ${inputVal} `);
+        showModal(`❌ No METAR available for ${inputVal} (VATSIM)`);
       }
     }
     searchBtn.onclick = manualSearch;
