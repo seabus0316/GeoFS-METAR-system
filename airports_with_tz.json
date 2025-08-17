@@ -2260,5 +2260,35 @@
     "lat": 26.75,
     "lon": 83.3667,
     "tz": "Asia/Kolkata"
+  },
+  "RKSS": {
+    "name": "Seoul Gimpo International Airport",
+    "lat": 37.5583,
+    "lon": 126.791,
+    "tz": "Asia/Seoul"
+  },
+  "RCBS": {
+    "name": "Kinmen Airport",
+    "lat": 24.4279,
+    "lon": 118.359,
+    "tz": "Asia/Taipei"
+  },
+  "VMMC": {
+    "name": "Macau International Airport",
+    "lat": 22.1496,
+    "lon": 113.5925,
+    "tz": "Asia/Macau"
+  },
+  "PTRO": {
+    "name": "Palau Roman Tmetuchl International Airport",
+    "lat": 7.3673,
+    "lon": 134.5443,
+    "tz": "Pacific/Palau"
+  },
+  "NFFN": {
+    "name": "Nadi International Airport",
+    "lat": -17.7554,
+    "lon": 177.4434,
+    "tz": "Pacific/Fiji"
   }
 }
