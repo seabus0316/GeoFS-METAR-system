@@ -2290,5 +2290,11 @@
     "lat": -17.7554,
     "lon": 177.4434,
     "tz": "Pacific/Fiji"
+  },
+  "RKPK": {
+    "name": "Busan Gimhae International Airport",
+    "lat": 35.1795,
+    "lon": 128.9382,
+    "tz": "Asia/Seoul"
   }
 }
