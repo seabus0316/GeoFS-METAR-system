@@ -2380,5 +2380,11 @@
     "lat": 17.7211,
     "lon": 83.2142,
     "tz": "Asia/Kolkata"
+  },
+  "VCBL": {
+    "name": "Visakhapatnam International Airport",
+    "lat": 17.7211,
+    "lon": 83.2245,
+    "tz": "Asia/Kolkata"
   }
 }
