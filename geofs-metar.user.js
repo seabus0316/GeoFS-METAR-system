@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.2.8
+// @version      4.2.9
 // @description  METAR widget using VATSIM METAR API (no API key required). Includes version check, manual/auto search, icons, draggable UI.
 // @author       seabus + Copilot (VATSIM source by ChatGPT)
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -268,10 +268,22 @@
     });
   }
 
+  // 新增：跟隨遊戲 UI 顯示狀態的更新函數
+  function updateMetarVisibility() {
+    if (window.geofsMetarWidget && window.instruments && typeof window.instruments.visible !== 'undefined') {
+      const shouldShow = window.instruments.visible;
+      window.geofsMetarWidget.style.display = shouldShow ? "block" : "none";
+    }
+  }
+
   function showWidget(metar, icao, mode = "auto") {
     if (window.geofsMetarWidget) window.geofsMetarWidget.remove();
     const widget = document.createElement("div");
     window.geofsMetarWidget = widget;
+
+    // 新增：添加 metar-widget 類名，以便跟 minimap 一樣管理
+    widget.className = "metar-widget";
+
     widget.style.cssText = `
       position: fixed; top: 10px; right: 10px;
       background: rgba(0,0,0,0.8); color: white;
@@ -373,6 +385,8 @@
     if (!metar) {
       document.body.appendChild(widget);
       makeDraggable(widget);
+      // 新增：設置初始顯示狀態
+      updateMetarVisibility();
       return;
     }
 
@@ -460,9 +474,17 @@
 
     document.body.appendChild(widget);
     makeDraggable(widget);
+
+    // 新增：設置初始顯示狀態
+    updateMetarVisibility();
   }
 
   function startMETAR() {
+    // 新增：定期檢查遊戲 UI 顯示狀態並同步 METAR widget
+    setInterval(() => {
+      updateMetarVisibility();
+    }, 50); // 每 100ms 檢查一次，跟 minimap 的更新頻率差不多
+
     // periodic auto-refresh for nearest airport
     setInterval(async () => {
       const pos = geofs?.aircraft?.instance?.llaLocation;
@@ -474,16 +496,6 @@
       }
     }, 60000);
 
-    document.addEventListener("keydown", function (e) {
-      // Only trigger W hotkey if not focusing an input
-      if (e.key.toLowerCase() === "w" && !document.activeElement.matches("input, textarea")) {
-        const w = window.geofsMetarWidget;
-        if (w) {
-          w.style.display = (w.style.display === "none") ? "block" : "none";
-          window.geofsMetarWidgetLastDisplay = w.style.display;
-        }
-      }
-    });
 
     // On init: fetch default airport once
     fetchMETAR(defaultICAO).then(metar => {
