@@ -2291,10 +2291,94 @@
     "lon": 177.4434,
     "tz": "Pacific/Fiji"
   },
-  "RKPK": {
-    "name": "Busan Gimhae International Airport",
-    "lat": 35.1795,
-    "lon": 128.9382,
-    "tz": "Asia/Seoul"
+  "VOCI": {
+    "name": "Cochin (Kochi) Intl",
+    "lat": 10.152,
+    "lon": 76.4018,
+    "tz": "Asia/Kolkata"
+  },
+  "VOIM": {
+    "name": "Imphal Tulihal Airport",
+    "lat": 24.8172,
+    "lon": 93.9369,
+    "tz": "Asia/Kolkata"
+  },
+  "VEBN": {
+    "name": "Varanasi Lal Bahadur Shastri Intl",
+    "lat": 25.4528,
+    "lon": 82.8511,
+    "tz": "Asia/Kolkata"
+  },
+  "VIDE": {
+    "name": "Ranchi Birsa Munda Airport",
+    "lat": 23.3442,
+    "lon": 85.3092,
+    "tz": "Asia/Kolkata"
+  },
+  "VIJP": {
+    "name": "Jaipur International Airport",
+    "lat": 26.8242,
+    "lon": 75.8122,
+    "tz": "Asia/Kolkata"
+  },
+  "VEBD": {
+    "name": "Bagdogra (for northeast)",
+    "lat": 26.7028,
+    "lon": 88.3272,
+    "tz": "Asia/Kolkata"
+  },
+  "VIXC": {
+    "name": "Chandigarh Airport",
+    "lat": 30.6735,
+    "lon": 76.7885,
+    "tz": "Asia/Kolkata"
+  },
+  "VOGA": {
+    "name": "Gorakhpur Airport",
+    "lat": 26.75,
+    "lon": 83.3667,
+    "tz": "Asia/Kolkata"
+  },
+  "VOGL": {
+    "name": "Gwalior Airport",
+    "lat": 26.2181,
+    "lon": 78.1828,
+    "tz": "Asia/Kolkata"
+  },
+  "VIAG": {
+    "name": "Agra Airport",
+    "lat": 27.1786,
+    "lon": 78.0247,
+    "tz": "Asia/Kolkata"
+  },
+  "VIAR": {
+    "name": "Amritsar Sri Guru Ram Dass Intl",
+    "lat": 31.7004,
+    "lon": 74.7973,
+    "tz": "Asia/Kolkata"
+  },
+  "VIJU": {
+    "name": "Jammu Airport",
+    "lat": 32.69,
+    "lon": 74.83,
+    "tz": "Asia/Kolkata"
+  },
+  "VIDN": {
+    "name": "Dehradun Jolly Grant Airport",
+    "lat": 30.1909,
+    "lon": 78.1803,
+    "tz": "Asia/Kolkata"
+  },
+  "VI42": {
+    "name": "Diu Airport",
+    "lat": 20.7193,
+    "lon": 70.8882,
+    "tz": "Asia/Kolkata"
+  },
+  "VODG": {
+    "name": "Visakhapatnam Airport",
+    "lat": 17.7211,
+    "lon": 83.2142,
+    "tz": "Asia/Kolkata"
   }
 }
