@@ -85,7 +85,7 @@
   }
 
   // ======= Update check (English) =======
-  const CURRENT_VERSION = '4.2.8';
+  const CURRENT_VERSION = '4.2.9';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
   const UPDATE_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js';
 
