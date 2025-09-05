@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.2.9
+// @version      4.3.0
 // @description  METAR widget using VATSIM METAR API (no API key required). Includes version check, manual/auto search, icons, draggable UI.
 // @author       seabus + Copilot (VATSIM source by ChatGPT)
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -85,7 +85,7 @@
   }
 
   // ======= Update check (English) =======
-  const CURRENT_VERSION = '4.2.9';
+  const CURRENT_VERSION = '4.3.0';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
   const UPDATE_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js';
 
@@ -112,7 +112,7 @@
   window.geofsMetarWidgetLastDisplay = null;
 
   const defaultICAO = "RCTP";
-  const airportDataURL = "https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/airports_with_tz.json";
+  const airportDataURL = "https://raw.githubusercontent.com/mwgg/Airports/refs/heads/master/airports.json";
 
   let AIRPORTS = {};
   let ICAO_TIMEZONES = {};
@@ -154,36 +154,63 @@
   }
 
   async function fetchAirportData() {
-    try {
-      const res = await fetch(airportDataURL);
-      const json = await res.json();
-      for (const icao in json) {
-        AIRPORTS[icao] = {
-          name: json[icao].name,
-          lat: json[icao].lat,
-          lon: json[icao].lon
-        };
-        ICAO_TIMEZONES[icao] = json[icao].tz || "UTC";
-      }
-      startMETAR();
-    } catch (e) {
-      console.error("❌ Failed to load airport data:", e);
-      showModal("⚠️ Failed to load airport database. METAR system disabled.");
+  try {
+    const res = await fetch(airportDataURL);
+    const json = await res.json();
+
+    for (const icao in json) {
+      const ap = json[icao];
+      AIRPORTS[icao] = {
+        name: ap.name,
+        lat: ap.lat,
+        lon: ap.lon
+      };
+      // 正確處理 tz
+      ICAO_TIMEZONES[icao] = ap.tz || "UTC";
     }
+
+    startMETAR();
+  } catch (e) {
+    console.error("❌ Failed to load airport data:", e);
+    showModal("⚠️ Failed to load airport database. METAR system disabled.");
   }
+}
+
 
   // ======= VATSIM METAR fetch (no API key) =======
   async function fetchMETAR(icao) {
-    try {
-      const res = await fetch(`https://metar.vatsim.net/${icao}`);
-      if (!res.ok) return null;
-      const text = await res.text();
-      return (text || "").trim() || null;
-    } catch (e) {
-      console.error("❌ METAR Fetch Error:", e);
-      return null;
+  // 先試 VATSIM
+  try {
+    const vatsimRes = await fetch(`https://metar.vatsim.net/${icao}`);
+    if (vatsimRes.ok) {
+      const text = await vatsimRes.text();
+      if (text && text.trim()) {
+        return text.trim();
+      }
     }
+  } catch (e) {
+    console.warn("⚠️ VATSIM METAR fetch failed, will try AVWX:", e);
   }
+
+  // 如果 VATSIM 沒資料，改試 AVWX
+  try {
+    const avwxRes = await fetch(
+      `https://avwx.rest/api/metar/${icao}?token=Gm5BYx85zdPQ2tI2VRGuulTs4-2Z7iaQeQAEqeshL5g`
+    );
+    if (avwxRes.ok) {
+      const json = await avwxRes.json();
+      if (json && json.raw) {
+        return json.raw.trim();
+      }
+    }
+  } catch (e) {
+    console.error("❌ AVWX METAR fetch failed:", e);
+  }
+
+  // 兩邊都失敗
+  return null;
+}
+
 
   function getTimeInTimeZone(tz) {
     const timeStr = new Date().toLocaleTimeString("en-US", {
