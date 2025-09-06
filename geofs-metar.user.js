@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.3.0
+// @version      4.3.1
 // @description  METAR widget using VATSIM METAR API (no API key required). Includes version check, manual/auto search, icons, draggable UI.
 // @author       seabus + Copilot (VATSIM source by ChatGPT)
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -85,7 +85,7 @@
   }
 
   // ======= Update check (English) =======
-  const CURRENT_VERSION = '4.3.0';
+  const CURRENT_VERSION = '4.3.1';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
   const UPDATE_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js';
 
@@ -177,11 +177,11 @@
 }
 
 
-  // ======= VATSIM METAR fetch (no API key) =======
-  async function fetchMETAR(icao) {
-  // 先試 VATSIM
+// ======= VATSIM METAR fetch (no API key) =======
+async function fetchMETAR(icao) {
+  // 先試 VATSIM (改成 Render 代理)
   try {
-    const vatsimRes = await fetch(`https://metar.vatsim.net/${icao}`);
+    const vatsimRes = await fetch(`https://geofs-metar-cors.onrender.com/metar?icao=${icao}`);
     if (vatsimRes.ok) {
       const text = await vatsimRes.text();
       if (text && text.trim()) {
@@ -210,6 +210,7 @@
   // 兩邊都失敗
   return null;
 }
+
 
 
   function getTimeInTimeZone(tz) {
