@@ -8,7 +8,7 @@ After the verion 4.2.7, we don't need ap key anymore!!!!!!!!!!!!!!
 Copy the user.js and paste it into Tampermonkey.
 ## Whats new in v4.3.0?
 It's now FULL DATABASE!!!! and the data source changed into https://github.com/mwgg/Airports/blob/master/airports.json, It's a full database json.
-And the metar data source will fall back to AVWX if Vatsim isn't available at this airport.
+For v4.3.1, the metar source changed to NOAA, which is used on GeoFS, and the metar data will be more suitable with GeoFS.
 ## About clocks
 The clock theme changes with the day and night.
 ![metar](https://github.com/user-attachments/assets/e3e44bb0-b2c1-4505-a762-5abbb5bbb4d2)
