@@ -8,6 +8,8 @@
 // @match        https://geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
 // @grant        none
+// ==/UserScript==
+
 (function () {
   // ===== Custom Modal (centered) =====
   function showModal(msg, duration = null, updateBtnUrl = null) {
