@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.3.1
-// @description  METAR widget using VATSIM METAR API (no API key required). Includes version check, manual/auto search, icons, draggable UI.
+// @version      4.3.2
+// @description  METAR widget using VATSIM METAR API (no API key required). Includes version check, manual/auto search, icons, draggable UI, fallback system.
 // @author       seabus + Copilot (VATSIM source by ChatGPT)
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
 // @downloadURL  https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -85,7 +85,7 @@
   }
 
   // ======= Update check (English) =======
-  const CURRENT_VERSION = '4.3.1';
+  const CURRENT_VERSION = '4.3.2';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
   const UPDATE_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js';
 
@@ -140,17 +140,23 @@
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
-  function findNearestAirport(lat, lon) {
-    let nearest = null, minDist = Infinity;
+  // 新增：找到多個最近的機場 (用於 fallback)
+  function findNearestAirports(lat, lon, maxCount = 10) {
+    const distances = [];
     for (const icao in AIRPORTS) {
       const ap = AIRPORTS[icao];
       const dist = getDistanceKm(lat, lon, ap.lat, ap.lon);
-      if (dist < minDist) {
-        minDist = dist;
-        nearest = icao;
-      }
+      distances.push({ icao, distance: dist });
     }
-    return nearest || defaultICAO;
+
+    // 按距離排序並返回最近的 maxCount 個
+    distances.sort((a, b) => a.distance - b.distance);
+    return distances.slice(0, maxCount).map(item => item.icao);
+  }
+
+  function findNearestAirport(lat, lon) {
+    const nearest = findNearestAirports(lat, lon, 1);
+    return nearest.length > 0 ? nearest[0] : defaultICAO;
   }
 
   async function fetchAirportData() {
@@ -176,15 +182,34 @@
   }
 }
 
+// ======= 檢查 METAR 回應是否有效 =======
+function isValidMetarResponse(text) {
+  if (!text || !text.trim()) return false;
 
-// ======= VATSIM METAR fetch (no API key) =======
+  // 檢查是否是空的 FeatureCollection
+  try {
+    const parsed = JSON.parse(text);
+    if (parsed.type === "FeatureCollection" &&
+        parsed.features &&
+        Array.isArray(parsed.features) &&
+        parsed.features.length === 0) {
+      return false;
+    }
+  } catch (e) {
+    // 不是 JSON，可能是正常的 METAR 文字資料
+  }
+
+  return true;
+}
+
+// ======= VATSIM METAR fetch with fallback (no API key) =======
 async function fetchMETAR(icao) {
   // 先試 VATSIM (改成 Render 代理)
   try {
     const vatsimRes = await fetch(`https://geofs-metar-cors.onrender.com/metar?icao=${icao}`);
     if (vatsimRes.ok) {
       const text = await vatsimRes.text();
-      if (text && text.trim()) {
+      if (isValidMetarResponse(text)) {
         return text.trim();
       }
     }
@@ -199,7 +224,7 @@ async function fetchMETAR(icao) {
     );
     if (avwxRes.ok) {
       const json = await avwxRes.json();
-      if (json && json.raw) {
+      if (json && json.raw && json.raw.trim()) {
         return json.raw.trim();
       }
     }
@@ -211,6 +236,35 @@ async function fetchMETAR(icao) {
   return null;
 }
 
+// ======= 新增：帶 fallback 的 METAR 搜尋 =======
+async function fetchMETARWithFallback(lat, lon, maxTries = 5) {
+  if (typeof lat === 'string') {
+    // 如果傳入的是 ICAO 代碼，直接查詢
+    const metar = await fetchMETAR(lat);
+    return metar ? { metar, icao: lat } : null;
+  }
+
+  // 找到最近的多個機場
+  const nearestAirports = findNearestAirports(lat, lon, maxTries);
+
+  for (let i = 0; i < nearestAirports.length; i++) {
+    const icao = nearestAirports[i];
+    console.log(`🔍 Trying airport ${i + 1}/${nearestAirports.length}: ${icao}`);
+
+    const metar = await fetchMETAR(icao);
+    if (metar) {
+      if (i > 0) {
+        console.log(`✅ Found METAR data at ${icao} (${i + 1}${i === 0 ? 'st' : i === 1 ? 'nd' : i === 2 ? 'rd' : 'th'} nearest airport)`);
+      }
+      return { metar, icao };
+    }
+
+    console.log(`❌ No valid METAR data for ${icao}, trying next nearest...`);
+  }
+
+  console.log(`❌ No METAR data found for any of the ${maxTries} nearest airports`);
+  return null;
+}
 
 
   function getTimeInTimeZone(tz) {
@@ -382,11 +436,13 @@ async function fetchMETAR(icao) {
         showModal(`❌ ICAO airport not found (${inputVal})`);
         return;
       }
-      const metar = await fetchMETAR(inputVal);
-      if (metar) {
-        showWidget(metar, inputVal, "manual");
+
+      // 使用 fallback 系統進行手動搜尋
+      const result = await fetchMETARWithFallback(inputVal);
+      if (result) {
+        showWidget(result.metar, result.icao, "manual");
       } else {
-        showModal(`❌ No METAR available for ${inputVal} (VATSIM)`);
+        showModal(`❌ No METAR available for ${inputVal}`);
       }
     }
     searchBtn.onclick = manualSearch;
@@ -402,9 +458,12 @@ async function fetchMETAR(icao) {
       const pos = geofs?.aircraft?.instance?.llaLocation;
       if (pos?.length >= 2) {
         const [lat, lon] = pos;
-        const nearest = findNearestAirport(lat, lon);
-        const newMetar = await fetchMETAR(nearest);
-        if (newMetar) showWidget(newMetar, nearest, "auto");
+        const result = await fetchMETARWithFallback(lat, lon);
+        if (result) {
+          showWidget(result.metar, result.icao, "auto");
+        } else {
+          showModal("❌ No METAR data available for nearby airports");
+        }
       }
     };
     widget.appendChild(refreshBtn);
@@ -511,23 +570,28 @@ async function fetchMETAR(icao) {
     // 新增：定期檢查遊戲 UI 顯示狀態並同步 METAR widget
     setInterval(() => {
       updateMetarVisibility();
-    }, 50); // 每 100ms 檢查一次，跟 minimap 的更新頻率差不多
+    }, 50); // 每 50ms 檢查一次，跟 minimap 的更新頻率差不多
 
-    // periodic auto-refresh for nearest airport
+    // periodic auto-refresh for nearest airport with fallback
     setInterval(async () => {
       const pos = geofs?.aircraft?.instance?.llaLocation;
       if (pos?.length >= 2) {
         const [lat, lon] = pos;
-        const nearest = findNearestAirport(lat, lon);
-        const metar = await fetchMETAR(nearest);
-        if (metar) showWidget(metar, nearest, "auto");
+        const result = await fetchMETARWithFallback(lat, lon);
+        if (result) {
+          showWidget(result.metar, result.icao, "auto");
+        }
       }
     }, 60000);
 
-
-    // On init: fetch default airport once
-    fetchMETAR(defaultICAO).then(metar => {
-      showWidget(metar, defaultICAO, "auto");
+    // On init: fetch default airport with fallback
+    fetchMETARWithFallback(defaultICAO).then(result => {
+      if (result) {
+        showWidget(result.metar, result.icao, "auto");
+      } else {
+        // 如果連默認機場都沒有資料，顯示空的 widget
+        showWidget(null, defaultICAO, "auto");
+      }
     });
   }
 
