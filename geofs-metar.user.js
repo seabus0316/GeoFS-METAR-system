@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GeoFS METAR system
-// @version      4.3.2
+// @version      4.3.3
 // @description  METAR widget using VATSIM METAR API (no API key required). Includes version check, manual/auto search, icons, draggable UI, fallback system.
 // @author       seabus + Copilot (VATSIM source by ChatGPT)
 // @updateURL    https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js
@@ -85,7 +85,7 @@
   }
 
   // ======= Update check (English) =======
-  const CURRENT_VERSION = '4.3.2';
+  const CURRENT_VERSION = '4.3.3';
   const VERSION_JSON_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/version.json';
   const UPDATE_URL = 'https://raw.githubusercontent.com/seabus0316/GeoFS-METAR-system/main/geofs-metar.user.js';
 
@@ -206,7 +206,7 @@ function isValidMetarResponse(text) {
 async function fetchMETAR(icao) {
   // 先試 VATSIM (改成 Render 代理)
   try {
-    const vatsimRes = await fetch(`https://geofs-metar-cors.onrender.com/metar?icao=${icao}`);
+    const vatsimRes = await fetch(`https://geofs-metar-cors-8pch.onrender.com/metar?icao=${icao}`);
     if (vatsimRes.ok) {
       const text = await vatsimRes.text();
       if (isValidMetarResponse(text)) {
