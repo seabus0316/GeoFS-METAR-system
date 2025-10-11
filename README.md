@@ -2,7 +2,7 @@
 A system that displays the nearest Airports' METAR data.
 ## How to use?
 The widget will display the closest airport's METAR to you. It will auto-refresh every 30 minutes, and you can refresh manually as well.
-After the verion 4.2.7, we don't need ap key anymore!!!!!!!!!!!!!!
+After the verion 4.2.7, we don't need ap key anymore!!!!!!!!!!!!!
 ## How to install?
 Copy the user.js and paste it into Tampermonkey.
 ## Whats new in v4.3.0?
