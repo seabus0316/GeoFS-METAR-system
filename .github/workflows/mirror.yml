@@ -1,0 +1,24 @@
+name: Mirror to AvionixLLC
+
+on:
+  push:
+    branches:
+      - '**'   # 任何分支推送都觸發
+  delete:
+    branches:
+      - '**'
+  workflow_dispatch:  # 手動觸發用
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 取所有 commit
+
+      - name: Mirror to organization
+        run: |
+          git remote add mirror https://x-access-token:${{ secrets.MIRROR_TOKEN }}@github.com/AvionixLLC/GeoFS-METAR-system.git
+          git push --mirror mirror
