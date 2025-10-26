@@ -10,7 +10,13 @@ It's now FULL DATABASE!!!! and the data source changed into https://github.com/m
 For v4.3.1, the metar source changed to NOAA, which is used on GeoFS, and the metar data will be more suitable with GeoFS.
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=seabus0316/GeoFS-METAR-system&type=date&legend=top-left)](https://www.star-history.com/#seabus0316/GeoFS-METAR-system&type=date&legend=top-left)
+<a href="https://www.star-history.com/#seabus0316/GeoFS-METAR-system&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=seabus0316/GeoFS-METAR-system&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=seabus0316/GeoFS-METAR-system&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=seabus0316/GeoFS-METAR-system&type=date&legend=top-left" />
+ </picture>
+</a>
 ## About clocks
 The clock theme changes with the day and night.
 ![metar](https://github.com/user-attachments/assets/e3e44bb0-b2c1-4505-a762-5abbb5bbb4d2)
