@@ -1,5 +1,6 @@
 # GeoFS-METAR-system
 A system that displays the nearest Airports' METAR data.
+[![License](https://img.shields.io/badge/License-MIT%20License-green.svg)](https://opensource.org/license/MIT)
 ## How to use?
 The widget will display the closest airport's METAR to you. It will auto-refresh every 30 minutes, and you can refresh manually as well.
 After the verion 4.2.7, we don't need ap key anymore!!!!!!!!!!!!!
