@@ -17,6 +17,3 @@ For v4.3.1, the metar source changed to NOAA, which is used on GeoFS, and the me
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=seabus0316/GeoFS-METAR-system&type=date&legend=top-left" />
  </picture>
 </a>
-## About clocks
-The clock theme changes with the day and night.
-![metar](https://github.com/user-attachments/assets/e3e44bb0-b2c1-4505-a762-5abbb5bbb4d2)
